@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synergies.synergy.dao.TodoDao">
+  <resultMap id="todoResultMap" type="com.synergies.synergy.domain.dto.TodoDto">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+  </resultMap>
+
+  <select id="getAll" resultMap="todoResultMap">
+    SELECT *
+    FROM todo
+  </select>
+  <!-- 교수용 쿼리 -->
+  <!--    <select id="getToDoList" resultMap="todoResultMap">-->
+  <!--        SELECT * FROM todo WHERE ref_user_id = #{ref_user_id}-->
+  <!--    </select>-->
+
+  <insert id="insert" parameterType="com.synergies.synergy.domain.dto.TodoDto">
+    INSERT INTO todo (ref_user_id, content, reg_date, end_date, is_check)
+    VALUES (#{refUserId}, #{content}, #{regDate}, #{endDate}, #{isCheck})
+  </insert>
+
+  <update id="update" parameterType="com.synergies.synergy.domain.dto.TodoDto">
+    UPDATE todo
+    SET content  = #{content},
+        end_date = #{endDate}
+    WHERE ref_user_id = #{refUserId}
+      and id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE
+    FROM todo
+    WHERE id = #{id}
+  </delete>
+</mapper>
