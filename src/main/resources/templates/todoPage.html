@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+            rel="stylesheet">
     <style>
       body {
         margin: 0;
@@ -70,14 +70,10 @@
       }
 
       .del {
+        color: red;
+        font-size: 1em;
         float: right;
         margin-right: 3%;
-        border: 1px solid #D0D0D0;
-        width: 1.2vw;
-        height: 1.2vw;
-        border-radius: 5px;
-        margin-top: 0.8vw;
-        cursor: pointer;
       }
 
       .add-todo {
@@ -199,6 +195,7 @@
       }
 
 
+
     </style>
 </head>
 
@@ -210,12 +207,12 @@
         <div class="body">
             <div>
                 <!--   임시임 꼭 변경해야함 -->
-                <input type="text" name="refUserId" value="#S122" style="display:none">
+                <input type="text" name="refUserId" value="#S122" style="display:none"/>
                 <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
-                <input type="text" name="content">
+                <input type="text" name="content"/>
             </div>
             <div>
-                <input type="date" name="endDate">
+                <input type="date" name="endDate"/>
             </div>
         </div>
         <div class="bottom">
@@ -238,11 +235,9 @@
                 <div class="todo">
                     <div class="todo-content">
                         <span th:text="${todo.content}"></span>
-                        <span th:text="${todo.endDate}"
-                              style="margin-left: 3%; color: blue;"></span>
-                        <a th:href="@{/todo/delete/{id}(id=${todo.id})}"
-                           onclick="event.stopPropagation();"
-                           class="del"></a>
+                        <span th:text="${todo.endDate}" style="font-size: 0.7em; margin-left: 1%; color: blue"></span>
+                        <a th:href="@{/todo/delete/{id}(id=${todo.id})}" onclick="event.stopPropagation();"
+                           class="del">delete</a>
                     </div>
                 </div>
             </div>
@@ -258,9 +253,7 @@
     <div class="gong">
         <div class="gong-list">
             <div class="gong-content" th:each="todo : ${todoList}">
-                id : <span th:text="${todo.id}"></span> name : <span
-                th:text="${todo.content}"></span> content :
-                <span th:text="${todo.endDate}"></span>
+                id : <span th:text="${todo.id}"></span>
             </div>
         </div>
         <hr>
@@ -308,6 +301,7 @@
     btnClose.addEventListener('click', function () {
         close(); // close 버튼이 눌리면 닫는 함수 동작.
     })
+
 
 
 </script>
