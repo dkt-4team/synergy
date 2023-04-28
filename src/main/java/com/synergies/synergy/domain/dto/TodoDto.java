@@ -17,17 +17,14 @@ public class TodoDto {
     private String content;
     private Date regDate = new Date();
     private String endDate;
-    private Boolean isCheck = false;
 
     public TodoDto(int id) {
         this.id = id;
     }
-    public TodoDto(String refUserId, String content, Date regDate, String endDate, Boolean isCheck){
+    public TodoDto(String refUserId, String content, Date regDate, String endDate){
         this.refUserId = refUserId;
         this.content = content;
         this.regDate = regDate;
         this.endDate = endDate;
-        this.isCheck = isCheck;
     }
-
 }
