@@ -22,13 +22,12 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping("/todoPage")
+    @GetMapping("/studentMain")
     public String getAll(Model model) throws ParseException {
         List<TodoDto> todoList = todoService.getAll();
-
         if (todoList.isEmpty()) {
             model.addAttribute("todoList", null);
-            return "todoPage";
+            return "studentMain";
         }
 
         String[] date;
@@ -42,7 +41,7 @@ public class TodoController {
             cmpDate.setTime(end); //특정 일자
 
             long diffSec = (cmpDate.getTimeInMillis() - getToday.getTimeInMillis()) / 1000;
-            long diffDays = diffSec / (24 * 60 * 60); //일자수 차이
+            long diffDays = diffSec / (24 * 60 * 60) + 1; //일자수 차이
             if (diffDays < 0) {
                 vo.setEndDate("기간 만료 " + String.valueOf(diffDays));
             } else if (diffDays == 0) {
@@ -53,85 +52,45 @@ public class TodoController {
         }
         model.addAttribute("todoList", todoList);
 
-        return "todoPage";
+        return "studentMain";
     }
 
-    @GetMapping("/todoPagePro")
+    @GetMapping("/adminMain")
     public String getAlls(Model model) {
         List<TodoDto> todoList = todoService.getAll();
         if (todoList.isEmpty()) {
             model.addAttribute("todoList", null);
-            return "todoPagePro";
+            return "adminMain";
         }
         model.addAttribute("todoList", todoList);
-        return "todoPagePro";
+        return "adminMain";
     }
 
-    @GetMapping("/todo/updateForm/{id}")
-    public String todoUpdateForm(@PathVariable int id, Model model) {
-        model.addAttribute("todo", new TodoDto(id));
-        return "todoUpdateForm";
-    }
 
     @PostMapping("/todo/insert")
     public String todoInsert(@ModelAttribute TodoDto todo) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/todoPage";
+            return "redirect:/studentMain";
         }
         todoService.insert(todo);
-        return "redirect:/todoPage";
+        return "redirect:/studentMain";
     }
 
-    @PostMapping("/todo/insertPro")
-    public String todoProInsert(@ModelAttribute TodoDto todo) {
-        if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/todoPagePro";
-        }
-        todoService.insert(todo);
-        return "redirect:/todoPagePro";
-    }
 
     @PostMapping("/todo/update/{id}")
     public String todoUpdate(@PathVariable int id, @ModelAttribute TodoDto todo) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/todoPage";
+            return "redirect:/studentMain";
         }
         todo.setId(id);
         todoService.update(todo);
-        return "redirect:/todoPage";
-    }
-
-
-//    @PostMapping("/todo/updateCheck/{id}")
-//    public String todoUpdateCheck(@PathVariable int id, @ModelAttribute TodoDto todo){
-////        if(todo.getContent().isBlank() || todo.getEnd_date().isBlank()){
-////            return "redirect:/todoPage";
-////        }
-////        todo.setId(id);
-//
-//        todoService.updateCheck(todo);
-//        return "redirect:/todoPage";
-//    }
-
-    @PostMapping("/todo/updatePro/{id}")
-    public String todoUpdatePro(@PathVariable int id, @ModelAttribute TodoDto todo) {
-        if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/todoPagePro";
-        }
-        todo.setId(id);
-        todoService.update(todo);
-        return "redirect:/todoPagePro";
+        return "redirect:/studentMain";
     }
 
     @GetMapping("/todo/delete/{id}")
     public String todoDelete(@PathVariable int id) {
         todoService.delete(id);
-        return "redirect:/todoPage";
+        return "redirect:/studentMain";
     }
 
-    @GetMapping("/todo/deletePro/{id}")
-    public String todoDeletePro(@PathVariable int id) {
-        todoService.delete(id);
-        return "redirect:/todoPagePro";
-    }
 }

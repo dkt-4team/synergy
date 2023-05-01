@@ -10,20 +10,16 @@
 
   <select id="getAll" resultMap="todoResultMap">
     SELECT *
-    FROM todo
+    FROM TODOLIST
   </select>
-  <!-- 교수용 쿼리 -->
-  <!--    <select id="getToDoList" resultMap="todoResultMap">-->
-  <!--        SELECT * FROM todo WHERE ref_user_id = #{ref_user_id}-->
-  <!--    </select>-->
 
   <insert id="insert" parameterType="com.synergies.synergy.domain.dto.TodoDto">
-    INSERT INTO todo (ref_user_id, content, reg_date, end_date)
+    INSERT INTO TODOLIST (ref_user_id, content, reg_date, end_date)
     VALUES (#{refUserId}, #{content}, #{regDate}, #{endDate})
   </insert>
 
   <update id="update" parameterType="com.synergies.synergy.domain.dto.TodoDto">
-    UPDATE todo
+    UPDATE TODOLIST
     SET content  = #{content},
         end_date = #{endDate}
     WHERE ref_user_id = #{refUserId}
@@ -32,7 +28,7 @@
 
   <delete id="delete" parameterType="int">
     DELETE
-    FROM todo
+    FROM TODOLIST
     WHERE id = #{id}
   </delete>
 </mapper>

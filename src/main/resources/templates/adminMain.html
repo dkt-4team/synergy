@@ -10,117 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
           rel="stylesheet">
-    <style>
-    body{
-        margin: 0;
-    }
-        nav{
-            font-family: 'Lemon', cursive;
-            color: white;
-            background-color: #172247;
-            height: 4rem;
-            line-height: 4rem;
-            width: 100%;
-            box-shadow: 0px 4px 10px #D0D0D0;
-        }
-        .logo{
-            margin-left: 2%;
-            font-size: 1.4rem;
-        }
-        .logout{
-            float: right;
-            margin-right: 2%;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        .container{
-            margin-top: 2%;
-            font-family: 'Nanum Gothic', sans-serif;
-        }
-
-        .block{
-             border: none;
-             float: left;
-             width: 42vw;
-             margin-left: 5vw;
-
-        }
-        .block-header{
-          position: relative;
-            width: 100%;
-            height: 8vh;
-            border-radius: 10px;
-            box-shadow: 4px 4px 10px #D0D0D0;
-            border: none;
-            background-color: #2C3264;
-            text-align: center;
-            line-height:8vh;
-            color:white;
-            margin-bottom: 1.6%;
-        }
-        .block-header>span{
-          position: absolute;
-            font-size: 1.5em;
-            right: 5%;
-            cursor: pointer;
-        }
-
-        .go-button{
-            width: 10vw;
-            height: 4vw;
-            text-align: center;
-            line-height: 4vw;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 4px 4px 10px #D0D0D0;
-            appearance:none;
-            border:none;
-            background-color: #D7DDFF;
-            position : fixed;
-            top : 85%;
-            margin-left: 30vw;
-            font-size: 0.8vw;
-        }
-
-    :modal { /*:modal은 모달 상태의 대화상자 박스에 대한 선택자이다. 비모달 대화상자는 dialog 태그 선택자로 정의가 가능하다. */
-      border:none;
-      padding: 0;
-      border-radius: 20px;
-      box-shadow: 4px 4px 10px #D0D0D0;
-    }
-    :modal form { /* 모달 안에 있는 서식 컨테이너를 grid로 만들겁니다. 3개의 행을 가지며, 각 행은, header, body, bottom 영역으로 나뉩니다.*/
-      width: 24vw;
-    }
-    :modal form>*{ /* 서식 컨테이너 바로 아래에 있을 각 row에 padding 여백을 주어서 보기 시원한 디자인을 만듭니다. */
-      box-sizing: border-box;
-      padding:0.5em;
-      text-align: center;
-    }
-    #btnClose{
-        color: red;
-    }
-     :modal button { /* 버튼 스타일을 무력화합니다. */
-      appearance:none;
-      border:none;
-      background-color: transparent;
-      cursor: pointer;
-    }
-
-    :modal input { /* 버튼 스타일을 무력화합니다. */
-        width: 90%;
-        height: 3.5vh;
-        margin-bottom: 3%;
-        border-radius: 10px;
-        border: 1px solid #D0D0D0;
-    }
-    :modal .body {
-      margin-top: 2vw;
-    }
-    :modal .bottom {
-      margin-top: 2vw;
-    }
-
-    </style>
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/adminMain.css">
 </head>
 
 <body>
@@ -152,16 +43,11 @@
 <div class="container">
     <div class="block">
         <div class="block-header">과제 리스트<span>+</span></div>
-
         <div class="go-button">과제 확인하기</div>
     </div>
-
     <div class="block">
         <div class="block-header">공지 리스트<span>+</span></div>
-
-
     </div>
-
 </div>
 
 <script>
