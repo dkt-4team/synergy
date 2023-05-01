@@ -1,0 +1,82 @@
+@charset "UTF-8";
+        .side-bar{
+            float: left;
+            width: 15%;
+            height: 100%;
+            border: 1px solid #DADADA;
+        }
+        .side-title{
+            float: left;
+            width: 15vw;
+            height: 10vh;
+            line-height: 10vh;
+            text-align: center;
+            border: 1px solid #DADADA;
+            border-width: 0 0 1px 0;
+            font-size: 1.2em;
+        }
+        .side-assign{
+            width: 15vw;
+            border: 1px solid #DADADA;
+            border-width: 0 0 1px 0;
+            height: 5vh;
+            line-height: 5vh;
+            cursor: pointer;
+        }
+        .assign-container{
+            float: left;
+            width: 84%;
+            height: 92%;
+        }
+        .assign-title{
+            height: 5vh;
+            line-height: 5vh;
+            margin-left: 8%;
+            margin-top: 2%;
+            font-size: 1.6em;
+        }
+        .assign-content{
+            height: 35vh;
+            margin-left: 8%;
+            margin-top: 2%;
+            font-size: 1.2em;
+        }
+        .assign-buttons{
+             height: 10vh;
+             margin-top: 2%;
+             margin-bottom: 2%;
+        }
+        .assign-buttons div{
+            float: right;
+             border: 1px solid #EAECFF;
+             height: 8vh;
+             width: 12vw;
+             border-radius: 20px;
+             margin-right: 5%;
+             line-height: 8vh;
+             text-align: center;
+             cursor: pointer;
+             background-color: #EAECFF;
+             font-size: 1.2em;
+             box-shadow: 0px 4px 10px #D0D0D0;
+        }
+        .assign-bottom{
+              height: 25vh;
+              margin-left: 8%;
+        }
+        .assign-comment-title{
+            height: 5vh;
+            line-height: 5vh;
+            font-size: 1.4em;
+        }
+         .assign-comment{
+             height: 18vh;
+             width: 72vw;
+         }
+
+        .assign-back{
+            float: right;
+            margin-right: 8%;
+            color: red;
+            cursor: pointer;
+        }

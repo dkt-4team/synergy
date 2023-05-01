@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/adminMain.css">
+</head>
+
+<body>
+<nav><span class="logo">Synergy</span><span class="logout">Logout</span><span class="logout">Students</span></nav>
+
+<!-- 모달 예시 -->
+<!--<dialog id="myDialog" aria-labelledby="wyn_title" aria-describedby="wyn_desc">-->
+<!--    <form name=frmSubmit>-->
+<!--        <div class="body">-->
+<!--            <div>-->
+<!--                <input type="text" name="content">-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <input type="date" name="end_date">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="bottom">-->
+<!--            <div>-->
+<!--                <button type="submit">저장하기</button>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <button id="btnClose" aria-label="close" value="cancel" style="margin-top: 3%; margin-bottom: 3%">취소-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</dialog>-->
+
+<div class="container">
+    <div class="block">
+        <div class="block-header">공지 리스트<span>+</span></div>
+    </div>
+    <div class="block">
+        <div class="block-header">과제 리스트<span>+</span></div>
+        <div class="go-button">과제 확인하기</div>
+    </div>
+</div>
+
+<script>
+<!--    const dialog = document.querySelector('dialog#myDialog'); // dialog 태그를 dialog 상수에 담음.-->
+
+<!--    // 구조 분해 할당, 변수 선언 키워드인 const나 let을 쓰고, 배열 형식으로 이름을 작성하고, 배열 수에 맞게, 배열 순서에 원하는 값을 넣어 대입-->
+<!--    const [btnOpen,btnClose] = [-->
+<!--      document.querySelector('#btnOpen'), // btnOpen에 담김 (body button#btnOpen)-->
+<!--      document.querySelector('#btnClose'), // btnClose에 담김 (dialog button#btnClose)-->
+<!--    ];-->
+
+
+<!--    // 여는 함수 / 닫는 함수, 굳이 안 만들어도 되지만 조금 더 타이핑을 줄이기 위해...-->
+<!--    function close() {-->
+<!--      dialog.close();-->
+<!--    }-->
+
+<!--    function show() {-->
+<!--      dialog.showModal();-->
+<!--    }-->
+
+<!--    function getPost(sig, id){-->
+<!--        var theForm = document.frmSubmit;-->
+<!--          if(sig == "01")-->
+<!--        {-->
+<!--            theForm.method = "post";-->
+<!--            theForm.action = "/something/todo/insertPro";-->
+<!--        }-->
+<!--        else if(sig == "02")-->
+<!--          {-->
+<!--            theForm.method = "post";-->
+<!--            theForm.action = `/something/todo/updatePro/${id}`;-->
+<!--            console.log(id);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // 여는 이벤트 구현-->
+<!--    // HTMLDialogElement.show()로 열면 비모달 대화상자, HTMLDialogElement.showModal()로 열면 모달 대화상자가 열림. show()함수에 showModal() 메소드가 사용됨-->
+<!--    btnOpen.addEventListener('click',function(){-->
+<!--      show();-->
+<!--    })-->
+
+<!--    // X 버튼을 눌러 닫으면-->
+<!--    btnClose.addEventListener('click',function(){-->
+<!--      close(); // close 버튼이 눌리면 닫는 함수 동작.-->
+<!--    })-->
+</script>
+
+</body>
+</html>
