@@ -1,9 +1,10 @@
 @charset "UTF-8";
 /* 태그 */
 
-      body {
+      html, body {
         margin: 0;
         font-family: 'Noto Sans KR', sans-serif;
+        height: 100%;
       }
      body > div {
         margin: 0;

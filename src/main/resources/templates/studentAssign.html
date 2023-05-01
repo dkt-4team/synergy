@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/assignStudent.css">
+</head>
+<body>
+<nav><span class="logo">Synergy</span><span class="logout">Logout</span></nav>
+<div class="side-bar">
+    <div class="side-title">
+        실습 과제
+    </div>
+    <div style="margin-top: 10vh;">
+        <div th:each="todo : ${todoList}" class="side-assign">
+            <span th:text="${todo.content}" style="margin-left: 4%;"></span>
+        </div>
+    </div>
+</div>
+<div class="assign-container">
+    <div class="assign-title">title</div>
+    <hr>
+    <div class="assign-content">
+        content
+    </div>
+    <div class="assign-buttons">
+        <div>과제 다운로드</div>
+        <div>과제 제출하기</div>
+    </div>
+    <hr>
+    <div class="assign-bottom">
+        <div class="assign-comment-title">교수자 코멘트</div>
+        <div class="assign-comment"></div>
+        <div class="assign-back">뒤로가기</div>
+    </div>
+</div>
+</body>
+</html>
