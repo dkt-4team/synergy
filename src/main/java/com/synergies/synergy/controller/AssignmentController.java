@@ -1,7 +1,6 @@
 package com.synergies.synergy.controller;
 
 import com.synergies.synergy.domain.dto.AssignmentDto;
-import com.synergies.synergy.domain.dto.TodoDto;
 import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.TodoService;
@@ -11,9 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
