@@ -15,16 +15,6 @@ public class TodoDto {
     private int id;
     private String refUserId;
     private String content;
-    private Date regDate = new Date();
+    private Date regDate;
     private String endDate;
-
-    public TodoDto(int id) {
-        this.id = id;
-    }
-    public TodoDto(String refUserId, String content, Date regDate, String endDate){
-        this.refUserId = refUserId;
-        this.content = content;
-        this.regDate = regDate;
-        this.endDate = endDate;
-    }
 }
