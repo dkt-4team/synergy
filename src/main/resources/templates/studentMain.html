@@ -21,7 +21,7 @@
 <body>
 <nav><span class="logo">Synergy</span><span class="logout">Logout</span></nav>
 
-<dialog id="myDialog" aria-labelledby="wyn_title" aria-describedby="wyn_desc">
+<dialog id="todoDialog">
     <form name=frmSubmit>
         <div class="body">
             <div>
@@ -39,13 +39,24 @@
                 <button type="submit" id="sub-name">저장하기</button>
             </div>
             <div>
-                <button id="btnClose" aria-label="close" value="cancel"
-                        style="margin-top: 3%; margin-bottom: 3%">취소
+                <button id="btnClose" style="margin-top: 3%; margin-bottom: 3%">취소
                 </button>
             </div>
         </div>
     </form>
 </dialog>
+
+<dialog id="noDialog">
+    <div class="no-body">
+        <div class="title" id="no-title"></div>
+        <hr>
+        <div class="no-content" id="no-content"></div>
+    </div>
+    <div class="bottom" style="text-align: center">
+        <button id="btnClose2" style="margin-bottom: 6%; border: none; color: red">닫기</button>
+    </div>
+</dialog>
+
 
 <div class="container">
     <div class="todo-list">
@@ -55,7 +66,7 @@
             <div id="btnOpen1" aria-haspopup="dialog">
                 <div th:each="todo : ${todoList}">
                     <div class="todo">
-                        <div class="todo-content" th:onclick="getPost('02',[[${todo.id}]], [[${todo}]])">
+                        <div class="todo-content" th:onclick="getPost('02', [[${todo}]])">
                             <span th:text="${todo.content}"></span>
                             <a th:href="@{/todo/delete/{id}(id=${todo.id})}" onclick="event.stopPropagation();"
                                class="del">Done</a>
@@ -66,7 +77,7 @@
                 </div>
             </div>
         </th:block>
-        <th:block th:if="${todoList}==null">
+        <th:block th:unless="${todoList}!=null">
             <div class="todo-content-empty" onclick="event.stopPropagation();"
                  style="cursor:default;">+ 버튼을 눌러 Todo를
                 입력해주세요!
@@ -74,10 +85,15 @@
         </th:block>
     </div>
     <div class="gong">
-        <div class="gong-list">
-            <div class="gong-content" th:each="todo : ${todoList}">
-                id : <span th:text="${todo.id}"></span>
-            </div>
+        <div class="gong-list" id="btnOpen2" aria-haspopup="dialog">
+            <th:block th:if="${notiList}">
+                <div class="gong-content" th:each="notification : ${notiList}" th:onclick="getContent([[${notification}]])">
+                    <span th:text="${notification.title}"></span>
+                </div>
+            </th:block>
+            <th:block th:unless="${notiList}">
+                <div style="margin-top: 20vh;">현재 등록된 공지사항이 없습니다.</div>
+            </th:block>
         </div>
         <hr>
         <div class="button-area">
@@ -87,13 +103,16 @@
 </div>
 
 <script>
-    const dialog = document.querySelector('dialog#myDialog'); // dialog 태그를 dialog 상수에 담음.
+    const dialog = document.querySelector('dialog#todoDialog');
+    const noDialog = document.querySelector('dialog#noDialog');
 
     // 구조 분해 할당, 변수 선언 키워드인 const나 let을 쓰고, 배열 형식으로 이름을 작성하고, 배열 수에 맞게, 배열 순서에 원하는 값을 넣어 대입
     const [btnOpen, btnOpen1, btnClose] = [
         document.querySelector('#btnOpen'), // btnOpen에 담김 (body button#btnOpen)
         document.querySelector('#btnOpen1'), // btnOpen에 담김 (body button#btnOpen)
         document.querySelector('#btnClose'), // btnClose에 담김 (dialog button#btnClose)
+         document.querySelector('#btnOpen2'),
+           document.querySelector('#btnClose2'),
     ];
 
     // 여는 함수 / 닫는 함수, 굳이 안 만들어도 되지만 조금 더 타이핑을 줄이기 위해...
@@ -105,7 +124,7 @@
         dialog.showModal();
     }
 
-    function getPost(sig, id, todo) {
+    function getPost(sig, todo) {
         let theForm = document.frmSubmit;
         let subText = document.getElementById("sub-name");
         let con = document.getElementById("content");
@@ -117,42 +136,42 @@
             con.value = '';
         } else if (sig == "02") {
             theForm.method = "post";
-            theForm.action = `/todo/update/${id}`;
+            theForm.action = `/todo/update/${todo.id}`;
             con.value = todo.content;
             subText.innerText = "수정하기";
         }
     }
 
+    function getContent(notification){
+      let subText = document.getElementById("no-title");
+      let con = document.getElementById("no-content");
+      subText.innerText = notification.title;
+      con.innerText = notification.content;
+    }
+
     btnOpen.addEventListener('click', function () {
         show();
-    })
+    });
 
     btnOpen1.addEventListener('click', function (evt) {
         if(evt.target.children[0].tagName == "SPAN"){
             show();
         }
-    })
+    });
+
+    btnOpen2.addEventListener('click', function (evt) {
+        if(evt.target.children[0].tagName == "SPAN"){
+            noDialog.showModal();
+        }
+    });
+
     btnClose.addEventListener('click', function () {
         close(); // close 버튼이 눌리면 닫는 함수 동작.
-    })
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    btnClose2.addEventListener('click', function () {
+           noDialog.close(); // close 버튼이 눌리면 닫는 함수 동작.
+    });
 
 
 

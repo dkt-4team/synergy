@@ -1,7 +1,9 @@
 package com.synergies.synergy.controller;
 
 
+import com.synergies.synergy.domain.dto.NotificationDto;
 import com.synergies.synergy.domain.dto.TodoDto;
+import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,13 @@ import java.util.List;
 public class TodoController {
     @Autowired
     private TodoService todoService;
-
+    @Autowired
+    private NotificationService notificationService;
     @GetMapping("/studentMain")
     public String getAll(Model model) throws ParseException {
         List<TodoDto> todoList = todoService.getAll();
+        List<NotificationDto> notiList = notificationService.getAll();
+
         if (todoList.isEmpty()) {
             model.addAttribute("todoList", null);
             return "studentMain";
@@ -51,6 +56,7 @@ public class TodoController {
             }
         }
         model.addAttribute("todoList", todoList);
+        model.addAttribute("notiList", notiList);
 
         return "studentMain";
     }
