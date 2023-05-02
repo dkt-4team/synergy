@@ -19,18 +19,18 @@
 </head>
 
 <body>
-<div id="nav-load" th:insert="navbar/studentNavBar.html :: navFragment(${notiList[0].title})"></div>
+<div id="nav-load" th:insert="navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
 <dialog id="todoDialog">
-    <form name=frmSubmit>
+    <form name=frmSubmit th:object="${todo}">
         <div class="body">
             <div>
                 <!--   임시임 꼭 변경해야함 -->
-                <input type="text" name="refUserId" value="#S122" style="display:none"/>
+                <input type="text" th:field="${todo.refUserId}" value="#S122" style="display:none"/>
                 <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
-                <input type="text" name="content" id="content" required/>
+                <input type="text" th:field="${todo.content}" id="content" required/>
             </div>
             <div>
-                <input type="date" name="endDate" id="end_date" required/>
+                <input type="date" th:field="${todo.endDate}" id="end_date" required/>
             </div>
         </div>
         <div class="bottom">

@@ -28,6 +28,7 @@ public class TodoController {
 
     @GetMapping("/studentMain")
     public String getAll(Model model) throws ParseException {
+        TodoDto todo = new TodoDto();
         List<TodoDto> todoList = todoService.getAll();
         List<NotificationDto> notiList = notificationService.getAll();
 
@@ -57,26 +58,27 @@ public class TodoController {
             }
         }
 
+        model.addAttribute("todo", todo);
         model.addAttribute("todoList", todoList);
         model.addAttribute("notiList", notiList);
 
         return "studentMain";
     }
 
-    @GetMapping("/temp")
-    public String getAlls(Model model) {
-        List<TodoDto> todoList = todoService.getAll();
-        if (todoList.isEmpty()) {
-            model.addAttribute("todoList", null);
-            return "studentAssign";
-        }
-        model.addAttribute("todoList", todoList);
-        return "studentAssign";
-    }
+//    @GetMapping("/temp")
+//    public String getAlls(Model model) {
+//        List<TodoDto> todoList = todoService.getAll();
+//        if (todoList.isEmpty()) {
+//            model.addAttribute("todoList", null);
+//            return "adminAssignDetail";
+//        }
+//        model.addAttribute("todoList", todoList);
+//        return "adminAssignDetail";
+//    }
 
 
     @PostMapping("/todo/insert")
-    public String todoInsert(@ModelAttribute TodoDto todo) {
+    public String todoInsert(@ModelAttribute("todo") TodoDto todo) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/studentMain";
         }
@@ -88,7 +90,7 @@ public class TodoController {
 
 
     @PostMapping("/todo/update/{id}")
-    public String todoUpdate(@PathVariable int id, @ModelAttribute TodoDto todo) {
+    public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/studentMain";
         }
