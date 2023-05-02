@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<div id="nav-load" th:insert="studentNavBar.html :: navFragment"></div>
+<div id="nav-load" th:insert="navbar/studentNavBar.html :: navFragment(${notiList[0].title})"></div>
 <dialog id="todoDialog">
     <form name=frmSubmit>
         <div class="body">
