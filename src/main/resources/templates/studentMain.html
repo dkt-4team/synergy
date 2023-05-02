@@ -69,7 +69,7 @@
                             <span th:text="${todo.content}"></span>
                             <a th:href="@{/todo/delete/{id}(id=${todo.id})}" onclick="event.stopPropagation();"
                                class="del">Done</a>
-                            <span th:text="${todo.endDate}"
+                            <span th:text="${#strings.listSplit(todo.endDate,'|')[0]}"
                                   style="font-size: 0.7em; margin-right: 3%; color: blue; float: right"></span>
                         </div>
                     </div>
@@ -86,8 +86,9 @@
     <div class="gong">
         <div class="gong-list" id="btnOpen2" aria-haspopup="dialog">
             <th:block th:if="${notiList}">
-                <div class="gong-content" th:each="notification : ${notiList}" th:onclick="getContent([[${notification}]])">
-                    <span th:text="${notification.title}"></span>
+                <div class="gong-content" th:each="notification : ${notiList}" th:onclick="getNotification([[${notification}]])">
+                    <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}" style="float: left; margin-left: 4%; color: blue"></span>
+                    <span th:text="${notification.title}" style="margin-left: -10%"></span>
                 </div>
             </th:block>
             <th:block th:unless="${notiList}">
@@ -105,28 +106,19 @@
     const dialog = document.querySelector('dialog#todoDialog');
     const noDialog = document.querySelector('dialog#noDialog');
 
-    // 구조 분해 할당, 변수 선언 키워드인 const나 let을 쓰고, 배열 형식으로 이름을 작성하고, 배열 수에 맞게, 배열 순서에 원하는 값을 넣어 대입
     const [btnOpen, btnOpen1, btnClose] = [
-        document.querySelector('#btnOpen'), // btnOpen에 담김 (body button#btnOpen)
-        document.querySelector('#btnOpen1'), // btnOpen에 담김 (body button#btnOpen)
-        document.querySelector('#btnClose'), // btnClose에 담김 (dialog button#btnClose)
+        document.querySelector('#btnOpen'),
+        document.querySelector('#btnOpen1'),
+        document.querySelector('#btnClose'),
          document.querySelector('#btnOpen2'),
            document.querySelector('#btnClose2'),
     ];
-
-    // 여는 함수 / 닫는 함수, 굳이 안 만들어도 되지만 조금 더 타이핑을 줄이기 위해...
-    function close() {
-        dialog.close();
-    }
-
-    function show() {
-        dialog.showModal();
-    }
 
     function getPost(sig, todo) {
         let theForm = document.frmSubmit;
         let subText = document.getElementById("sub-name");
         let con = document.getElementById("content");
+        let endDate = document.getElementById("end_date");
 
         if (sig == "01") {
             theForm.method = "post";
@@ -137,15 +129,24 @@
             theForm.method = "post";
             theForm.action = `/todo/update/${todo.id}`;
             con.value = todo.content;
+            endDate.value = todo.endDate.split('|')[1].split(" ")[0];
             subText.innerText = "수정하기";
         }
     }
 
-    function getContent(notification){
+    function getNotification(notification){
       let subText = document.getElementById("no-title");
       let con = document.getElementById("no-content");
       subText.innerText = notification.title;
       con.innerText = notification.content;
+    }
+
+    function close() {
+        dialog.close();
+    }
+
+    function show() {
+        dialog.showModal();
     }
 
     btnOpen.addEventListener('click', function () {
@@ -171,9 +172,6 @@
     btnClose2.addEventListener('click', function () {
            noDialog.close(); // close 버튼이 눌리면 닫는 함수 동작.
     });
-
-
-
 
 </script>
 

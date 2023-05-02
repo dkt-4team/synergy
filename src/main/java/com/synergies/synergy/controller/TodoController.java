@@ -25,6 +25,7 @@ public class TodoController {
     private TodoService todoService;
     @Autowired
     private NotificationService notificationService;
+
     @GetMapping("/studentMain")
     public String getAll(Model model) throws ParseException {
         List<TodoDto> todoList = todoService.getAll();
@@ -48,28 +49,29 @@ public class TodoController {
             long diffSec = (cmpDate.getTimeInMillis() - getToday.getTimeInMillis()) / 1000;
             long diffDays = diffSec / (24 * 60 * 60) + 1; //일자수 차이
             if (diffDays < 0) {
-                vo.setEndDate("기간 만료 " + String.valueOf(diffDays));
+                vo.setEndDate("기간 만료 " + String.valueOf(diffDays) + "|" + vo.getEndDate());
             } else if (diffDays == 0) {
-                vo.setEndDate("D-day");
+                vo.setEndDate("D-day" + "|" + vo.getEndDate());
             } else {
-                vo.setEndDate("D-day: " + String.valueOf(diffDays));
+                vo.setEndDate("D-day: " + String.valueOf(diffDays) + "|" + vo.getEndDate());
             }
         }
+
         model.addAttribute("todoList", todoList);
         model.addAttribute("notiList", notiList);
 
         return "studentMain";
     }
 
-    @GetMapping("/adminMain")
+    @GetMapping("/temp")
     public String getAlls(Model model) {
         List<TodoDto> todoList = todoService.getAll();
         if (todoList.isEmpty()) {
             model.addAttribute("todoList", null);
-            return "adminMain";
+            return "studentAssign";
         }
         model.addAttribute("todoList", todoList);
-        return "adminMain";
+        return "studentAssign";
     }
 
 
@@ -78,6 +80,8 @@ public class TodoController {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/studentMain";
         }
+        Date curDate = new Date();
+        todo.setRegDate(curDate);
         todoService.insert(todo);
         return "redirect:/studentMain";
     }
