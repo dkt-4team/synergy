@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -16,8 +14,9 @@ import java.time.format.DateTimeFormatter;
 
 public class NotificationDto {
     private int id;
-    private String ref_user_id;
+    private String refUserId;
     private String title;
     private String content;
+    private String regDate;
     private String labelOption;
 }
