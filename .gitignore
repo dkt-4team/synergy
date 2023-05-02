@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### Project setting files ###
-#*.yml
+*.yml

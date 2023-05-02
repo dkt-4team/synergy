@@ -7,15 +7,19 @@
     <title>Spring Thyme Seed Starter Manager</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+            rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/studentMain.css">
     <link rel="stylesheet" href="/css/adminMain.css">
 </head>
 
 <body>
-<nav><span class="logo">Synergy</span><span class="logout">Logout</span><span class="logout">Students</span></nav>
+<div id="nav-load" th:insert="adminNavBar.html :: navFragment"></div>
 
 <!-- 모달 예시 -->
 <!--<dialog id="myDialog" aria-labelledby="wyn_title" aria-describedby="wyn_desc">-->
