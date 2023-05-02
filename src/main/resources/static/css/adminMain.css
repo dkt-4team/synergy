@@ -16,6 +16,13 @@ body{
             margin-left: 2%;
             font-size: 1.4rem;
         }
+              .user{
+                 float: right;
+                 margin-right: 2%;
+                 font-size: 1.2rem;
+                 cursor: pointer;
+                 font-family: 'Noto Sans KR', sans-serif;
+              }
         .logout{
             float: right;
             margin-right: 2%;

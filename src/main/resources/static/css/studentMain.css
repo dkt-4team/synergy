@@ -10,6 +10,13 @@
         margin: 0;
         background-color: white;
       }
+      .user{
+         float: right;
+         margin-right: 2%;
+         font-size: 1.2rem;
+         cursor: pointer;
+         font-family: 'Noto Sans KR', sans-serif;
+      }
       nav {
         font-family: 'Lemon', cursive;
         color: white;
@@ -228,7 +235,7 @@
 
       :modal input { /* 버튼 스타일을 무력화합니다. */
         width: 90%;
-        height: 3.5vh;
+        height: 4vh;
         margin-bottom: 3%;
         border-radius: 10px;
         border: 1px solid #D0D0D0;
