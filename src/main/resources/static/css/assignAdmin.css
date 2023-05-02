@@ -11,16 +11,16 @@ body{
         }
         .side-title{
             float: left;
-            width: 15vw;
+            width: 100%;
             height: 10vh;
             line-height: 10vh;
             text-align: center;
             border: 1px solid #DADADA;
             border-width: 0 0 1px 0;
-            font-size: 1.2em;
+            font-size: 1.2rem;
         }
         .side-assign{
-            width: 15vw;
+            width: 100%;
             border: 1px solid #DADADA;
             border-width: 0 0 1px 0;
             height: 5vh;
@@ -37,13 +37,13 @@ body{
             line-height: 5vh;
             margin-left: 8%;
             margin-top: 2%;
-            font-size: 1.6em;
+            font-size: 1.6rem;
         }
         .assign-content{
             height: 16vh;
             margin-left: 8%;
             margin-top: 2%;
-            font-size: 1.2em;
+            font-size: 1.2rem;
         }
         .assign-buttons{
              height: 8vh;
@@ -61,7 +61,7 @@ body{
              text-align: center;
              cursor: pointer;
              background-color: #EAECFF;
-             font-size: 1em;
+             font-size: 1rem;
              box-shadow: 0px 4px 10px #D0D0D0;
         }
         .assign-back{
@@ -69,7 +69,7 @@ body{
             margin-right: 8%;
             color: red;
             cursor: pointer;
-            font-size: 0.7em;
+            font-size: 1rem;
         }
         .assign-students{
             border: 1px solid #D0D0D0;
@@ -86,3 +86,67 @@ body{
         .assign-students:hover{
             background-color: #D0D0D0;
         }
+
+      @media screen and (max-width:1023px) {
+        .side-bar{
+            width: 20%;
+        }
+         .side-assign{
+             font-size: 0.8rem;
+         }
+        .assign-container{
+            width: 79%;
+        }
+        .assign-comment-title{
+            font-size: 1rem;
+        }
+        .assign-buttons div{
+            height: 6vh;
+            width: 16vh;
+            line-height: 6vh;
+            font-size: 0.8rem;
+        }
+        .assign-title{
+            font-size: 1.2rem;
+        }
+        .assign-content{
+            font-size: 0.8rem;
+            height: 24vh;
+         }
+        .side-title{
+            font-size: 0.8rem;
+        }
+        .assign-comment-title{
+             font-size: 1rem;
+         }
+         .assign-students{
+             height: 6vh;
+             line-height: 6vh;
+             font-size: 0.8rem;
+         }
+      }
+
+      @media screen and (max-width:767px) {
+         .assign-buttons div{
+             height: 4vh;
+             width: 14vh;
+             line-height: 4vh;
+             font-size: 0.8rem;
+         }
+        .assign-buttons{
+              height: 5vh;
+              margin-top: 5%;
+              margin-bottom: 2%;
+         }
+        .assign-content{
+             font-size: 0.8rem;
+             height: 30vh;
+          }
+          .assign-students{
+              height: 6vh;
+              line-height: 6vh;
+              font-size: 0.8rem;
+              width: 40%;
+              margin-left: 6%;
+          }
+      }
