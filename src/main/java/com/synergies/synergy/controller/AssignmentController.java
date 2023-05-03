@@ -10,15 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
 @Controller
 public class AssignmentController {
     @Autowired
     private AssignmentService assignmentService;
-    @Autowired
-    private TodoService todoService;
+
     @PostMapping("/assignment/insert")
     public String assignmentInsert(@ModelAttribute("AssignmentDTO") AssignmentDto assignment) {
         // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
