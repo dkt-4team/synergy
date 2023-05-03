@@ -38,3 +38,4 @@ out/
 
 ### Project setting files ###
 *.yml
+/web/WEB-INF/web.xml
