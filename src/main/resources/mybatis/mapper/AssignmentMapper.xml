@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synergies.synergy.dao.AssignmentDao">
+    <resultMap id="assignmentResultMap" type="com.synergies.synergy.domain.dto.AssignmentDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <insert id="insertAssignment" parameterType="AssignmentVo">
+        INSERT INTO ASSIGNMENTS (title, content, assignment_file)
+        VALUES (#{title}, #{content}, #{assignmentFile})
+    </insert>
+    <select id="getTodayAssignment" resultType="AssignmentVo">
+        SELECT id, title FROM ASSIGNMENTS WHERE DATE_FORMAT(reg_date, "%Y-%m-%d")=CURDATE() ORDER BY id
+    </select>
+</mapper>
