@@ -15,8 +15,9 @@
 <link rel="stylesheet" href="/css/adminMain.css">
 <link rel="stylesheet" href="/css/assignDetail.css">
 </head>
+
 <body>
-<div id="nav-load" th:insert="navBar/adminNavBar.html :: navFragment('값')"></div>
+<div th:replace="navBar/adminNavBar.html :: navFragment('값')"></div>
 <div class="assign-title">
     <div class="assign-name" >김창헌 학생</div>
     <div class="assign-button">

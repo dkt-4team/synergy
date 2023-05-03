@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/assignStudent.css">
 </head>
 <body>
-<div id="nav-load" th:insert="navbar/studentNavBar.html :: navFragment('값')"></div>
+<div th:replace="navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
 <div class="side-bar">
     <div class="side-title">
         실습 과제

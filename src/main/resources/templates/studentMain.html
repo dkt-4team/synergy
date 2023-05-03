@@ -18,43 +18,10 @@
 </head>
 
 <body>
-<div id="nav-load" th:insert="navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
+<div th:replace="navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
 
-<dialog id="todoDialog">
-    <form name=frmSubmit th:object="${todo}">
-        <div class="body">
-            <div>
-                <!--   임시임 꼭 변경해야함 -->
-                <input type="hidden" name="refUserId" value="#S122"/>
-                <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
-                <input type="text" th:field="${todo.content}" id="content" required/>
-            </div>
-            <div>
-                <input type="date" th:field="${todo.endDate}" id="end_date" required/>
-            </div>
-        </div>
-        <div class="bottom">
-            <div>
-                <button type="submit" id="sub-name">저장하기</button>
-            </div>
-            <div>
-                <button id="btnClose" style="margin-top: 3%; margin-bottom: 3%">취소
-                </button>
-            </div>
-        </div>
-    </form>
-</dialog>
-
-<dialog id="noDialog">
-    <div class="no-body">
-        <div class="title" id="no-title"></div>
-        <hr>
-        <div class="no-content" id="no-content"></div>
-    </div>
-    <div class="bottom" style="text-align: center">
-        <button id="noClose" style="margin-bottom: 6%; border: none; color: red">닫기</button>
-    </div>
-</dialog>
+<div th:replace="modal/todoModal.html :: todoModal"></div>
+<div th:replace="modal/notificationModal.html :: notificationModal"></div>
 
 <div class="container">
     <div class="todo-list">
