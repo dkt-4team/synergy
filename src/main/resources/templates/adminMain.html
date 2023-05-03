@@ -7,11 +7,7 @@
     <title>Spring Thyme Seed Starter Manager</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
-            rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/studentMain.css">
@@ -20,6 +16,41 @@
 
 <body>
 <div th:replace="navBar/adminNavBar.html :: navFragment('님')"></div>
+
+<dialog id="notiDialog">
+    <form name=notiSubmit th:object="${notification}" class="noti-form">
+        <div class="body">
+            <div class="header">
+                <!--   임시임 꼭 변경해야함 -->
+                <input type="text" name="refUserId" value="#S322" style="display:none">
+                <div class="selectBox">
+                    <select name="labelOption" class="optionList">
+                        <option value="일정공지" name="labelOption" class="optionItem">일정공지</option>
+                        <option value="실습공지" name="labelOption" class="optionItem">실습공지</option>
+                        <option value="출석공지" name="labelOption" class="optionItem">출석공지</option>
+                        <option value="기업공지" name="labelOption" class="optionItem">기업공지</option>
+                        <option value="기타공지" name="labelOption" class="optionItem">기타공지</option>
+                    </select>
+                </div>
+                <!--id값 주목 noti tilte-->
+
+                <input type="text" class="noti-title" name="title" placeholder="제목을 입력하세요">
+            </div>
+            <div>
+
+                <textarea rows="10" class="noti-textarea" name="content" id="noti-textarea" placeholder="내용을 입력하세요"></textarea>
+            </div>
+        </div>
+        <div class="bottom">
+            <div>
+                <button type="submit" id="sub-noti">저장하기</button>
+            </div>
+            <div>
+                <button id="btnClose1" aria-label="close" value="cancel">취소</button>
+            </div>
+        </div>
+    </form>
+</dialog>
 
 <dialog id="assignDialog">
     <form name="assignSubmit" th:object="${AssignmentDTO}">
@@ -51,8 +82,30 @@
 
 <div class="container">
     <div class="block">
-        <div class="block-header">공지 리스트<span id="btnOpen1" aria-haspopup="dialog" onClick="getPost('01')">+</span>
+        <div class="block-header">공지 리스트<span id="btnOpen1" aria-haspopup="dialog" onClick="getPost1('01')">+</span>
         </div>
+        <th:block th:if="${notiList}!=null">
+            <div id="btnOpen3" aria-haspopup="dialog">
+                <div th:each="notification : ${notiList}">
+                    <div class="noti-Content" th:onclick="getPost1('02', [[${notification.id}]])">
+                        <span th:text="${notification.labelOption}"></span>
+                        <span th:text="${notification.regDate}"></span>
+                        <span th:text="${notification.title}"></span>
+                        <span th:text="${notification.content}"></span>
+                        <a th:href="@{/notification/delete/{id}(id=${notification.id})}"
+                           onclick="event.stopPropagation();" class="del">delete</a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+
+
+        <th:block th:unless="${notiList}!=null">
+            <div class="notification-content-empty" onclick="event.stopPropagation();"
+                 style="cursor:default;">+ 버튼을 눌러 notification를 입력해주세요!
+            </div>
+        </th:block>
+
     </div>
     <div class="block">
         <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost('01')">+</span>
@@ -61,7 +114,7 @@
             <div id="btnOpen4" aria-haspopup="dialog">
                 <div th:each="assignment : ${assignmentList}">
                     <div class="assignment">
-                        <div class="assignment-content" th:onclick="getPost('02', [[${assignment}]])">
+                        <div class="assignment-content" th:onclick="assignPost('01..', [[${assignment}]])">
                             <span th:text="${assignment.title}"></span>
                             <a th:href="@{/assignment/delete/{id}(id=${assignment.id})}" onclick="event.stopPropagation();"
                                class="del">Delete</a>
@@ -81,25 +134,44 @@
 
 <script>
     //여기서부터 모달창
+    const dialog1 = document.querySelector('dialog#notiDialog');
+    const dialog2 = document.querySelector('dialog#assignDialog');
     const assignDialog = document.querySelector('dialog#assignDialog');
 
     const [assignOpen, assignClose] = [
         document.querySelector('#assignOpen'), // btnOpen에 담김 (body button#btnOpen)
         document.querySelector('#assignClose'),
     ];
-
+    const [btnOpen1, btnOpen2, btnOpen3, btnClose1, btnClose2] = [
+        document.querySelector('#btnOpen1'),
+        document.querySelector('#btnOpen2'),
+        document.querySelector('#btnOpen3'),
+        document.querySelector('#btnClose1'),
+        document.querySelector('#btnClose2'),
+    ];
     // 여는 함수 / 닫는 함수, 굳이 안 만들어도 되지만 조금 더 타이핑을 줄이기 위해...
 
+    // 공지 모달 닫기
+    function close1() {
+        dialog1.close();
+    }
     // 과제 모달 닫기
     function assignClose() {
         assignDialog.close();
     }
 
+    // 공지 모달 열기
+    function show1() {
+        dialog1.showModal();
+    }
     // 과제 모달 열기
     function assignShow() {
         assignDialog.showModal();
     }
 
+<!--    function show() {-->
+<!--      dialog.showModal();-->
+<!--    }-->
 
     // 과제 데이터 전송
     function assignPost(sig, todo) {
@@ -120,6 +192,56 @@
             subText.innerText = "수정하기";
         }
     }
+
+
+    // 공지 데이터 전송
+    function getPost1(sig, id) {
+        let theForm = document.notiSubmit;
+        let subText = document.getElementById("sub-noti");
+
+        if (sig == "01") {
+            theForm.method = "post";
+            theForm.action = "/notification/insert";
+            subText.innerText = "저장하기";
+        } else if (sig == "02") {
+            theForm.method = "post";
+            theForm.method = "post";
+            theForm.action = `/notification/update/${id}`;
+            subText.innerText = "수정하기";
+        }
+    }
+
+    //버튼 클릭 이벤트
+    btnOpen1.addEventListener('click', function () {
+        show1();
+    });
+
+    btnOpen2.addEventListener('click', function () {
+        show2();
+    });
+
+    // btnOpen3.addEventListener('click', function (evt) {
+    //     if (evt.target.children[0].tagName == "SPAN") {
+    //         show1();
+    //     }
+    //
+    //
+    //
+    // })
+
+    btnOpen3.addEventListener('click', function (evt) {
+        if (evt.target.closest('.noti-Content')!=null) {
+            show1();
+        }
+    });
+
+    btnClose1.addEventListener('click', function () {
+        close1(); // close 버튼이 눌리면 닫는 함수 동작.
+    });
+
+    btnClose2.addEventListener('click', function () {
+        close2(); // close 버튼이 눌리면 닫는 함수 동작.
+    });
 
     // 버튼 클릭 이벤트
     assignOpen.addEventListener('click', function (evt) {
