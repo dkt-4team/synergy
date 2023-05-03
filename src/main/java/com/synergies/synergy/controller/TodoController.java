@@ -26,29 +26,23 @@ public class TodoController {
     @Autowired
     private NotificationService notificationService;
 
-    @GetMapping("/studentMain")
-    public String getAll(Model model) throws ParseException {
-        TodoDto todo = new TodoDto();
-        List<TodoDto> todoList = todoService.getAll();
-        List<NotificationDto> notiList = notificationService.getAll();
-
-        if (todoList.isEmpty()) {
-            model.addAttribute("todoList", null);
-            return "studentMain";
-        }
-
+    private List<TodoDto> changeDateFormat(List<TodoDto> list) throws ParseException {
         String[] date;
         Calendar getToday = Calendar.getInstance();
         getToday.setTime(new Date());
+        long diffSec;
+        long diffDays;
+        Calendar cmpDate;
 
-        for (TodoDto vo : todoList) {
+        for (TodoDto vo : list) {
             date = vo.getEndDate().split(" ");
             Date end = new SimpleDateFormat("yyyy-MM-dd").parse(date[0]);
-            Calendar cmpDate = Calendar.getInstance();
+            cmpDate = Calendar.getInstance();
             cmpDate.setTime(end); //특정 일자
 
-            long diffSec = (cmpDate.getTimeInMillis() - getToday.getTimeInMillis()) / 1000;
-            long diffDays = diffSec / (24 * 60 * 60) + 1; //일자수 차이
+            diffSec = (cmpDate.getTimeInMillis() - getToday.getTimeInMillis()) / 1000;
+            diffDays = diffSec / (24 * 60 * 60) + 1; //일자수 차이
+
             if (diffDays < 0) {
                 vo.setEndDate("기간 만료 " + String.valueOf(diffDays) + "|" + vo.getEndDate());
             } else if (diffDays == 0) {
@@ -58,33 +52,42 @@ public class TodoController {
             }
         }
 
-        model.addAttribute("todo", todo);
-        model.addAttribute("todoList", todoList);
+        return list;
+    }
+
+    @GetMapping("/studentMain")
+    public String getAll(Model model) throws ParseException {
+        List<TodoDto> todoList = todoService.getAll();
+        List<NotificationDto> notiList = notificationService.getAll();
+
+        model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
+
+        if (notiList.isEmpty()) {
+            model.addAttribute("notiList", null);
+        }
+
+        if (todoList.isEmpty()) {
+            model.addAttribute("todoList", null);
+            return "studentMain";
+        }
+
+        todoList = changeDateFormat(todoList);
+        model.addAttribute("todoList", todoList);
 
         return "studentMain";
     }
 
-//    @GetMapping("/temp")
-//    public String getAlls(Model model) {
-//        List<TodoDto> todoList = todoService.getAll();
-//        if (todoList.isEmpty()) {
-//            model.addAttribute("todoList", null);
-//            return "adminAssignDetail";
-//        }
-//        model.addAttribute("todoList", todoList);
-//        return "adminAssignDetail";
-//    }
-
-
     @PostMapping("/todo/insert")
-    public String todoInsert(@ModelAttribute("todo") TodoDto todo) {
+    public String todoInsert(TodoDto todo) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/studentMain";
         }
+
         Date curDate = new Date();
         todo.setRegDate(curDate);
         todoService.insert(todo);
+
         return "redirect:/studentMain";
     }
 
