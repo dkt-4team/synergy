@@ -63,19 +63,24 @@
         width: 43%;
         margin-left: 5%;
         height: 80vh;
-        overflow-y: scroll;
       }
 
-      .todo-list::-webkit-scrollbar {
+      .todo-scroll{
+         height: 75vh;
+         width: 100%;
+         overflow-y: scroll;
+      }
+
+      .todo-scroll::-webkit-scrollbar {
           width: 20px;
         }
-        .todo-list::-webkit-scrollbar-thumb {
+        .todo-scroll::-webkit-scrollbar-thumb {
           background-color: #D0D0D0;
           background-clip: padding-box;
           border: 5px solid transparent;
           border-radius: 20px;
         }
-        .todo-list::-webkit-scrollbar-track {
+        .todo-scroll::-webkit-scrollbar-track {
           background-color: white;
         }
 
@@ -94,7 +99,7 @@
          background-color: #D0D0D0;
        }
       .todo-header {
-        width: 98%;
+        width: 96%;
         position: relative;
         border: none;
         height: 5vh;
@@ -203,20 +208,21 @@
       .button:hover{
         background-color: #D0D0D0;
       }
+
 /* 모달 */
 
-      :modal { /*:modal은 모달 상태의 대화상자 박스에 대한 선택자이다. 비모달 대화상자는 dialog 태그 선택자로 정의가 가능하다. */
+      :modal {
         border: none;
         padding: 0;
         border-radius: 20px;
         box-shadow: 4px 4px 10px #D0D0D0;
       }
 
-      :modal form { /* 모달 안에 있는 서식 컨테이너를 grid로 만들겁니다. 3개의 행을 가지며, 각 행은, header, body, bottom 영역으로 나뉩니다.*/
+      :modal form {
         width: 40vh;
       }
 
-      :modal form > * { /* 서식 컨테이너 바로 아래에 있을 각 row에 padding 여백을 주어서 보기 시원한 디자인을 만듭니다. */
+      :modal form > * {
         box-sizing: border-box;
         padding: 0.5em;
         text-align: center;

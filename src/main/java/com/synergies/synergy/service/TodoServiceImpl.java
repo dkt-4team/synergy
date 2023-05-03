@@ -24,7 +24,6 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public int update(TodoDto todo) {
-        System.out.println("test");
         return todoDao.update(todo);
     }
 

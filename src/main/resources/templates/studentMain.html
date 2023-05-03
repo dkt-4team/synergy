@@ -8,9 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+          rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
@@ -19,63 +18,33 @@
 </head>
 
 <body>
-<div id="nav-load" th:insert="navbar/studentNavBar.html :: navFragment(${notiList[0].title})"></div>
-<dialog id="todoDialog">
-    <form name=frmSubmit>
-        <div class="body">
-            <div>
-                <!--   임시임 꼭 변경해야함 -->
-                <input type="text" name="refUserId" value="#S122" style="display:none"/>
-                <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
-                <input type="text" name="content" id="content" required/>
-            </div>
-            <div>
-                <input type="date" name="endDate" id="end_date" required/>
-            </div>
-        </div>
-        <div class="bottom">
-            <div>
-                <button type="submit" id="sub-name">저장하기</button>
-            </div>
-            <div>
-                <button id="btnClose" style="margin-top: 3%; margin-bottom: 3%">취소
-                </button>
-            </div>
-        </div>
-    </form>
-</dialog>
+<div th:replace="navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
 
-<dialog id="noDialog">
-    <div class="no-body">
-        <div class="title" id="no-title"></div>
-        <hr>
-        <div class="no-content" id="no-content"></div>
-    </div>
-    <div class="bottom" style="text-align: center">
-        <button id="btnClose2" style="margin-bottom: 6%; border: none; color: red">닫기</button>
-    </div>
-</dialog>
-
+<div th:replace="modal/todoModal.html :: todoModal"></div>
+<div th:replace="modal/notificationModal.html :: notificationModal"></div>
 
 <div class="container">
     <div class="todo-list">
-        <div class="todo-header">ToDo 리스트<span id="btnOpen" aria-haspopup="dialog" onClick="getPost('01')">+</span>
+        <div class="todo-header">ToDo 리스트<span id="addOpen" aria-haspopup="dialog" onClick="getPost('01')">+</span>
         </div>
-        <th:block th:if="${todoList}!=null">
-            <div id="btnOpen1" aria-haspopup="dialog">
-                <div th:each="todo : ${todoList}">
-                    <div class="todo">
-                        <div class="todo-content" th:onclick="getPost('02', [[${todo}]])">
-                            <span th:text="${todo.content}"></span>
-                            <a th:href="@{/todo/delete/{id}(id=${todo.id})}" onclick="event.stopPropagation();"
-                               class="del">Done</a>
-                            <span th:text="${#strings.listSplit(todo.endDate,'|')[0]}"
-                                  style="font-size: 0.7em; margin-right: 3%; color: blue; float: right"></span>
+        <div class="todo-scroll">
+            <th:block th:if="${todoList}!=null">
+                <div id="editOpen" aria-haspopup="dialog">
+                    <div th:each="todo : ${todoList}">
+                        <div class="todo">
+                            <div class="todo-content" th:onclick="getPost('02', [[${todo}]])">
+                                <span th:text="${todo.refUserId}" style="color: red"></span>
+                                <span th:text="${todo.content}"></span>
+                                <a th:href="@{/todo/delete/{id}(id=${todo.id})}" onclick="event.stopPropagation();"
+                                   class="del">Done</a>
+                                <span th:text="${#strings.listSplit(todo.endDate,'|')[0]}"
+                                      style="font-size: 0.7em; margin-right: 3%; color: blue; float: right"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </th:block>
+            </th:block>
+        </div>
         <th:block th:unless="${todoList}!=null">
             <div class="todo-content-empty" onclick="event.stopPropagation();"
                  style="cursor:default;">+ 버튼을 눌러 Todo를
@@ -84,8 +53,8 @@
         </th:block>
     </div>
     <div class="gong">
-        <div class="gong-list" id="btnOpen2" aria-haspopup="dialog">
-            <th:block th:if="${notiList}">
+        <div class="gong-list" id="noOpen" aria-haspopup="dialog">
+            <th:block th:if="${notiList!=null}">
                 <div class="gong-content" th:each="notification : ${notiList}"
                      th:onclick="getNotification([[${notification}]])">
                     <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}"
@@ -96,7 +65,7 @@
 
                 </div>
             </th:block>
-            <th:block th:unless="${notiList}">
+            <th:block th:unless="${notiList!=null}" onclick="event.stopPropagation();">
                 <div style="margin-top: 20vh;">현재 등록된 공지사항이 없습니다.</div>
             </th:block>
         </div>
@@ -106,81 +75,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    const dialog = document.querySelector('dialog#todoDialog');
-    const noDialog = document.querySelector('dialog#noDialog');
-
-    const [btnOpen, btnOpen1, btnClose] = [
-        document.querySelector('#btnOpen'),
-        document.querySelector('#btnOpen1'),
-        document.querySelector('#btnClose'),
-         document.querySelector('#btnOpen2'),
-           document.querySelector('#btnClose2'),
-    ];
-
-    function getPost(sig, todo) {
-        let theForm = document.frmSubmit;
-        let subText = document.getElementById("sub-name");
-        let con = document.getElementById("content");
-        let endDate = document.getElementById("end_date");
-
-        if (sig == "01") {
-            theForm.method = "post";
-            theForm.action = "/todo/insert";
-            subText.innerText = "저장하기";
-            con.value = '';
-        } else if (sig == "02") {
-            theForm.method = "post";
-            theForm.action = `/todo/update/${todo.id}`;
-            con.value = todo.content;
-            endDate.value = todo.endDate.split('|')[1].split(" ")[0];
-            subText.innerText = "수정하기";
-        }
-    }
-
-    function getNotification(notification){
-      let subText = document.getElementById("no-title");
-      let con = document.getElementById("no-content");
-      subText.innerText = "[" + notification.labelOption + "] " + notification.title;
-      con.innerText = notification.content;
-    }
-
-    function close() {
-        dialog.close();
-    }
-
-    function show() {
-        dialog.showModal();
-    }
-
-    btnOpen.addEventListener('click', function () {
-        show();
-    });
-
-    btnOpen1.addEventListener('click', function (evt) {
-        if(evt.target.children[0].tagName == "SPAN"){
-            show();
-        }
-    });
-
-    btnOpen2.addEventListener('click', function (evt) {
-        if(evt.target.children[0].tagName == "SPAN"){
-            noDialog.showModal();
-        }
-    });
-
-    btnClose.addEventListener('click', function () {
-        close(); // close 버튼이 눌리면 닫는 함수 동작.
-    });
-
-    btnClose2.addEventListener('click', function () {
-           noDialog.close(); // close 버튼이 눌리면 닫는 함수 동작.
-    });
-
-
-
-</script>
-
 </body>
+<script src="/js/studentMain.js"></script>
 </html>
