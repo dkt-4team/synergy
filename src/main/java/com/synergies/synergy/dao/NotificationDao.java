@@ -9,4 +9,9 @@ import java.util.List;
 public interface NotificationDao {
     List<NotificationDto> getAll();
 
+    int insert(NotificationDto notification);
+
+    int update(NotificationDto notification);
+
+    int delete(int id);
 }

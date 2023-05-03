@@ -12,4 +12,17 @@
         SELECT * FROM NOTIFICATION
     </select>
 
+    <insert id="insert" parameterType="com.synergies.synergy.domain.dto.NotificationDto">
+        INSERT INTO NOTIFICATION (ref_user_id, title, content, reg_date, label_option) VALUES (#{refUserId}, #{title}, #{content}, #{regDate}, #{labelOption})
+    </insert>
+
+    <update id="update" parameterType="com.synergies.synergy.domain.dto.NotificationDto">
+        UPDATE NOTIFICATION SET content = #{content}, title = #{title} WHERE ref_user_id = #{refUserId} and id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM NOTIFICATION WHERE id = #{id}
+    </delete>
+
+
 </mapper>
