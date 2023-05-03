@@ -1,6 +1,5 @@
 package com.synergies.synergy.controller;
 
-
 import com.synergies.synergy.domain.dto.NotificationDto;
 import com.synergies.synergy.domain.dto.TodoDto;
 import com.synergies.synergy.service.NotificationService;
