@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<div th:replace="navBar/adminNavBar.html :: navFragment('값')"></div>
+<div th:replace="navBar/adminNavBar.html :: navFragment('님')"></div>
 
 <dialog id="assignDialog">
     <form name="assignSubmit" th:object="${AssignmentDTO}">
@@ -42,7 +42,7 @@
                 <button type="submit" id="sub-name">저장하기</button>
             </div>
             <div>
-                <button id="btnClose2" style="margin-top: 3%; margin-bottom: 3%; color: red">취소
+                <button id="assignClose" style="margin-top: 3%; margin-bottom: 3%; color: red">취소
                 </button>
             </div>
         </div>
@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="block">
-        <div class="block-header">과제 리스트<span id="btnOpen2" aria-haspopup="dialog" onClick="getPost2('01')">+</span>
+        <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost('01')">+</span>
         </div>
         <th:block th:if="${assignmentList}!=null">
             <div id="btnOpen4" aria-haspopup="dialog">
@@ -81,30 +81,28 @@
 
 <script>
     //여기서부터 모달창
-    const dialog2 = document.querySelector('dialog#assignDialog');
+    const assignDialog = document.querySelector('dialog#assignDialog');
 
-    const [btnOpen2, btnClose2] = [
-        //document.querySelector('#btnOpen1'),
-        document.querySelector('#btnOpen2'), // btnOpen에 담김 (body button#btnOpen)
-        //document.querySelector('#btnClose1'), // btnClose에 담김 (dialog button#btnClose)
-        document.querySelector('#btnClose2'),
+    const [assignOpen, assignClose] = [
+        document.querySelector('#assignOpen'), // btnOpen에 담김 (body button#btnOpen)
+        document.querySelector('#assignClose'),
     ];
 
     // 여는 함수 / 닫는 함수, 굳이 안 만들어도 되지만 조금 더 타이핑을 줄이기 위해...
 
     // 과제 모달 닫기
-    function close2() {
-        dialog2.close();
+    function assignClose() {
+        assignDialog.close();
     }
 
     // 과제 모달 열기
-    function show2() {
-        dialog2.showModal();
+    function assignShow() {
+        assignDialog.showModal();
     }
 
 
     // 과제 데이터 전송
-    function getPost2(sig, todo) {
+    function assignPost(sig, todo) {
         let theForm = document.assignSubmit;
         let subText = document.getElementById("sub-name");
         let con = document.getElementById("content");
@@ -124,20 +122,12 @@
     }
 
     // 버튼 클릭 이벤트
-    // btnOpen1.addEventListener('click', function (evt) {
-    //     show1();
-    // });
-
-    btnOpen2.addEventListener('click', function (evt) {
-        show2();
+    assignOpen.addEventListener('click', function (evt) {
+        assignShow();
     });
 
-    // btnClose1.addEventListener('click', function () {
-    //     close1(); // close 버튼이 눌리면 닫는 함수 동작.
-    // });
-
-    btnClose2.addEventListener('click', function () {
-        close2(); // close 버튼이 눌리면 닫는 함수 동작.
+    assignClose.addEventListener('click', function () {
+        assignClose(); // close 버튼이 눌리면 닫는 함수 동작.
     });
 
 </script>
