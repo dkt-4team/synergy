@@ -40,4 +40,19 @@ public class AssignmentController {
 
         return "adminMain";
     }
+
+    @GetMapping("/assignment")
+    public String assignmentPage() {
+        return "studentAssign";
+    }
+
+    @GetMapping("/admin/assignment")
+    public String assignmentAdmin() {
+        return "adminAssign";
+    }
+
+    @GetMapping("/assignmentDetail")
+    public String assignmentAdmin2() {
+        return "adminAssignDetail";
+    }
 }

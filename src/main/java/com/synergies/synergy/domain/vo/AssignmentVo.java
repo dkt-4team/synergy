@@ -2,7 +2,6 @@ package com.synergies.synergy.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.joda.time.DateTime;
 
 import java.util.Date;
 
