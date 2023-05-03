@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<div th:replace="navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
+<div id="nav-load" th:insert="navbar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
 
 <div th:replace="modal/todoModal.html :: todoModal"></div>
 <div th:replace="modal/notificationModal.html :: notificationModal"></div>

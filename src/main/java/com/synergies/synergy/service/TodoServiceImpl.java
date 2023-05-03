@@ -1,5 +1,6 @@
 package com.synergies.synergy.service;
 
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDTO;
 import com.synergies.synergy.domain.dto.TodoDto;
 import com.synergies.synergy.dao.TodoDao;
 import java.util.List;
@@ -13,8 +14,8 @@ public class TodoServiceImpl implements TodoService {
     private TodoDao todoDao;
 
     @Override
-    public List<TodoDto> getAll() {
-        return todoDao.getAll();
+    public List<TodoDto> getAll(String userId) {
+        return todoDao.getAll(userId);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public int delete(int id) {
-        return todoDao.delete(id);
+    public int delete(TodoDeleteRequestDTO todoDeleteRequestDTO) {
+        return todoDao.delete(todoDeleteRequestDTO);
     }
 }
