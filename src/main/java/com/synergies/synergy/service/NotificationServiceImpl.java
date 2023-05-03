@@ -18,6 +18,19 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationDao.getAll();
     }
 
+    @Override
+    public int insert(NotificationDto notification) {
+        return notificationDao.insert(notification);
+    }
 
+    @Override
+    public int update(NotificationDto notification) {
+        return notificationDao.update(notification);
+    }
+
+    @Override
+    public int delete(int id) {
+        return notificationDao.delete(id);
+    }
 
 }

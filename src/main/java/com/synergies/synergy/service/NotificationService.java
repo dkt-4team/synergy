@@ -11,4 +11,9 @@ import java.util.List;
 public interface NotificationService {
     List<NotificationDto> getAll();
 
+    int insert(NotificationDto notification);
+
+    int update(NotificationDto notification);
+
+    int delete(int id);
 }
