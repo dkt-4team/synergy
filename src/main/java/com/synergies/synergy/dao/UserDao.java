@@ -13,5 +13,4 @@ public interface UserDao {
 
     int selectDuplicationUser(String userId);
 
-    String selectUserPassword(String userId);
 }
