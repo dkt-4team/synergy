@@ -7,11 +7,11 @@ import java.util.List;
 
 @Mapper
 public interface NotificationDao {
-    List<NotificationDto> getAll();
+    List<NotificationDto> selectNotificationList();
 
-    int insert(NotificationDto notification);
+    int insertNotification(NotificationDto notification);
 
-    int update(NotificationDto notification);
+    int updateNotification(NotificationDto notification);
 
-    int delete(int id);
+    int deleteNotification(int id);
 }
