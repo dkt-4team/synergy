@@ -5,21 +5,34 @@ body{
         .side-bar{
             float: left;
             width: 15%;
-            height: 100%;
-            border: 1px solid #DADADA;
-            border-width: 0 1px 0 0;
+            height: 90%;
+            border: none;
         }
-
         .side-title{
-            float: left;
-            width: 100%;
-            height: 10vh;
-            line-height: 10vh;
+            height: 12vh;
+            line-height: 12vh;
             text-align: center;
             border: 1px solid #DADADA;
             border-width: 0 0 1px 0;
             font-size: 1.2rem;
         }
+        .side-con{
+            overflow-y: scroll;
+            height: 90%;
+         }
+            .side-con::-webkit-scrollbar {
+                width: 20px;
+              }
+              .side-con::-webkit-scrollbar-thumb {
+                background-color: #D0D0D0;
+                background-clip: padding-box;
+                border: 5px solid transparent;
+                border-radius: 20px;
+              }
+              .side-con::-webkit-scrollbar-track {
+                background-color: white;
+              }
+
         .side-assign{
             width: 100%;
             border: 1px solid #DADADA;
@@ -85,6 +98,8 @@ body{
             margin-right: 8%;
             color: red;
             cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
  /* 반응형 */
       @media screen and (max-width:1023px) {
