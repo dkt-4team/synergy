@@ -107,7 +107,7 @@ body {
 #move-page {
     box-sizing: border-box; /* 추가 */
     width: 20vw;
-    line-height: 2.1em;
+    line-height: 5vh;
     background: #efefef;
     height: 5vh;
     font-size: 1rem;

@@ -32,18 +32,6 @@ public class NotificationController {
     private AssignmentService assignmentService;
 
 
-//    public List<NotificationDto> formattedRegDate(List<NotificationDto> notiList) {
-//        List<NotificationDto> notidto = notificationService.notificationList();
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        String formattedDate;
-//
-//        for (for int i = 0; i < notiList.size();i ) {
-//            formattedDate = formatter.format(notification.getRegDate());
-//            notification.setRegDate(formattedDate);
-//        }
-//        return notiList;
-//    }
-
 
     @GetMapping("/adminMain")
     public String notificationList(Model model) {
@@ -55,9 +43,9 @@ public class NotificationController {
         if (notiList.isEmpty()){
             model.addAttribute("notificationList", null);
             model.addAttribute("assignmentList", assigmentList);
-            return "adminMain";
+            return "pages/admin/adminMain";
         }
-        //notiList = formattedRegDate(notiList);
+
 
         model.addAttribute("notiList", notiList);
         
@@ -69,7 +57,7 @@ public class NotificationController {
             model.addAttribute("assignmentList", assigmentList);
         }
         
-        return "adminMain";
+        return "pages/admin/adminMain";
     }
 
 

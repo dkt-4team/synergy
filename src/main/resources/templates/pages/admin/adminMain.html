@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/adminMain.css">
+</head>
+
+<body>
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment('님')"></div>
+
+<div th:replace="/fragments/modal/notificationModal.html :: notificationMainModal"></div>
+<div th:replace="/fragments/modal/assignmentModal.html :: assignmentModal"></div>
+
+<div class="container">
+    <div class="block">
+        <div class="block-header">공지 리스트<span id="notiOpen" aria-haspopup="dialog" onClick="notiPost('01')">+</span>
+        </div>
+        <th:block th:if="${notiList}!=null">
+            <div id="notiModifyBtn" aria-haspopup="dialog">
+                <div th:each="notification : ${notiList}">
+                    <div class="noti-Content" th:onclick="notiPost('02', [[${notification.id}]])">
+                        <span th:text="|[${notification.labelOption}]|"></span>
+                        <a th:href="@{/notificationDelete/{id}(id=${notification.id})}"
+                           onclick="event.stopPropagation();" class="del" style="float: right; margin-right: 5%; ">Delete</a>
+                        <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}" style=" float: right; margin-right: 2%; color: blue"></span>
+                        <span th:text="${notification.title}"></span>
+
+                    </div>
+                </div>
+            </div>
+        </th:block>
+
+
+        <th:block th:unless="${notiList}!=null">
+            <div class="notification-content-empty" onclick="event.stopPropagation();"
+                 style="cursor:default;">+ 버튼을 눌러 notification를 입력해주세요!
+            </div>
+        </th:block>
+
+    </div>
+    <div class="block">
+        <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost('01')">+</span>
+        </div>
+        <th:block th:if="${assignmentList}!=null">
+            <div id="assignModifyBtn" aria-haspopup="dialog">
+                <div th:each="assignment : ${assignmentList}">
+                    <div class="assignment">
+                        <div class="assignment-content" th:onclick="assignPost('02', [[${assignment}]])">
+                            <span th:text="${assignment.title}"></span>
+                            <a th:href="@{/assignment/delete/{id}(id=${assignment.id})}" onclick="event.stopPropagation();"
+                               class="del">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        <th:block th:unless="${assignmentList}!=null">
+            <div class="assignment-content-empty" onclick="event.stopPropagation();"
+                 style="cursor:default;">+ 버튼을 눌러 assignment를 입력해주세요!
+            </div>
+        </th:block>
+        <div class="go-button">과제 확인하기</div>
+    </div>
+</div>
+
+</body>
+<script src="/js/adminMain.js"></script>
+</html>

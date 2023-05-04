@@ -9,4 +9,6 @@ import java.util.List;
 public interface AssignmentDao {
     int insertAssignment(AssignmentVo assignment);
     List<AssignmentVo> getTodayAssignment();
+    List<AssignmentVo> selectAllAssignment();
+
 }

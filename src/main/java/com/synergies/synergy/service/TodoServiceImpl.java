@@ -14,22 +14,22 @@ public class TodoServiceImpl implements TodoService {
     private TodoDao todoDao;
 
     @Override
-    public List<TodoDto> getAll(String userId) {
-        return todoDao.getAll(userId);
+    public List<TodoDto> selectAllTodo(String userId) {
+        return todoDao.selectAllTodo(userId);
     }
 
     @Override
-    public int insert(TodoDto todo) {
-        return todoDao.insert(todo);
+    public int insertTodo(TodoDto todo) {
+        return todoDao.insertTodo(todo);
     }
 
     @Override
-    public int update(TodoDto todo) {
-        return todoDao.update(todo);
+    public int updateTodo(TodoDto todo) {
+        return todoDao.updateTodo(todo);
     }
 
     @Override
-    public int delete(TodoDeleteRequestDto todoDeleteRequestDTO) {
-        return todoDao.delete(todoDeleteRequestDTO);
+    public int deleteTodo(TodoDeleteRequestDto todoDeleteRequestDTO) {
+        return todoDao.deleteTodo(todoDeleteRequestDTO);
     }
 }
