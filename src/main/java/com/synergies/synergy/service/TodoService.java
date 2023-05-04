@@ -1,7 +1,7 @@
 package com.synergies.synergy.service;
 
 
-import com.synergies.synergy.domain.dto.TodoDeleteRequestDTO;
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
 import com.synergies.synergy.domain.dto.TodoDto;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -13,5 +13,5 @@ public interface TodoService {
 
     int update(TodoDto todo);
 
-    int delete(TodoDeleteRequestDTO todoDeleteRequestDTO);
+    int delete(TodoDeleteRequestDto todoDeleteRequestDTO);
 }

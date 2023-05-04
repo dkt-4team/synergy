@@ -1,7 +1,8 @@
 package com.synergies.synergy.service;
 
 import com.synergies.synergy.dao.UserDao;
-import com.synergies.synergy.domain.dto.SignupDTO;
+import com.synergies.synergy.domain.dto.SignupDto;
+import com.synergies.synergy.domain.vo.SignupVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,17 @@ public class SignupServiceImpl implements SignupService{
     private UserDao userDao;
 
     @Override
-    public int createUserSignupInfo(SignupDTO signupDTO){
-        return userDao.insertSignupUserInfo(signupDTO);
+    public int createUserSignupInfo(SignupDto signupDTO){
+        SignupVo signupVO = new SignupVo(
+            signupDTO.getId(),
+            signupDTO.getUserId(),
+            signupDTO.getPassword(),
+            signupDTO.getName(),
+            signupDTO.getEmail(),
+            signupDTO.getPhoneNumber(),
+            signupDTO.getRole()
+        );
+        return userDao.insertSignupUserInfo(signupVO);
     }
 
     @Override
