@@ -1,7 +1,9 @@
 package com.synergies.synergy.controller;
 
 import com.synergies.synergy.domain.dto.NotificationDto;
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
 import com.synergies.synergy.domain.dto.TodoDto;
+import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("loginUserInfo")
 public class TodoController {
     @Autowired
     private TodoService todoService;
@@ -43,20 +47,26 @@ public class TodoController {
             diffDays = diffSec / (24 * 60 * 60) + 1; //일자수 차이
 
             if (diffDays < 0) {
-                vo.setEndDate("기간 만료 " + String.valueOf(diffDays) + "|" + vo.getEndDate());
+                vo.setEndDate("기간 만료 " + diffDays + "|" + vo.getEndDate());
             } else if (diffDays == 0) {
                 vo.setEndDate("D-day" + "|" + vo.getEndDate());
             } else {
-                vo.setEndDate("D-day: " + String.valueOf(diffDays) + "|" + vo.getEndDate());
+                vo.setEndDate("D-day: " + diffDays + "|" + vo.getEndDate());
             }
         }
 
         return list;
     }
 
-    @GetMapping("/studentMain")
+    @GetMapping("/home")
     public String getAll(Model model) throws ParseException {
-        List<TodoDto> todoList = todoService.getAll();
+
+        LoginUserInfoVo loginUserInfo = (LoginUserInfoVo)model.getAttribute("loginUserInfo");
+        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
+            return "redirect:/";
+        }
+
+        List<TodoDto> todoList = changeDateFormat(todoService.getAll(loginUserInfo.getUserId()));
         List<NotificationDto> notiList = notificationService.notificationList();
 
         model.addAttribute("todo", new TodoDto());
@@ -70,41 +80,56 @@ public class TodoController {
             model.addAttribute("todoList", null);
             return "studentMain";
         }
-
-        todoList = changeDateFormat(todoList);
         model.addAttribute("todoList", todoList);
 
         return "studentMain";
     }
 
     @PostMapping("/todo/insert")
-    public String todoInsert(TodoDto todo) {
-        if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/studentMain";
+    public String todoInsert(@ModelAttribute("todo") TodoDto todo, Model model) {
+
+        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
+        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
+            return "redirect:/home";
         }
 
+        if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
+            return "redirect:/home";
+        }
         Date curDate = new Date();
         todo.setRegDate(curDate);
+        todo.setRefUserId(loginUserInfo.getUserId());
         todoService.insert(todo);
-
-        return "redirect:/studentMain";
+        return "redirect:/home";
     }
 
 
     @PostMapping("/todo/update/{id}")
-    public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo) {
+    public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo, Model model) {
+
+        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
+        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
+            return "redirect:/home";
+        }
+
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/studentMain";
+            return "redirect:/home";
         }
         todo.setId(id);
+        todo.setRefUserId(loginUserInfo.getUserId());
         todoService.update(todo);
-        return "redirect:/studentMain";
+        return "redirect:/home";
     }
 
     @GetMapping("/todo/delete/{id}")
-    public String todoDelete(@PathVariable int id) {
-        todoService.delete(id);
-        return "redirect:/studentMain";
-    }
+    public String todoDelete(@PathVariable int id, Model model) {
 
+        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
+        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
+            return "redirect:/home";
+        }
+
+        todoService.delete(new TodoDeleteRequestDto(id, loginUserInfo.getUserId()));
+        return "redirect:/home";
+    }
 }

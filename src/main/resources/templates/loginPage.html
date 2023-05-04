@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link
+        th:href="@{https://fonts.googleapis.com/css2?family=Lemon&family=Nanum+Gothic&display=swap}"
+        rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/loginPage.css}">
+</head>
+<body>
+<div class="container">
+    <div class="title">Synergy</div>
+    <form th:action="@{/login}" th:object="${userLoginRequest}" class="login-form" method="post">
+        <input type="text" class="id" th:field="*{userId}" placeholder="아이디" required/>
+        <input type="password" class="pwd" th:field="*{password}" placeholder="비밀번호" required/>
+        <input type="submit" value="로그인" class="submit"/>
+        <div id="move-page">회원가입</div>
+    </form>
+</div>
+<script>
+    const movePage = document.getElementById("move-page");
+    movePage.addEventListener('click', () => {
+        location.href = "/signup"
+    })
+</script>
+</body>
+</html>

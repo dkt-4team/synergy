@@ -12,9 +12,6 @@
     <form name=frmSubmit th:object="${todo}">
         <div class="body">
             <div>
-                <!--   임시임 꼭 변경해야함 -->
-                <input type="hidden" name="refUserId" value="#S122"/>
-                <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
                 <input type="text" th:field="${todo.content}" id="content" required/>
             </div>
             <div>
