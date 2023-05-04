@@ -1,8 +1,8 @@
 package com.synergies.synergy.controller;
 
-import com.synergies.synergy.domain.vo.LoginUserInfoVO;
-import com.synergies.synergy.domain.dto.UserLoginRequestDTO;
-import com.synergies.synergy.service.AuthService;
+import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.domain.dto.UserLoginRequestDto;
+import com.synergies.synergy.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,28 +17,26 @@ import org.springframework.web.bind.support.SessionStatus;
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private LoginService loginService;
 
     @ModelAttribute("loginUserInfo")
-    public LoginUserInfoVO createUserLoginInfoVO() {
-        return new LoginUserInfoVO();
+    public LoginUserInfoVo createUserLoginInfoVO() {
+        return new LoginUserInfoVo();
     }
 
     @GetMapping("/")
     public String loginPage(Model model) {
-        model.addAttribute("userLoginRequest", new UserLoginRequestDTO());
+        model.addAttribute("userLoginRequest", new UserLoginRequestDto());
         model.addAttribute("test", 1234);
         return "loginPage";
     }
 
     @PostMapping("/login")
-    public String userLogin(@ModelAttribute UserLoginRequestDTO userLoginRequest, Model model) {
-        LoginUserInfoVO userInfo = authService.readUserLoginInfo(userLoginRequest.getUserId());
-        if (userInfo != null && userInfo.getPassword().equals(userLoginRequest.getPassword())) {
-            LoginUserInfoVO loginUserInfoVO = new LoginUserInfoVO(userInfo.getUserId(),
-                userInfo.getPassword(), userInfo.getName(),
-                userInfo.getEmail(), userInfo.getPhoneNumber());
-            model.addAttribute("loginUserInfo", loginUserInfoVO);
+    public String userLogin(@ModelAttribute("userLoginRequest") UserLoginRequestDto userLoginRequest, Model model) {
+        System.out.println(userLoginRequest.getUserId());
+        LoginUserInfoVo userInfo = loginService.login(userLoginRequest.getUserId(), userLoginRequest.getPassword());
+        if (userInfo != null) {
+            model.addAttribute("loginUserInfo", userInfo);
             return "redirect:/home";
         }
         return "redirect:/";

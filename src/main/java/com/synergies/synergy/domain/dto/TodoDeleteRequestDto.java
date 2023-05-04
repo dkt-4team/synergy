@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class TodoDeleteRequestDTO {
+public class TodoDeleteRequestDto {
     private int id;
     private String userId;
 

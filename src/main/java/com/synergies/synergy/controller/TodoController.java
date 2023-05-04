@@ -1,9 +1,9 @@
 package com.synergies.synergy.controller;
 
 import com.synergies.synergy.domain.dto.NotificationDto;
-import com.synergies.synergy.domain.dto.TodoDeleteRequestDTO;
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
 import com.synergies.synergy.domain.dto.TodoDto;
-import com.synergies.synergy.domain.vo.LoginUserInfoVO;
+import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class TodoController {
     @GetMapping("/home")
     public String getAll(Model model) throws ParseException {
 
-        LoginUserInfoVO loginUserInfo = (LoginUserInfoVO)model.getAttribute("loginUserInfo");
+        LoginUserInfoVo loginUserInfo = (LoginUserInfoVo)model.getAttribute("loginUserInfo");
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/";
         }
@@ -88,7 +88,7 @@ public class TodoController {
     @PostMapping("/todo/insert")
     public String todoInsert(@ModelAttribute("todo") TodoDto todo, Model model) {
 
-        LoginUserInfoVO loginUserInfo = ((LoginUserInfoVO)model.getAttribute("loginUserInfo"));
+        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/home";
         }
@@ -107,7 +107,7 @@ public class TodoController {
     @PostMapping("/todo/update/{id}")
     public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo, Model model) {
 
-        LoginUserInfoVO loginUserInfo = ((LoginUserInfoVO)model.getAttribute("loginUserInfo"));
+        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/home";
         }
@@ -124,12 +124,12 @@ public class TodoController {
     @GetMapping("/todo/delete/{id}")
     public String todoDelete(@PathVariable int id, Model model) {
 
-        LoginUserInfoVO loginUserInfo = ((LoginUserInfoVO)model.getAttribute("loginUserInfo"));
+        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/home";
         }
 
-        todoService.delete(new TodoDeleteRequestDTO(id, loginUserInfo.getUserId()));
+        todoService.delete(new TodoDeleteRequestDto(id, loginUserInfo.getUserId()));
         return "redirect:/home";
     }
 }

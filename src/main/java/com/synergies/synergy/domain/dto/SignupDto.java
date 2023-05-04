@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignupDTO {
+public class SignupDto {
     private byte[] id;
     private String userId;
     private String password;
@@ -16,7 +16,7 @@ public class SignupDTO {
     private String phoneNumber;
     private int role;
 
-    public SignupDTO(){
+    public SignupDto(){
         this.id = UUIDConvertor.createUUID();
     }
 

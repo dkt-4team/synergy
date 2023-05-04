@@ -1,15 +1,16 @@
 package com.synergies.synergy.dao;
 
-import com.synergies.synergy.domain.dto.SignupDTO;
-import com.synergies.synergy.domain.vo.LoginUserInfoVO;
+import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.domain.vo.SignupVo;
+import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserDao {
 
-    int insertSignupUserInfo(SignupDTO signupDTO);
+    int insertSignupUserInfo(SignupVo signupVO);
 
-    LoginUserInfoVO selectUserLoginInfo(String userId);
+    Optional<LoginUserInfoVo> selectUserLoginInfo(String userId);
 
     int selectDuplicationUser(String userId);
 
