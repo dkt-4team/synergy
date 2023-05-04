@@ -88,12 +88,12 @@
             <div id="notiModifyBtn" aria-haspopup="dialog">
                 <div th:each="notification : ${notiList}">
                     <div class="noti-Content" th:onclick="notiPost('02', [[${notification.id}]])">
-                        <span th:text="${notification.labelOption}"></span>
-                        <span th:text="${notification.regDate}"></span>
+                        <span th:text="|[${notification.labelOption}]|"></span>
+                        <a th:href="@{/notificationDelete/{id}(id=${notification.id})}"
+                           onclick="event.stopPropagation();" class="del" style="float: right; margin-right: 5%; ">Delete</a>
+                        <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}" style=" float: right; margin-right: 2%; color: blue"></span>
                         <span th:text="${notification.title}"></span>
-                        <span th:text="${notification.content}"></span>
-                        <a th:href="@{/notification/delete/{id}(id=${notification.id})}"
-                           onclick="event.stopPropagation();" class="del">delete</a>
+
                     </div>
                 </div>
             </div>
@@ -176,12 +176,12 @@
 
         if (sig == "01") {
             theForm.method = "post";
-            theForm.action = "/notification/insert";
+            theForm.action = "/notificationSave";
             subText.innerText = "저장하기";
         } else if (sig == "02") {
             theForm.method = "post";
             theForm.method = "post";
-            theForm.action = `/notification/update/${id}`;
+            theForm.action = `/notificationUpdate/${id}`;
             subText.innerText = "수정하기";
         }
     }
