@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+
 public class AssignmentServiceImpl implements AssignmentService {
     @Autowired
     private AssignmentDao assignmentDao;
@@ -20,10 +21,17 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentDao.insertAssignment(vo);
     }
 
+
+    @Override
+    public List<AssignmentDto> selectAllAssignment() {
+        return assignmentDao.selectAllAssignment();
+    }
+
     @Override
     public List<AssignmentVo> getTodayAssignment() {
         List<AssignmentVo> assignment = assignmentDao.getTodayAssignment();
         System.out.println(assignment);
         return assignment;
+
     }
 }

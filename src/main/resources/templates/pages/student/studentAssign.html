@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/assignStudent.css">
 </head>
 <body>
-<div th:replace="/fragments/navBar/studentNavBar.html :: navFragment('${notiList[0].title}')"></div>
+<div th:replace="/fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
 <div class="side-bar">
     <div class="side-title">
         실습 과제
@@ -42,8 +42,11 @@
     <div class="assign-bottom">
         <div class="assign-comment-title">교수자 코멘트</div>
         <div class="assign-comment"></div>
-        <a th:href='${ #request.getHeader("referer") }' class="assign-back">뒤로가기</a>
+<!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
     </div>
+</div>
+<div style="margin-top: 42%;margin-bottom: 4%;">
+    <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>
 </div>
 
 <script>

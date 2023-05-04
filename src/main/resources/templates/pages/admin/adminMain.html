@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<div th:replace="navBar/adminNavBar.html :: navFragment('님')"></div>
+<div th:replace="fragments/navBar/adminNavBar.html :: navFragment('님')"></div>
 
 <dialog id="notiDialog">
     <form name=notiSubmit th:object="${notification}" class="noti-form">

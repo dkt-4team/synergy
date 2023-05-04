@@ -66,7 +66,7 @@ public class TodoController {
             return "redirect:/";
         }
 
-        List<TodoDto> todoList = changeDateFormat(todoService.getAll(loginUserInfo.getUserId()));
+        List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(loginUserInfo.getUserId()));
         List<NotificationDto> notiList = notificationService.notificationList();
 
         model.addAttribute("todo", new TodoDto());
@@ -78,11 +78,12 @@ public class TodoController {
 
         if (todoList.isEmpty()) {
             model.addAttribute("todoList", null);
-            return "studentMain";
+            return "pages/student/studentMain";
         }
+
         model.addAttribute("todoList", todoList);
 
-        return "studentMain";
+        return "pages/student/studentMain";
     }
 
     @PostMapping("/todo/insert")
@@ -99,7 +100,7 @@ public class TodoController {
         Date curDate = new Date();
         todo.setRegDate(curDate);
         todo.setRefUserId(loginUserInfo.getUserId());
-        todoService.insert(todo);
+        todoService.insertTodo(todo);
         return "redirect:/home";
     }
 
@@ -117,19 +118,18 @@ public class TodoController {
         }
         todo.setId(id);
         todo.setRefUserId(loginUserInfo.getUserId());
-        todoService.update(todo);
+        todoService.updateTodo(todo);
         return "redirect:/home";
     }
 
-    @GetMapping("/todo/delete/{id}")
-    public String todoDelete(@PathVariable int id, Model model) {
-
+    @PostMapping("/todo/delete")
+    public String todoDelete(int id, Model model) {
         LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/home";
         }
 
-        todoService.delete(new TodoDeleteRequestDto(id, loginUserInfo.getUserId()));
+        todoService.deleteTodo(new TodoDeleteRequestDto(id, loginUserInfo.getUserId()));
         return "redirect:/home";
     }
 }

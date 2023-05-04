@@ -8,17 +8,17 @@
     <result property="name" column="name"/>
   </resultMap>
 
-  <select id="getAll" resultMap="todoResultMap" parameterType="string">
+  <select id="selectAllTodo" resultMap="todoResultMap" parameterType="string">
     SELECT *
     FROM TODOLIST WHERE ref_user_id = #{userId};
   </select>
 
-  <insert id="insert" parameterType="com.synergies.synergy.domain.dto.TodoDto">
+  <insert id="insertTodo" parameterType="com.synergies.synergy.domain.dto.TodoDto">
     INSERT INTO TODOLIST (ref_user_id, content, reg_date, end_date)
     VALUES (#{refUserId}, #{content}, #{regDate}, #{endDate})
   </insert>
 
-  <update id="update" parameterType="com.synergies.synergy.domain.dto.TodoDto">
+  <update id="updateTodo" parameterType="com.synergies.synergy.domain.dto.TodoDto">
     UPDATE TODOLIST
     SET content  = #{content},
         end_date = #{endDate}
@@ -26,7 +26,7 @@
       and id = #{id}
   </update>
 
-  <delete id="delete" parameterType="TodoDeleteRequestDTO">
+  <delete id="deleteTodo" parameterType="TodoDeleteRequestDTO">
     DELETE
     FROM TODOLIST
     WHERE id = #{id} and ref_user_id = #{userId};

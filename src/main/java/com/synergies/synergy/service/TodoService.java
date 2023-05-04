@@ -7,11 +7,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 @Service
 public interface TodoService {
-    List<TodoDto> getAll(String userId);
+    List<TodoDto> selectAllTodo(String userId);
 
-    int insert(TodoDto todo);
+    int insertTodo(TodoDto todo);
 
-    int update(TodoDto todo);
+    int updateTodo(TodoDto todo);
 
-    int delete(TodoDeleteRequestDto todoDeleteRequestDTO);
+    int deleteTodo(TodoDeleteRequestDto todoDeleteRequestDTO);
 }

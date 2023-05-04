@@ -3,16 +3,25 @@
     const noDialog = document.querySelector('dialog#noDialog');
 
 
-    const [addOpen, editOpen, btnClose, noOpen, noClose] = [
+    const [addOpen, editOpen, btnClose, noOpen, noClose, delId] = [
         document.querySelector('#addOpen'),
         document.querySelector('#editOpen'),
         document.querySelector('#btnClose'),
         document.querySelector('#noOpen'),
         document.querySelector('#noClose'),
+        document.querySelector('#delId'),
     ];
 
+    function deleteTodo(id){
+        let theForm = document.delTodo;
+        theForm.method = "post";
+        theForm.action = "/todo/delete";
+        delId.value = id;
+        theForm.submit();
+    }
+
 // 모달 재사용을 위한 메소드
-    function getPost(sig, todo) {
+    function getPost(sig, id, content, end) {
         let theForm = document.frmSubmit;
         let subText = document.getElementById("sub-name");
         let con = document.getElementById("content");
@@ -24,9 +33,9 @@
             subText.innerText = "저장하기";
             con.value = '';
         } else if (sig == "02") {
-            theForm.action = `/todo/update/${todo.id}`;
-            con.value = todo.content;
-            endDate.value = todo.endDate.split('|')[1].split(" ")[0];
+            theForm.action = `/todo/update/${id}`;
+            con.value = content;
+            endDate.value = end.split('|')[1].split(" ")[0];
             subText.innerText = "수정하기";
         }
     }
@@ -45,15 +54,13 @@
     });
 
     editOpen.addEventListener('click', function (evt) {
-        if(evt.target.children[0].tagName == "SPAN"){
+        if(evt.target.closest(".todo")!=null)
             dialog.showModal();
-        }
     });
 
     noOpen.addEventListener('click', function (evt) {
-        if(evt.target.children[0].tagName == "SPAN"){
+         if(evt.target.closest(".gong-content")!=null)
             noDialog.showModal();
-        }
     });
 
     btnClose.addEventListener('click', function () {
