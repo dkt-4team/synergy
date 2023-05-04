@@ -14,7 +14,7 @@
     <select id="getTodayAssignment" resultType="AssignmentVo">
         SELECT id, title FROM ASSIGNMENTS WHERE DATE_FORMAT(reg_date, "%Y-%m-%d")=CURDATE() ORDER BY id
     </select>
-    <select id="selectAllAssignment" resultType="AssignmentVo">
+    <select id="selectAllAssignment" resultType="AssignmentDto">
         SELECT * FROM ASSIGNMENTS
     </select>
 </mapper>
