@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 public interface NotificationService {
-    List<NotificationDto> getAll();
+    List<NotificationDto> notificationList();
 
-    int insert(NotificationDto notification);
+    int notificationAdd(NotificationDto notification);
 
-    int update(NotificationDto notification);
+    int notificationModify(NotificationDto notification);
 
-    int delete(int id);
+    int notificationRemove(int id);
 }
