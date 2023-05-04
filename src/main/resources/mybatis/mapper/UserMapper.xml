@@ -3,15 +3,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.synergies.synergy.dao.UserDao">
-  <resultMap id="userSignInInfoResultMap" type="com.synergies.synergy.domain.dto.SignupDTO">
+  <resultMap id="userSignInInfoResultMap" type="com.synergies.synergy.domain.dto.SignupDto">
     <id property="id" column="id"/>
     <result property="name" column="name"/>
   </resultMap>
-  <resultMap id="userLoginInfoResultMap" type="com.synergies.synergy.domain.vo.LoginUserInfoVO">
+  <resultMap id="userLoginInfoResultMap" type="com.synergies.synergy.domain.vo.LoginUserInfoVo">
     <id property="id" column="id"/>
     <result property="name" column="name"/>
   </resultMap>
-  <insert id="insertSignupUserInfo" parameterType="com.synergies.synergy.domain.dto.SignupDTO">
+  <insert id="insertSignupUserInfo" parameterType="com.synergies.synergy.domain.dto.SignupDto">
     INSERT INTO USER (id, user_id, password, name, email, phone_number, role)
     VALUES (#{id}, #{userId}, #{password}, #{name}, #{email}, #{phoneNumber}, #{role})
   </insert>
