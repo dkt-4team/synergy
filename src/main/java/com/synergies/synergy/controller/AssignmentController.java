@@ -36,7 +36,7 @@ public class AssignmentController {
             return "redirect:/";
         }
 
-        List<AssignmentDto> assignList = assignmentService.selectAllAssignment();
+        List<AssignmentVo> assignList = assignmentService.selectAllAssignment();
 
         if (assignList.isEmpty()) {
             model.addAttribute("assignList", null);

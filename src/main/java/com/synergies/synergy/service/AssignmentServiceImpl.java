@@ -23,7 +23,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
 
     @Override
-    public List<AssignmentDto> selectAllAssignment() {
+    public List<AssignmentVo> selectAllAssignment() {
         return assignmentDao.selectAllAssignment();
     }
 

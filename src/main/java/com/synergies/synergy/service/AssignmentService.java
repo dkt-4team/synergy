@@ -10,5 +10,5 @@ import java.util.List;
 public interface AssignmentService {
     int insertAssignment(AssignmentDto assignment);
     List<AssignmentVo> getTodayAssignment();
-    List<AssignmentDto> selectAllAssignment();
+    List<AssignmentVo> selectAllAssignment();
 }
