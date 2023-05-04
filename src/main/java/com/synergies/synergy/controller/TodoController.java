@@ -67,7 +67,7 @@ public class TodoController {
         }
 
         List<TodoDto> todoList = changeDateFormat(todoService.getAll(loginUserInfo.getUserId()));
-        List<NotificationDto> notiList = notificationService.getAll();
+        List<NotificationDto> notiList = notificationService.notificationList();
 
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);

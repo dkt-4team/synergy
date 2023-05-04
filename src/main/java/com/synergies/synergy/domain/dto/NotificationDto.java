@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class NotificationDto {
     private int id;
     private String refUserId;
@@ -19,4 +18,6 @@ public class NotificationDto {
     private String content;
     private String regDate;
     private String labelOption;
+
+
 }

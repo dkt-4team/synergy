@@ -19,26 +19,26 @@ public class AssignmentController {
     @PostMapping("/assignment/insert")
     public String assignmentInsert(@ModelAttribute("AssignmentDTO") AssignmentDto assignment) {
         // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
+        System.out.println(assignment);
 
-
-        assignmentService.insertAssignment(assignment);
+//        assignmentService.insertAssignment(assignment);
         return "redirect:/adminMain";    // 관리자 페이지 메인 화면으로 이동
     }
 
-    @GetMapping("/adminMain")
-    public String main(Model model) {
-        List<AssignmentVo> assigmentList = assignmentService.getTodayAssignment();
-
-        if (assigmentList.isEmpty()) {
-            model.addAttribute("assignmentList", null);
-        }
-        else {
-            model.addAttribute("assignmentList", assigmentList);
-        }
-        model.addAttribute("AssignmentDTO", new AssignmentDto());
-
-        return "adminMain";
-    }
+//    @GetMapping("/adminMain")
+//    public String main(Model model) {
+//        List<AssignmentVo> assigmentList = assignmentService.getTodayAssignment();
+//
+//        if (assigmentList.isEmpty()) {
+//            model.addAttribute("assignmentList", null);
+//        }
+//        else {
+//            model.addAttribute("assignmentList", assigmentList);
+//        }
+//        model.addAttribute("AssignmentDTO", new AssignmentDto());
+//
+//        return "adminMain";
+//    }
 
     @GetMapping("/assignment")
     public String assignmentPage() {

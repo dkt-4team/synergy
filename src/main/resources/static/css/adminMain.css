@@ -95,13 +95,228 @@ body{
         }
      }
 
+
+/*공지*/
+
+.noti-Content {
+    border: none;
+    height: 7vh;
+    line-height: 7vh;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px #D0D0D0;
+    margin-bottom: 1.6%;
+    padding-left: 3%;
+    cursor: pointer;
+}
+
+
+
+
+.selectBox * {
+    width: 12vw;
+    border-radius: 10px;
+    border: 0px solid #D0D0D0;
+    outline: 0 none;
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 4%;
+}
+
+.selectBox * :focus {
+    outline: none;
+}
+
+.selectBox {
+    position: relative;
+    width: 10vw;
+    height: 4.2vh;
+    border-radius: 10px;
+    border: 1px solid #D0D0D0;
+    cursor: pointer;
+    margin-left: 5%;
+    margin-right: 1%;
+    padding-right: 2vw;
+
+
+}
+.selectBox.active .optionList {
+    max-height: 500px;
+    z-index: 99999;
+}
+
+
+
+.optionItem {
+    left: 0;
+    align-items: center;
+    width: 10vw;
+    height: 4.2vh;
+    border: 0 none;
+    outline: 0 none;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    /*max-height: 0px;*/
+    transition: .3s ease-in;
+    border-bottom: 1px dashed #172247;
+    margin-top:0.5vh;
+
+}
+
+
+
+.optionItem:last-child {
+    border-bottom: 0 none;
+}
+
+
+#notiDialog {
+    border: none;
+    padding: 0;
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px #D0D0D0;
+
+}
+
+#notiDialog form {
+    width: 45vw;
+}
+
+#notiDialog form > * {
+    box-sizing: border-box;
+    padding: 0.5em;
+    text-align: center;
+
+}
+
+
+#notiDialog button {
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+}
+
+#notiDialog .body {
+    margin-top: 3vh;
+}
+
+#notiDialog .bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 6%;
+    margin-right: 6%;
+    margin-bottom: 2vh;
+    margin-top: 0.5vh;
+}
+
+
+#btnClose {
+    color: red;
+}
+button:focus {
+    outline: none;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    height: 6vh;
+    width: 95%;
+    margin-left:3%;
+}
+:modal .noti-title {
+    width: auto;
+    height:4vh;
+    padding-right: 5%;
+    margin-bottom: 4%;
+    border-radius: 10px;
+    border: 1px solid #D0D0D0;
+    margin-left: 1%;
+    margin-right: 7%;
+    flex: 1;
+    outline: none;
+}
+
+.noti-title::placeholder {
+    text-align: center;
+}
+
+
+.noti-textarea {
+    width: 35vw;
+    height: 50vh;
+    padding: 5% 3% 3% 5%;
+    margin-top: 1vh;
+    border-radius: 10px;
+    border: 1px solid #D0D0D0;
+    outline: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    position: relative;
+    resize: none;
+    font-family: 'Nanum Gothic', sans-serif;
+
+
+}
+
+.noti-textarea::placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.5;
+    font-size: 1rem;
+
+
+}
+
+.notification-content-empty {
+    margin-top: 10%;
+    text-align: center;
+}
+
+
+#notiClose{
+    color: red;
+}
+
+
+
+
 /* 과제 */
     #assignDialog {
         border: none;
-        padding: 0;
+        padding: 0% 1%;
         border-radius: 20px;
         box-shadow: 4px 4px 10px #D0D0D0;
 
+
+    }
+
+    #assignDialog :focus {
+        outline: none;
+    }
+
+    :modal #title {
+        width: auto;
+        height:4vh;
+        padding-left: 3%;
+        padding-right: 5%;
+        margin-bottom: 4%;
+        border-radius: 10px;
+        border: 1px solid #D0D0D0;
+        margin-right: 5%;
+        flex: 1;
+        outline: none;
+    }
+    #title::placeholder {
+        text-align: center;
     }
 
     #assignDialog form {
@@ -127,15 +342,27 @@ body{
         text-align: center;
     }
 
-    .assignment-content {
+    :modal #content {
         border: none;
         height: 3.5vw;
         line-height: 3.5vw;
+        border: 1px solid #D0D0D0;
         border-radius: 10px;
-        box-shadow: 4px 4px 10px #D0D0D0;
         margin-bottom: 1.6%;
         padding-left: 3%;
         cursor: pointer;
+        resize: none;
+    }
+
+    #content::placeholder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        opacity: 0.5;
+        font-size: 0.9rem;
+        font-family: 'Noto Sans KR', sans-serif;
     }
 
     input[type=file]::file-selector-button {
@@ -146,3 +373,21 @@ body{
         border-radius: 10px;
         cursor: pointer;
     }
+
+
+
+.assignment-content {
+    border: none;
+    height: 7vh;
+    line-height: 7vh;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px #D0D0D0;
+    margin-bottom: 1.6%;
+    padding-left: 3%;
+    cursor: pointer;
+}
+
+
+#assignClose{
+    color: red;
+}
