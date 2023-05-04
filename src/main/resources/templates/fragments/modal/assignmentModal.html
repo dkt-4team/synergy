@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<dialog id="assignDialog" th:fragment="assignmentModal">
+  <form name="assignSubmit" th:object="${AssignmentDTO}">
+    <div class="body">
+      <div class="header">
+        <!--   임시임 꼭 변경해야함 -->
+        <input type="text" value="#S122" style="display:none"/>
+        <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
+        <input type="text" th:field="*{title}" id="title" required placeholder="제목을 입력하세요"/>
+      </div>
+      <div class="file">
+        <input style="border: none;" th:field="*{file}"  type="file" name="file" /> <!-- 여러 파일 업로드 시 multiple 추가 -->
+      </div>
+      <div>
+        <textarea th:field="*{content}" id="content" style="width: 90%; height: 40vh; border-radius: 20px" required placeholder="내용을 입력하세요"></textarea>
+      </div>
+    </div>
+    <div class="bottom">
+      <div>
+        <button type="submit" id="sub-name">저장하기</button>
+      </div>
+      <div>
+        <button id="assignClose" >취소
+        </button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+</body>

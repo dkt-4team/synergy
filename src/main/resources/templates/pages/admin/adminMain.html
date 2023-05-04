@@ -15,70 +15,10 @@
 </head>
 
 <body>
-<div th:replace="fragments/navBar/adminNavBar.html :: navFragment('님')"></div>
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment('님')"></div>
 
-<dialog id="notiDialog">
-    <form name=notiSubmit th:object="${notification}" class="noti-form">
-        <div class="body">
-            <div class="header">
-                <!--   임시임 꼭 변경해야함 -->
-                <input type="text" name="refUserId" value="#S322" style="display:none">
-                <div class="selectBox">
-                    <select name="labelOption" class="optionList">
-                        <option value="일정공지" name="labelOption" class="optionItem">일정공지</option>
-                        <option value="실습공지" name="labelOption" class="optionItem">실습공지</option>
-                        <option value="출석공지" name="labelOption" class="optionItem">출석공지</option>
-                        <option value="기업공지" name="labelOption" class="optionItem">기업공지</option>
-                        <option value="기타공지" name="labelOption" class="optionItem">기타공지</option>
-                    </select>
-                </div>
-                <!--id값 주목 noti tilte-->
-
-                <input type="text" class="noti-title" name="title" placeholder="제목을 입력하세요">
-            </div>
-            <div>
-
-                <textarea rows="10" class="noti-textarea" name="content" id="noti-textarea" placeholder="내용을 입력하세요"></textarea>
-            </div>
-        </div>
-        <div class="bottom">
-            <div>
-                <button type="submit" id="sub-noti">저장하기</button>
-            </div>
-            <div>
-                <button id="notiClose" aria-label="close" value="cancel">취소</button>
-            </div>
-        </div>
-    </form>
-</dialog>
-
-<dialog id="assignDialog">
-    <form name="assignSubmit" th:object="${AssignmentDTO}">
-        <div class="body">
-            <div class="header">
-                <!--   임시임 꼭 변경해야함 -->
-                <input type="text" value="#S122" style="display:none"/>
-                <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
-                <input type="text" th:field="*{title}" id="title" required placeholder="제목을 입력하세요"/>
-            </div>
-            <div class="file">
-                <input style="border: none;" th:field="*{file}"  type="file" name="file" /> <!-- 여러 파일 업로드 시 multiple 추가 -->
-            </div>
-            <div>
-                <textarea th:field="*{content}" id="content" style="width: 90%; height: 40vh; border-radius: 20px" required placeholder="내용을 입력하세요"></textarea>
-            </div>
-        </div>
-        <div class="bottom">
-            <div>
-                <button type="submit" id="sub-name">저장하기</button>
-            </div>
-            <div>
-                <button id="assignClose" >취소
-                </button>
-            </div>
-        </div>
-    </form>
-</dialog>
+<div th:replace="/fragments/modal/notificationModal.html :: notificationMainModal"></div>
+<div th:replace="/fragments/modal/assignmentModal.html :: assignmentModal"></div>
 
 <div class="container">
     <div class="block">
@@ -132,93 +72,6 @@
     </div>
 </div>
 
-<script>
-    //여기서부터 모달창
-    const notiDialog = document.querySelector('dialog#notiDialog');
-    const assignDialog = document.querySelector('dialog#assignDialog');
-
-    const [assignOpen, assignClose, assignModifyBtn] = [
-        document.querySelector('#assignOpen'), // btnOpen에 담김 (body button#btnOpen)
-        document.querySelector('#assignClose'),
-        document.querySelector('#assignModifyBtn'),
-    ];
-    const [notiOpen,notiClose,notiModifyBtn] = [
-        document.querySelector('#notiOpen'),
-        document.querySelector('#notiClose'),
-        document.querySelector('#notiModifyBtn'),
-
-    ];
-
-    // 과제 데이터 전송
-    function assignPost(sig, todo) {
-        let theForm = document.assignSubmit;
-        let subText = document.getElementById("sub-name");
-        let con = document.getElementById("content");
-
-        if (sig == "01") {
-            theForm.method = "post";
-            theForm.action = "/assignment/insert";
-            theForm.enctype = "multipart/form-data";
-            subText.innerText = "저장하기";
-            con.value = '';
-        } else if (sig == "02") {
-            theForm.method = "post";
-            theForm.action = `/assignment/update/${todo.id}`;
-            con.value = todo.content;
-            subText.innerText = "수정하기";
-        }
-    }
-
-    // 공지 데이터 전송
-    function notiPost(sig, id) {
-        let theForm = document.notiSubmit;
-        let subText = document.getElementById("sub-noti");
-
-        if (sig == "01") {
-            theForm.method = "post";
-            theForm.action = "/notificationSave";
-            subText.innerText = "저장하기";
-        } else if (sig == "02") {
-            theForm.method = "post";
-            theForm.method = "post";
-            theForm.action = `/notificationUpdate/${id}`;
-            subText.innerText = "수정하기";
-        }
-    }
-
-    //   모달 메소드
-
-    //  open
-    notiOpen.addEventListener('click', function () {
-        notiDialog.showModal();
-    });
-
-    assignOpen.addEventListener('click', function (evt) {
-        assignDialog.showModal();
-    });
-    // close
-    assignClose.addEventListener('click', function () {
-        assignDialog.close();
-    });
-
-    notiClose.addEventListener('click', function () {
-        notiDialog.close(); // close 버튼이 눌리면 닫는 함수 동작.
-    });
-
-    // 이 부분 수정해야함.
-
-    notiModifyBtn.addEventListener('click', function (evt) {
-        if (evt.target.closest('.noti-Content')!=null) {
-            notiDialog.showModal();
-        }
-    });
-
-    assignModifyBtn.addEventListener('click', function (evt) {
-        if (evt.target.closest('.assignment')!=null) {
-            assignDialog.showModal();
-        }
-    });
-</script>
-
 </body>
+<script src="/js/adminMain.js"></script>
 </html>

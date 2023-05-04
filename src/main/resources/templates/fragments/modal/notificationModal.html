@@ -18,4 +18,41 @@
         <button id="noClose" style="margin-bottom: 6%; border: none; color: red">닫기</button>
     </div>
 </dialog>
+
+
+<dialog id="notiDialog" th:fragment="notificationMainModal">
+    <form name=notiSubmit th:object="${notification}" class="noti-form">
+        <div class="body">
+            <div class="header">
+                <!--   임시임 꼭 변경해야함 -->
+                <input type="text" name="refUserId" value="#S322" style="display:none">
+                <div class="selectBox">
+                    <select name="labelOption" class="optionList">
+                        <option value="일정공지" name="labelOption" class="optionItem">일정공지</option>
+                        <option value="실습공지" name="labelOption" class="optionItem">실습공지</option>
+                        <option value="출석공지" name="labelOption" class="optionItem">출석공지</option>
+                        <option value="기업공지" name="labelOption" class="optionItem">기업공지</option>
+                        <option value="기타공지" name="labelOption" class="optionItem">기타공지</option>
+                    </select>
+                </div>
+                <!--id값 주목 noti tilte-->
+
+                <input type="text" class="noti-title" name="title" placeholder="제목을 입력하세요">
+            </div>
+            <div>
+
+                <textarea rows="10" class="noti-textarea" name="content" id="noti-textarea" placeholder="내용을 입력하세요"></textarea>
+            </div>
+        </div>
+        <div class="bottom">
+            <div>
+                <button type="submit" id="sub-noti">저장하기</button>
+            </div>
+            <div>
+                <button id="notiClose" aria-label="close" value="cancel">취소</button>
+            </div>
+        </div>
+    </form>
+</dialog>
+
 </body>
