@@ -57,7 +57,7 @@ public class TodoController {
     @GetMapping("/studentMain")
     public String getAll(Model model) throws ParseException {
         List<TodoDto> todoList = todoService.getAll();
-        List<NotificationDto> notiList = notificationService.getAll();
+        List<NotificationDto> notiList = notificationService.notificationList();
 
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
