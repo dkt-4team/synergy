@@ -8,5 +8,5 @@
 </head>
 
 <body>
-<nav th:fragment="navFragment(param1)"><span class="logo">Synergy</span><span class="logout">Logout</span><span th:text="${param1}" class="user"></span></nav>
+<nav th:fragment="navFragment(param1)"><span class="logo">Synergy</span><span class="logout" th:onclick="|location.href='@{/logout}'|">Logout</span><span th:text="${param1}" class="user"></span></nav>
 </body>
