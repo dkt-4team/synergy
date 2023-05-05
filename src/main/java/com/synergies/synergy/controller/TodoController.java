@@ -6,6 +6,12 @@ import com.synergies.synergy.domain.dto.TodoDto;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 @Controller
-@SessionAttributes("loginUserInfo")
 public class TodoController {
+
     @Autowired
     private TodoService todoService;
     @Autowired
@@ -59,14 +58,9 @@ public class TodoController {
     }
 
     @GetMapping("/home")
-    public String getAll(Model model) throws ParseException {
-
-        LoginUserInfoVo loginUserInfo = (LoginUserInfoVo)model.getAttribute("loginUserInfo");
-        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
-            return "redirect:/";
-        }
-
-        List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(loginUserInfo.getUserId()));
+    public String getAll(Model model, HttpSession session) throws ParseException {
+        List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
+            ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
         List<NotificationDto> notiList = notificationService.notificationList();
 
         model.addAttribute("todo", new TodoDto());
@@ -87,49 +81,34 @@ public class TodoController {
     }
 
     @PostMapping("/todo/insert")
-    public String todoInsert(@ModelAttribute("todo") TodoDto todo, Model model) {
-
-        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
-        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
-            return "redirect:/home";
-        }
-
+    public String todoInsert(@ModelAttribute("todo") TodoDto todo, HttpSession session) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/home";
         }
         Date curDate = new Date();
         todo.setRegDate(curDate);
-        todo.setRefUserId(loginUserInfo.getUserId());
+        todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId());
         todoService.insertTodo(todo);
         return "redirect:/home";
     }
 
 
     @PostMapping("/todo/update/{id}")
-    public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo, Model model) {
-
-        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
-        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
-            return "redirect:/home";
-        }
-
+    public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo,
+        HttpSession session) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/home";
         }
         todo.setId(id);
-        todo.setRefUserId(loginUserInfo.getUserId());
+        todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId());
         todoService.updateTodo(todo);
         return "redirect:/home";
     }
 
     @PostMapping("/todo/delete")
-    public String todoDelete(int id, Model model) {
-        LoginUserInfoVo loginUserInfo = ((LoginUserInfoVo)model.getAttribute("loginUserInfo"));
-        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
-            return "redirect:/home";
-        }
-
-        todoService.deleteTodo(new TodoDeleteRequestDto(id, loginUserInfo.getUserId()));
+    public String todoDelete(int id, HttpSession session) {
+        todoService.deleteTodo(new TodoDeleteRequestDto(id,
+            ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
         return "redirect:/home";
     }
 }
