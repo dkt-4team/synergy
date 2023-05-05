@@ -11,4 +11,9 @@ public class AssignmentDto {
     private String title;
     private String content;
     private MultipartFile file;
+    private int assignmentNumber;
+
+    public AssignmentDto(int assignmentNumber) {
+        this.assignmentNumber = assignmentNumber;
+    }
 }
