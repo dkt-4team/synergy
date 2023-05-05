@@ -9,7 +9,7 @@ public class LoginAuth {
 
     public boolean isAuthorityCheck(HttpSession session) {
         int loginUserRole = ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole();
-        return loginUserRole == 0 ? false : true;
+        return loginUserRole != 0;
     }
 
 }
