@@ -12,12 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotificationDto {
+
     private int id;
     private String refUserId;
     private String title;
     private String content;
     private String regDate;
     private String labelOption;
-
 
 }
