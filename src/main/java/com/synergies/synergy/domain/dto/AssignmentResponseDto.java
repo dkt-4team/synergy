@@ -23,5 +23,14 @@ public class AssignmentResponseDto {
         private String file;
     }
 
+    @Getter
+    public static class SubmitStudent {
+        private String name;
+        private int id;
+    }
 
+    @Getter
+    public static class UnsubmitStudent {
+        private String name;
+    }
 }
