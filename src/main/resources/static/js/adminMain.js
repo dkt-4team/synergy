@@ -1,4 +1,5 @@
 
+
     //여기서부터 모달창
     const notiDialog = document.querySelector('dialog#notiDialog');
     const assignDialog = document.querySelector('dialog#assignDialog');
@@ -36,21 +37,29 @@
     }
 
     // 공지 데이터 전송
-    function notiPost(sig, id) {
+    function notiPost(sig,notification) {
         let theForm = document.notiSubmit;
         let subText = document.getElementById("sub-noti");
+        let textarea = document.getElementById("noti-textarea");
+        let subTitle = document.getElementById("noti-title");
+        let labelOption = document.getElementById("optionList");
+        theForm.method = "post";
 
         if (sig == "01") {
-            theForm.method = "post";
             theForm.action = "/notificationSave";
             subText.innerText = "저장하기";
+            textarea.value = '';
+            subTitle.value = '';
         } else if (sig == "02") {
-            theForm.method = "post";
-            theForm.method = "post";
-            theForm.action = `/notificationUpdate/${id}`;
+            theForm.action = `/notificationUpdate/${notification.id}`;
+            textarea.value = notification.content;
+            subTitle.value = notification.title;
+            labelOption.value = notification.labelOption;
             subText.innerText = "수정하기";
         }
     }
+
+
 
     //   모달 메소드
 
@@ -74,7 +83,7 @@
     // 이 부분 수정해야함.
 
     notiModifyBtn.addEventListener('click', function (evt) {
-        if (evt.target.closest('.noti-Content')!=null) {
+        if (evt.target.closest('.notification')!=null) {
             notiDialog.showModal();
         }
     });
@@ -84,4 +93,5 @@
             assignDialog.showModal();
         }
     });
+
 

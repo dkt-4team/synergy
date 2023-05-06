@@ -18,8 +18,6 @@
         <button id="noClose" style="margin-bottom: 6%; border: none; color: red">닫기</button>
     </div>
 </dialog>
-
-
 <dialog id="notiDialog" th:fragment="notificationMainModal">
     <form name=notiSubmit th:object="${notification}" class="noti-form">
         <div class="body">
@@ -27,7 +25,7 @@
                 <!--   임시임 꼭 변경해야함 -->
                 <input type="text" name="refUserId" value="#S322" style="display:none">
                 <div class="selectBox">
-                    <select name="labelOption" class="optionList">
+                    <select name="labelOption" class="optionList" id="optionList">
                         <option value="일정공지" name="labelOption" class="optionItem">일정공지</option>
                         <option value="실습공지" name="labelOption" class="optionItem">실습공지</option>
                         <option value="출석공지" name="labelOption" class="optionItem">출석공지</option>
@@ -35,9 +33,8 @@
                         <option value="기타공지" name="labelOption" class="optionItem">기타공지</option>
                     </select>
                 </div>
-                <!--id값 주목 noti tilte-->
 
-                <input type="text" class="noti-title" name="title" placeholder="제목을 입력하세요">
+                <input type="text" class="noti-title" name="title" id="noti-title" placeholder="제목을 입력하세요">
             </div>
             <div>
 
@@ -56,3 +53,25 @@
 </dialog>
 
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
