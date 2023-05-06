@@ -60,6 +60,16 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    public List<SubmitStudent> submitStudentList(int assignmentId) {
+        return assignmentDao.selectSubmitStudents(assignmentId);
+    }
+
+    @Override
+    public List<UnsubmitStudent> unsubmitStudentList(int assignmentId) {
+        return assignmentDao.selectUnsubmitStudents(assignmentId);
+    }
+
+    @Override
     public boolean assignmentRemove(int assignmentId) {
         return assignmentDao.deleteAssignment(assignmentId);
     }

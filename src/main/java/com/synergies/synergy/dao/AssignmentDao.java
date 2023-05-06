@@ -15,5 +15,7 @@ public interface AssignmentDao {
     List<AssignmentDetail> selectAllAssignmentTitle();
     AssignmentContent selectAssignmentDetails(int assignmentId);
     AssignmentContent selectRecentAssignment();
+    List<SubmitStudent> selectSubmitStudents(int assignmentId);
+    List<UnsubmitStudent> selectUnsubmitStudents(int assignmentId);
     boolean deleteAssignment(int assignmentId);
 }
