@@ -66,9 +66,9 @@ public class AssignmentAdminController {
             model.addAttribute("assignmentList", null);
             model.addAttribute("assignmentDetail", null);
         } else {
-            // 최근 과제의 상세 데이터 전송
             AssignmentContent assignDetail = assignmentService.assignmentDetails(assignmentId);
             model.addAttribute("assignmentList", assignmentList);
+            // 선택한 과제의 상세 데이터 전송
             model.addAttribute("assignmentDetail", assignDetail);
         }
 
