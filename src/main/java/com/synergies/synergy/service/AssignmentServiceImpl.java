@@ -55,6 +55,11 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    public AssignmentContent assignmentRecentDetails() {
+        return assignmentDao.selectRecentAssignment();
+    }
+
+    @Override
     public boolean assignmentRemove(int assignmentId) {
         return assignmentDao.deleteAssignment(assignmentId);
     }

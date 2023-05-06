@@ -13,6 +13,7 @@ public interface AssignmentService {
     List<AssignmentDetail> getTodayAssignment();
     List<AssignmentDetail> assignmentList();
     AssignmentContent assignmentDetails(int assignmentId);
+    AssignmentContent assignmentRecentDetails();
     boolean assignmentRemove(int assignmentId);
     List<AssignmentVo> selectAllAssignment();
 }

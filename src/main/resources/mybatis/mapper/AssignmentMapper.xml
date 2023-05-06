@@ -18,7 +18,7 @@
         SELECT * FROM ASSIGNMENTS
     </select>
     <select id="selectAllAssignmentTitle" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
-        SELECT id, title FROM ASSIGNMENTS ORDER BY reg_date
+        SELECT id, title FROM ASSIGNMENTS ORDER BY reg_date DESC
     </select>
     <select id="selectAssignmentDetails" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentContent">
         SELECT id, title, content, assignment_file, reg_date FROM ASSIGNMENTS WHERE id = #{assignmentId}
@@ -26,4 +26,10 @@
     <delete id="deleteAssignment" parameterType="int">
         DELETE FROM ASSIGNMENTS WHERE id = #{assignmentId}
     </delete>
+    <select id="selectRecentAssignment" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentContent">
+        SELECT id, title, content, assignment_file, reg_date FROM ASSIGNMENTS ORDER BY reg_date DESC LIMIT 1
+    </select>
+<!--
+    <insert id="insertAssignmentSubmit" parameterType="A"
+-->
 </mapper>
