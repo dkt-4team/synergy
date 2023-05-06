@@ -4,14 +4,15 @@ import com.synergies.synergy.auth.LoginAuth;
 import com.synergies.synergy.domain.dto.UserLoginRequestDto;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.LoginService;
-import java.util.Optional;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -25,7 +26,7 @@ public class AuthController {
     @GetMapping("/")
     public String loginPage(Model model, HttpSession session) {
         Optional<Object> userCheck = Optional.ofNullable(session.getAttribute("loginUserInfo"));
-        if (!userCheck.isPresent()) {
+        if (!userCheck.isEmpty()) {
             if (!loginAuth.isAuthorityCheck(session)) {
                 return "redirect:/home";
             }
