@@ -62,6 +62,18 @@ public class AssignmentAdminController {
     public String assignmentDetails(@PathVariable("id") int assignmentId, Model model) {
         // 모든 과제들의 title 전송
         List<AssignmentDetail> assignmentList = assignmentService.assignmentList();
+
+        // 선택한 과제를 제출한 학생 리스트
+        List<SubmitStudent> submitStudents = assignmentService.submitStudentList(assignmentId);
+
+        // 선택한 과제를 제출하지 않은 학생 리스트
+        List<UnsubmitStudent> unsubmitStudents = assignmentService.unsubmitStudentList(assignmentId);
+
+        model.addAttribute("submitStudents", submitStudents);
+        model.addAttribute("unsubmitStudents", unsubmitStudents);
+        System.out.println("***Submit" + submitStudents);
+        System.out.println("***Unsubmit" + unsubmitStudents);
+
         if(assignmentList.isEmpty()) {
             model.addAttribute("assignmentList", null);
             model.addAttribute("assignmentDetail", null);
@@ -84,6 +96,13 @@ public class AssignmentAdminController {
             model.addAttribute("result", "fail");
         }
         return "redirect:/admin/home";
+    }
+
+    @GetMapping("/assignmentSubmit/{id}")
+    public String assignmentSubmit(@PathVariable("id") int submitId, Model model) {
+
+
+        return "pages/admin/adminAssignDetail";
     }
 
     @GetMapping("/assignment")

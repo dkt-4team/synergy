@@ -24,6 +24,7 @@ public class AssignmentController {
     @GetMapping("/studentAssign/{id}")
     public String studentAssignDetail(@PathVariable("id") int assignmentId, Model model) {
         LoginUserInfoVo loginUserInfo = (LoginUserInfoVo)model.getAttribute("loginUserInfo");
+
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/";
         }
