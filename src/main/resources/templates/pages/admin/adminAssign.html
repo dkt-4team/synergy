@@ -24,12 +24,13 @@
     <div class="side-title">
         실습 과제
     </div>
-    <div style="margin-top: 10vh;">
-        <div th:each="assignment : ${assignmentList}" class="side-assign">
+    <div class="side-con">
+        <div th:each="assignment : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
             <span th:text="${assignment.title}" style="margin-left: 4%;"></span>
         </div>
     </div>
 </div>
+
 <div class="assign-container">
     <div class="assign-title" th:text="${assignmentDetail.title}"><span class="assign-back">뒤로가기</span></div>
     <hr>
@@ -40,10 +41,22 @@
     </div>
     <hr>
     <div>
-        <div th:each="assignment : ${assignmentList}" class="assign-students">
+        <div th:each="assignment : ${studentList}" class="assign-students">
             <span th:text="${assignment.title}" style="margin-left: 4%;"></span>
         </div>
     </div>
 </div>
+
+<script>
+    const container = document.getElementById("container");
+    const title = document.getElementById("title");
+    const content = document.getElementById("content");
+
+    function getAssign(assign){
+        container.style.display = "block";
+        title.innerText = assign.title;
+        content.innerText = assign.content;
+    }
+</script>
 </body>
 </html>
