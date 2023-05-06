@@ -11,11 +11,13 @@ public class LoginUserInfoVo {
 
     private String userId;
     private String password;
+    private String salt;
 
     private String name;
 
     private String email;
 
     private String phoneNumber;
+    private int role;
 
 }
