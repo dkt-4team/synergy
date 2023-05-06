@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+            rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/adminMain.css">
+</head>
+
+<body>
+<div th:replace="navBar/adminNavBar.html :: navFragment('님')"></div>
+
+<dialog id="assignDialog">
+    <form name="assignSubmit" th:object="${AssignmentDTO}">
+        <div class="body">
+            <div class="header">
+                <!--   임시임 꼭 변경해야함 -->
+                <input type="text" value="#S122" style="display:none"/>
+                <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
+                <!-- 오늘 등록된 assignment 개수 보내기 -->
+                <input type="text" th:field="*{assignmentNumber}" style="display:none"/>
+                <input type="text" th:field="*{title}" id="title" required placeholder="제목을 입력하세요"/>
+            </div>
+            <div class="file">
+                <input style="border: none;" th:field="*{file}"  type="file" name="file" /> <!-- 여러 파일 업로드 시 multiple 추가 -->
+            </div>
+            <div>
+                <textarea th:field="*{content}" id="content" style="width: 90%; height: 40vh; border-radius: 20px" required placeholder="내용을 입력하세요"></textarea>
+            </div>
+        </div>
+        <div class="bottom">
+            <div>
+                <button type="submit" id="sub-name">저장하기</button>
+            </div>
+            <div>
+                <button id="assignClose" style="margin-top: 3%; margin-bottom: 3%; color: red">취소
+                </button>
+            </div>
+        </div>
+    </form>
+</dialog>
+
+<div class="container">
+    <div class="block">
+        <div class="block-header">공지 리스트<span id="btnOpen1" aria-haspopup="dialog" onClick="getPost('01')">+</span>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost('01')">+</span>
+        </div>
+        <th:block th:if="${assignmentList}!=null">
+            <div id="btnOpen4" aria-haspopup="dialog">
+                <div th:each="assignment : ${assignmentList}">
+                    <div class="assignment">
+                        <div class="assignment-content" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
+                            <span th:text="${assignment.title}"></span>
+                            <a th:onclick="event.stopPropagation();deleteAssignment([[${assignment.id}]])" class="del">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        <th:block th:unless="${assignmentList}!=null">
+            <div class="assignment-content-empty" onclick="event.stopPropagation();"
+                 style="cursor:default;">+ 버튼을 눌러 assignment를 입력해주세요!
+            </div>
+        </th:block>
+        <form name="delAssignment" style="display:none">
+            <input type="hidden" name="id" id="delId" />
+        </form>
+        <div class="go-button">과제 확인하기</div>
+    </div>
+</div>
+
+<script>
+    //여기서부터 모달창
+    const assignDialog = document.querySelector('dialog#assignDialog');
+
+    const [assignOpen, assignClose] = [
+        document.querySelector('#assignOpen'), // btnOpen에 담김 (body button#btnOpen)
+        document.querySelector('#assignClose'),
+    ];
+
+    // 과제 삭제
+    function deleteAssignment(id){
+        let theForm = document.delAssignment;
+        theForm.method = "post";
+        theForm.action = "/admin/assignmentDelete";
+        delId.value = id;
+        theForm.submit();
+    }
+
+    // 과제 데이터 전송
+    function assignPost(sig, assignment) {
+        let theForm = document.assignSubmit;
+        let subText = document.getElementById("sub-name");
+        let con = document.getElementById("content");
+
+        if (sig == "01") {
+            theForm.method = "post";
+            theForm.action = "/admin/assignRegister";
+            theForm.enctype = "multipart/form-data";
+            subText.innerText = "저장하기";
+            con.value = '';
+        } else if (sig == "02") {
+            theForm.method = "post";
+            theForm.action = `/admin/assignmentDetail/${assignment.id}`;
+        }
+    }
+
+    // 버튼 클릭 이벤트
+    assignOpen.addEventListener('click', function (evt) {
+        assignDialog.showModal();
+    });
+
+    assignClose.addEventListener('click', function () {
+        assignDialog.close(); // close 버튼이 눌리면 닫는 함수 동작.
+    });
+
+</script>
+
+</body>
+</html>
