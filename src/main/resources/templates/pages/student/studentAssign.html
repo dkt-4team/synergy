@@ -24,31 +24,31 @@
         실습 과제
     </div>
     <div class="side-con">
-        <div th:each="assign : ${assignList}" class="side-assign" th:onclick="getAssign([[${assign}]])">
+        <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assign.id})}'|">
             <span th:text="${assign.title}" style="margin-left: 4%;">></span>
         </div>
     </div>
 </div>
-<div class="root-container">
-    <div class="assign-container" id="container" style="display: none">
-        <div class="assign-title" id="title"></div>
-        <hr>
-        <div class="assign-content" id="content"></div>
-        <div class="assign-buttons">
-            <div>과제 다운로드</div>
-            <div>과제 제출하기</div>
-        </div>
-        <hr>
-        <div class="assign-bottom">
-            <div class="assign-comment-title">교수자 코멘트</div>
-            <div class="assign-comment"></div>
-            <!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
-        </div>
+
+<div class="assign-container">
+    <div class="assign-title" th:text="${assignmentDetail.title}"><span class="assign-back">뒤로가기</span></div>
+    <hr>
+    <div class="assign-content" th:text="${assignmentDetail.content}"></div>
+    <div class="assign-buttons">
+        <div><span id="assignOpen" aria-haspopup="dialog" onClick="assignSubmit('01')">과제 다운로드</span></div>
+        <div>과제 제출하기</div>
     </div>
-    <div class="back-container">
-        <a th:href='${ #request.getHeader("referer") }' class="assign-back">뒤로가기</a>
+    <hr>
+    <div class="assign-bottom">
+        <div class="assign-comment-title">교수자 코멘트</div>
+        <div class="assign-comment"></div>
+<!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
     </div>
 </div>
+<div style="margin-top: 42%;margin-bottom: 4%;">
+    <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>
+</div>
+
 <script>
     const container = document.getElementById("container");
     const title = document.getElementById("title");
@@ -59,7 +59,6 @@
         title.innerText = assign.title;
         content.innerText = assign.content;
     }
-
 </script>
 </body>
 </html>
