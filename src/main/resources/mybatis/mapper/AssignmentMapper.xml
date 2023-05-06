@@ -11,10 +11,19 @@
         INSERT INTO ASSIGNMENTS (title, content, assignment_file)
         VALUES (#{title}, #{content}, #{assignmentFile})
     </insert>
-    <select id="getTodayAssignment" resultType="AssignmentVo">
+    <select id="getTodayAssignment" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
         SELECT id, title FROM ASSIGNMENTS WHERE DATE_FORMAT(reg_date, "%Y-%m-%d")=CURDATE() ORDER BY id
     </select>
     <select id="selectAllAssignment" resultType="AssignmentVo">
         SELECT * FROM ASSIGNMENTS
     </select>
+    <select id="selectAllAssignmentTitle" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
+        SELECT id, title FROM ASSIGNMENTS ORDER BY reg_date
+    </select>
+    <select id="selectAssignmentDetails" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentContent">
+        SELECT id, title, content, assignment_file, reg_date FROM ASSIGNMENTS WHERE id = #{assignmentId}
+    </select>
+    <delete id="deleteAssignment" parameterType="int">
+        DELETE FROM ASSIGNMENTS WHERE id = #{assignmentId}
+    </delete>
 </mapper>
