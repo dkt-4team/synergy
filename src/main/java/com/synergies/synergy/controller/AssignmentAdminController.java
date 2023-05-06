@@ -3,8 +3,6 @@ package com.synergies.synergy.controller;
 import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.NotificationDto;
-import com.synergies.synergy.domain.vo.AssignmentVo;
-import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
