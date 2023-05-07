@@ -70,6 +70,16 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    public SubmitContent submitDetails(int submitId) {
+        return assignmentDao.selectSubmitContent(submitId);
+    }
+
+    @Override
+    public List<CommentContent> commentDetails(int submitId) {
+        return assignmentDao.selectComment(submitId);
+    }
+
+    @Override
     public boolean assignmentRemove(int assignmentId) {
         return assignmentDao.deleteAssignment(assignmentId);
     }

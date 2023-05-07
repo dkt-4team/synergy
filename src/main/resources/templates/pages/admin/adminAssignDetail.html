@@ -17,9 +17,9 @@
 </head>
 
 <body>
-<div th:replace="navBar/adminNavBar.html :: navFragment('값')"></div>
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
 <div class="assign-title">
-    <div class="assign-name" >김창헌 학생</div>
+    <div class="assign-name" th:text="|${submit.name}  학생|"></div>
     <div class="assign-button">
         과제 다운받기
     </div>
@@ -28,8 +28,9 @@
 <div>
     <div class="comment-title">코멘트 작성</div>
     <div class="comment-area">
-        <div th:each="todo : ${todoList}" class="comments">
-            <span th:text="${todo.content}"></span>
+        <div th:each="comment : ${comment}" class="comments">
+            <span th:text="${comment.content}"></span>
+            <span style="color:red">X</span>
         </div>
     </div>
     <textarea class="input-comment"></textarea>

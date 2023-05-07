@@ -38,6 +38,13 @@
         select USER.name from USER LEFT OUTER JOIN (select * from ASSIGNMENT_SUBMIT WHERE ref_assignment_id = #{assignmentId}) as b
         on USER.id=b.ref_user_id WHERE b.ref_user_id is null
     </select>
+    <select id="selectSubmitContent" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$SubmitContent">
+        select a.id, submit_file, a.reg_date, u.name from ASSIGNMENT_SUBMIT a INNER JOIN USER u on a.ref_user_id = u.id
+        WHERE a.id = #{submitId}
+    </select>
+    <select id="selectComment" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$CommentContent">
+        select id, content from COMMENTS WHERE ref_assignment_submit_id = #{submitId}
+    </select>
 <!--
     <insert id="insertAssignmentSubmit" parameterType="A"
 -->

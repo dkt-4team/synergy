@@ -16,6 +16,8 @@ public interface AssignmentService {
     AssignmentContent assignmentRecentDetails();
     List<SubmitStudent> submitStudentList(int assignmentId);
     List<UnsubmitStudent> unsubmitStudentList(int assignmentId);
+    SubmitContent submitDetails(int submitId);
+    List<CommentContent> commentDetails(int submitId);
     boolean assignmentRemove(int assignmentId);
     List<AssignmentVo> selectAllAssignment();
 }
