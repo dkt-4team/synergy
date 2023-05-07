@@ -30,11 +30,21 @@
     <div class="comment-area">
         <div th:each="comment : ${comment}" class="comments">
             <span th:text="${comment.content}"></span>
-            <span style="color:red">X</span>
+            <span style="color:red" th:onclick="deleteComment([[${comment.id}]], [[${submit.id}]])">X</span>
         </div>
     </div>
-    <textarea class="input-comment"></textarea>
-    <div class="button-area"><span class="exit">나가기</span><span class="save">등록하기</span></div>
+    <form name="delComment" style="display:none">
+        <input type="hidden" name="id" id="delId" />
+        <input type="hidden" name="submitId" id="subId" />
+    </form>
+    <form name="commentSubmit" th:object="${CommentDTO}" method="post", action="/admin/commentSave">
+        <input type="text" th:field="*{submitId}" style="display:none">
+        <textarea class="input-comment" th:field="*{content}"></textarea>
+        <div class="button-area"><span class="exit">나가기</span>
+            <span class="save" onclick="submitForm()">등록하기</span></div>
+    </form>
 </div>
 </body>
+<script src="/js/assignSubmit.js">
+</script>
 </html>
