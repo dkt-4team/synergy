@@ -29,26 +29,26 @@
         </div>
     </div>
 </div>
-
-<div class="assign-container" id="container" style="display: none">
-    <div class="assign-title" id="title"></div>
-    <hr>
-    <div class="assign-content" id="content"></div>
-    <div class="assign-buttons">
-        <div>과제 다운로드</div>
-        <div>과제 제출하기</div>
+<div class="root-container">
+    <div class="assign-container" id="container" style="display: none">
+        <div class="assign-title" id="title"></div>
+        <hr>
+        <div class="assign-content" id="content"></div>
+        <div class="assign-buttons">
+            <div>과제 다운로드</div>
+            <div>과제 제출하기</div>
+        </div>
+        <hr>
+        <div class="assign-bottom">
+            <div class="assign-comment-title">교수자 코멘트</div>
+            <div class="assign-comment"></div>
+            <!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
+        </div>
     </div>
-    <hr>
-    <div class="assign-bottom">
-        <div class="assign-comment-title">교수자 코멘트</div>
-        <div class="assign-comment"></div>
-<!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
+    <div class="back-container">
+        <a th:href='${ #request.getHeader("referer") }' class="assign-back">뒤로가기</a>
     </div>
 </div>
-<div style="margin-top: 42%;margin-bottom: 4%;">
-    <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>
-</div>
-
 <script>
     const container = document.getElementById("container");
     const title = document.getElementById("title");
@@ -59,6 +59,7 @@
         title.innerText = assign.title;
         content.innerText = assign.content;
     }
+
 </script>
 </body>
 </html>
