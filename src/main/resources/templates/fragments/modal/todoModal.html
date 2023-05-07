@@ -12,7 +12,7 @@
     <form name=frmSubmit th:object="${todo}">
         <div class="body">
             <div>
-                <input type="text" th:field="${todo.content}" id="content" required/>
+                <input type="text" maxlength='28' th:field="${todo.content}" id="content" required/>
             </div>
             <div>
                 <input type="date" th:field="${todo.endDate}" id="end_date" required/>
