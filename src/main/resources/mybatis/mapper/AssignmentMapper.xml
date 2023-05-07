@@ -11,6 +11,9 @@
         INSERT INTO ASSIGNMENTS (title, content, assignment_file)
         VALUES (#{title}, #{content}, #{assignmentFile})
     </insert>
+    <insert id="insertComment" parameterType="CommentVo">
+        INSERT INTO COMMENTS (ref_assignment_submit_id, content) values (#{refAssignmentSubmitId}, #{content})
+    </insert>
     <select id="getTodayAssignment" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
         SELECT id, title FROM ASSIGNMENTS WHERE DATE_FORMAT(reg_date, "%Y-%m-%d")=CURDATE() ORDER BY id
     </select>
@@ -25,6 +28,9 @@
     </select>
     <delete id="deleteAssignment" parameterType="int">
         DELETE FROM ASSIGNMENTS WHERE id = #{assignmentId}
+    </delete>
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM COMMENTS WHERE id = #{commentId}
     </delete>
     <select id="selectRecentAssignment" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentContent">
         SELECT id, title, content, assignment_file, reg_date FROM ASSIGNMENTS ORDER BY reg_date DESC LIMIT 1
@@ -45,6 +51,7 @@
     <select id="selectComment" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$CommentContent">
         select id, content from COMMENTS WHERE ref_assignment_submit_id = #{submitId}
     </select>
+
 <!--
     <insert id="insertAssignmentSubmit" parameterType="A"
 -->

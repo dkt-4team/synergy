@@ -2,6 +2,7 @@ package com.synergies.synergy.controller;
 
 import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
+import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.dto.NotificationDto;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentService;
@@ -25,13 +26,11 @@ public class AssignmentAdminController {
 
     @GetMapping("/home")
     public String main(Model model, HttpSession session) {
-        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-            return "redirect:/";
-        }
+//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
+//            return "redirect:/";
+//        }
         List<NotificationDto> notiList = notificationService.notificationList();
         List<AssignmentDetail> assignmentList = assignmentService.getTodayAssignment();
-
-        //System.out.println("hello");
 
         // 공지 데이터 불러오기
         if (notiList.isEmpty()){
@@ -81,8 +80,6 @@ public class AssignmentAdminController {
 
         model.addAttribute("submitStudents", submitStudents);
         model.addAttribute("unsubmitStudents", unsubmitStudents);
-        System.out.println("***Submit" + submitStudents);
-        System.out.println("***Unsubmit" + unsubmitStudents);
 
         if(assignmentList.isEmpty()) {
             model.addAttribute("assignmentList", null);
@@ -111,9 +108,9 @@ public class AssignmentAdminController {
     // 학생이 제출한 과제 상세 페이지
     @GetMapping("/assignmentSubmit/{id}")
     public String assignmentSubmit(@PathVariable("id") int submitId, Model model, HttpSession session) {
-        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-            return "redirect:/";
-        }
+//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
+//            return "redirect:/";
+//        }
 
         // 학생이 제출한 과제 데이터
         SubmitContent submitContent = assignmentService.submitDetails(submitId);
@@ -121,14 +118,41 @@ public class AssignmentAdminController {
 
         // 과제에 대한 코멘트
         List<CommentContent> comment = assignmentService.commentDetails(submitId);
-        System.out.println("***comment : " + comment);
         if(comment.size() == 0) {
             model.addAttribute("comment", null);
         } else {
             model.addAttribute("comment", comment);
         }
 
+        // 교수님 코멘트 데이터 받아올 빈 객체 전송
+        model.addAttribute("CommentDTO", new CommentDto(submitId));
+
         return "pages/admin/adminAssignDetail";
     }
+
+    @PostMapping("/commentSave")
+    public String commentSave(@ModelAttribute("CommentDTO") CommentDto comment, HttpSession session) {
+        //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
+//            return "redirect:/";
+//        }
+        System.out.println("***commentId : " + comment.getSubmitId());
+        assignmentService.insertComment(comment);       // TODO : 예외처리 추가
+        return "redirect:/admin/assignmentSubmit/"+comment.getSubmitId();
+    }
+
+    @PostMapping("/commentDelete")
+    public String commentRemove(@RequestParam("id") int commentId, int submitId, Model model, HttpSession session) {
+        //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
+//            return "redirect:/";
+//        }
+        // TODO: result 값을 보내 화면에 알림창을 띄우도록 추가
+        if (assignmentService.commentRemove(commentId)) {
+            model.addAttribute("result", "success");
+        } else {
+            model.addAttribute("result", "fail");
+        }
+        return "redirect:/admin/assignmentSubmit/"+submitId;
+    }
+
 
 }

@@ -3,7 +3,9 @@ package com.synergies.synergy.service;
 import com.synergies.synergy.dao.AssignmentDao;
 import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
+import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.vo.AssignmentVo;
+import com.synergies.synergy.domain.vo.CommentVo;
 import com.synergies.synergy.s3.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,12 @@ public class AssignmentServiceImpl implements AssignmentService {
         AssignmentVo vo = new AssignmentVo(assignment.getTitle(), assignment.getContent(), fileName);
 
         return assignmentDao.insertAssignment(vo);
+    }
+
+    @Override
+    public int insertComment(CommentDto comment) {
+        CommentVo commentVo = new CommentVo(comment.getSubmitId(), comment.getContent());
+        return assignmentDao.insertComment(commentVo);
     }
 
     // 오늘 등록한 과제 리스트 가져오기
@@ -82,5 +90,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public boolean assignmentRemove(int assignmentId) {
         return assignmentDao.deleteAssignment(assignmentId);
+    }
+
+    @Override
+    public boolean commentRemove(int commentId) {
+        return assignmentDao.deleteComment(commentId);
     }
 }
