@@ -15,9 +15,11 @@
 </head>
 
 <body>
+<div th:replace="/fragments/navBar/adminNavBar.html"></div>
+<!--
 <div
     th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
-
+-->
 <div th:replace="/fragments/modal/notificationModal.html :: notificationMainModal"></div>
 <div th:replace="/fragments/modal/assignmentModal.html :: assignmentModal"></div>
 
@@ -52,13 +54,12 @@
         <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost('01')">+</span>
         </div>
         <th:block th:if="${assignmentList}!=null">
-            <div id="assignModifyBtn" aria-haspopup="dialog">
+            <div id="btnOpen4" aria-haspopup="dialog">
                 <div th:each="assignment : ${assignmentList}">
                     <div class="assignment">
-                        <div class="assignment-content" th:onclick="assignPost('02', [[${assignment}]])">
+                        <div class="assignment-content" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
                             <span th:text="${assignment.title}"></span>
-                            <a th:href="@{/assignment/delete/{id}(id=${assignment.id})}" onclick="event.stopPropagation();"
-                               class="del">Delete</a>
+                            <a th:onclick="event.stopPropagation();deleteAssignment([[${assignment.id}]])" class="del">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -69,6 +70,9 @@
                  style="cursor:default;">+ 버튼을 눌러 assignment를 입력해주세요!
             </div>
         </th:block>
+        <form name="delAssignment" style="display:none">
+            <input type="hidden" name="id" id="delId" />
+        </form>
         <div class="go-button">과제 확인하기</div>
     </div>
 </div>

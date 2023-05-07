@@ -23,7 +23,7 @@
 
         if (sig == "01") {
             theForm.method = "post";
-            theForm.action = "/assignment/insert";
+            theForm.action = "/admin/assignRegister";
             theForm.enctype = "multipart/form-data";
             subText.innerText = "저장하기";
             con.value = '';
