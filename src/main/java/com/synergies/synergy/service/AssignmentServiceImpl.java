@@ -39,6 +39,19 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentDao.insertComment(commentVo);
     }
 
+    @Override
+    public int updateAssignment(AssignmentDto assignment) {
+        Date nowDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+        String fileName = simpleDateFormat.format(nowDate)+"_"+(assignment.getAssignmentNumber()+1);
+        fileUpload.uploadFile(fileName, true, assignment.getFile());
+
+        AssignmentVo assignmentVo =
+                new AssignmentVo(assignment.getId(), assignment.getTitle(), assignment.getContent(), fileName);
+
+        return assignmentDao.updateAssignment(assignmentVo);
+    }
+
     // 오늘 등록한 과제 리스트 가져오기
     @Override
     public List<AssignmentDetail> getTodayAssignment() {

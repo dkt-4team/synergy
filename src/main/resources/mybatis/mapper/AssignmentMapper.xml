@@ -11,6 +11,9 @@
         INSERT INTO ASSIGNMENTS (title, content, assignment_file)
         VALUES (#{title}, #{content}, #{assignmentFile})
     </insert>
+    <update id="updateAssignment" parameterType="AssignmentVo">
+        UPDATE ASSIGNMENTS SET title=#{title}, content=#{content}, assignment_file=#{assignmentFile} WHERE id=#{id};
+    </update>
     <insert id="insertComment" parameterType="CommentVo">
         INSERT INTO COMMENTS (ref_assignment_submit_id, content) values (#{refAssignmentSubmitId}, #{content})
     </insert>

@@ -55,11 +55,28 @@ public class AssignmentAdminController {
     @PostMapping("/assignRegister")
     public String assignmentInsert(@ModelAttribute("AssignmentDTO") AssignmentDto assignment, HttpSession session) {
         // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
-        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-            return "redirect:/";
-        }
+//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
+//            return "redirect:/";
+//        }
         assignmentService.insertAssignment(assignment);
         return "redirect:/admin/home";    // 관리자 페이지 메인 화면으로 이동
+    }
+
+    @PostMapping("/assignmentUpdate")
+    public String assignmentModify(@ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, HttpSession session) {
+        // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
+//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
+//            return "redirect:/";
+//        }
+
+        // TODO : result 결과에 따른 알림창 띄우기
+        if(assignmentService.updateAssignment(assignment) != 0) {
+            model.addAttribute("result", "success");
+        } else {
+            model.addAttribute("result", "fail");
+        }
+
+        return "redirect:/admin/home";
     }
 
     // 과제 확인하기
@@ -90,6 +107,8 @@ public class AssignmentAdminController {
             // 선택한 과제의 상세 데이터 전송
             model.addAttribute("assignmentDetail", assignDetail);
         }
+
+        model.addAttribute("AssignmentDTO", new AssignmentDto(assignmentList.size()));
 
         return "pages/admin/adminAssign";
     }

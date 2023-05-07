@@ -13,6 +13,7 @@ import java.util.List;
 public interface AssignmentService {
     int insertAssignment(AssignmentDto assignment);
     int insertComment(CommentDto comment);
+    int updateAssignment(AssignmentDto assignment);
     List<AssignmentDetail> getTodayAssignment();
     List<AssignmentDetail> assignmentList();
     AssignmentContent assignmentDetails(int assignmentId);

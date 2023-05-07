@@ -11,6 +11,7 @@ import java.util.List;
 public interface AssignmentDao {
     int insertAssignment(AssignmentVo assignment);
     int insertComment(CommentVo comment);
+    int updateAssignment(AssignmentVo assignmentVo);
     List<AssignmentDetail> getTodayAssignment();
     List<AssignmentVo> selectAllAssignment();
     List<AssignmentDetail> selectAllAssignmentTitle();
