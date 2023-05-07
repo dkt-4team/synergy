@@ -33,4 +33,18 @@ public class AssignmentResponseDto {
     public static class UnsubmitStudent {
         private String name;
     }
+
+    @Getter
+    public static class SubmitContent {
+        private int id;
+        private String name;
+        private String submitFile;
+        private String regDate;
+    }
+
+    @Getter
+    public static class CommentContent {
+        private int id;
+        private String content;
+    }
 }
