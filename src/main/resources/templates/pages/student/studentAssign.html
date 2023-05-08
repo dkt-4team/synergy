@@ -48,7 +48,11 @@
             <hr>
             <div class="assign-bottom">
                 <div class="assign-comment-title">교수자 코멘트</div>
-                <div class="assign-comment"></div>
+                <div class="assign-comment" th:if="${comment!=null}">
+                    <div th:each="comment : ${comment}" class="comments">
+                        <span th:text="${comment.content}"></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="back-container">
