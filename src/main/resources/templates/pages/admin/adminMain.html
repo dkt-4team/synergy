@@ -74,7 +74,7 @@
         <form name="delAssignment" style="display:none">
             <input type="hidden" name="id" id="delId" />
         </form>
-        <div class="go-button">과제 확인하기</div>
+        <div class="go-button" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignId})}'|">과제 확인하기</div>
     </div>
 </div>
 
