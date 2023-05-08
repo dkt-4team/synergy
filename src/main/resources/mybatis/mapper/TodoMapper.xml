@@ -8,9 +8,10 @@
     <result property="name" column="name"/>
   </resultMap>
 
-  <select id="selectAllTodo" resultMap="todoResultMap" parameterType="string">
+  <select id="selectAllTodo" resultMap="todoResultMap" parameterType="_byte[]">
     SELECT *
-    FROM TODOLIST WHERE ref_user_id = #{userId};
+    FROM TODOLIST
+    WHERE ref_user_id = #{refUserId};
   </select>
 
   <insert id="insertTodo" parameterType="com.synergies.synergy.domain.dto.TodoDto">
@@ -29,6 +30,7 @@
   <delete id="deleteTodo" parameterType="TodoDeleteRequestDTO">
     DELETE
     FROM TODOLIST
-    WHERE id = #{id} and ref_user_id = #{userId};
+    WHERE id = #{id}
+      and ref_user_id = #{refUserId};
   </delete>
 </mapper>

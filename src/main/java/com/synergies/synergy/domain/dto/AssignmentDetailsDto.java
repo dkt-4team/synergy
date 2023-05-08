@@ -11,19 +11,19 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AssignmentDetailsDto {
-    private String refUserId;
+    private byte[] refUserId;
     private int refAssignmentId;
     private MultipartFile file;
     private String comment;
     private String regDate;
 
-    public AssignmentDetailsDto(String refUserId, int refAssignmentId, MultipartFile file) {
+    public AssignmentDetailsDto(byte[] refUserId, int refAssignmentId, MultipartFile file) {
         this.refUserId = refUserId;
         this.refAssignmentId = refAssignmentId;
         this.file = file;
     }
 
-    public AssignmentDetailsDto(String refUserId, int refAssignmentId) {
+    public AssignmentDetailsDto(byte[] refUserId, int refAssignmentId) {
         this.refUserId = refUserId;
         this.refAssignmentId = refAssignmentId;
     }

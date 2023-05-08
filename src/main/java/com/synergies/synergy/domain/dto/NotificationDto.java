@@ -14,7 +14,7 @@ import lombok.Setter;
 public class NotificationDto {
 
     private int id;
-    private String refUserId;
+    private byte[] refUserId;
     private String title;
     private String content;
     private String regDate;

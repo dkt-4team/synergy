@@ -1,13 +1,14 @@
 package com.synergies.synergy.domain.vo;
 
-import org.springframework.web.multipart.MultipartFile;
+import lombok.Getter;
 
+@Getter
 public class AssignmentDetailsVo {
-    private String refUserId;
+    private byte[] refUserId;
     private int refAssignmentId;
     private String file;
 
-    public AssignmentDetailsVo(String refUserId, int refAssignmentId, String file) {
+    public AssignmentDetailsVo(byte[] refUserId, int refAssignmentId, String file) {
         this.refUserId = refUserId;
         this.refAssignmentId = refAssignmentId;
         this.file = file;

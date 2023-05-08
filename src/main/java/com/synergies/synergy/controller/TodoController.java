@@ -1,16 +1,13 @@
 package com.synergies.synergy.controller;
 
-import com.synergies.synergy.domain.dto.*;
+import com.synergies.synergy.domain.dto.AssignmentResponseDto;
+import com.synergies.synergy.domain.dto.NotificationDto;
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
+import com.synergies.synergy.domain.dto.TodoDto;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +17,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 @Controller
 public class TodoController {
 
     @Autowired
     private TodoService todoService;
+
     @Autowired
     private NotificationService notificationService;
 
@@ -62,8 +68,9 @@ public class TodoController {
 
     @GetMapping("/home")
     public String getAll(Model model, HttpSession session) throws ParseException {
+        System.out.println(Arrays.toString(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
-            ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
+                ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<NotificationDto> notiList = notificationService.notificationList();
         List<AssignmentResponseDto.AssignmentDetail> assignmentList = assignmentService.getTodayAssignment();
 
@@ -103,7 +110,7 @@ public class TodoController {
         }
         Date curDate = new Date();
         todo.setRegDate(curDate);
-        todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId());
+        todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
         todoService.insertTodo(todo);
         return "redirect:/home";
     }
@@ -116,7 +123,7 @@ public class TodoController {
             return "redirect:/home";
         }
         todo.setId(id);
-        todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId());
+        todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
         todoService.updateTodo(todo);
         return "redirect:/home";
     }
@@ -124,7 +131,7 @@ public class TodoController {
     @PostMapping("/todo/delete")
     public String todoDelete(int id, HttpSession session, RedirectAttributes redirectAttributes) {
         todoService.deleteTodo(new TodoDeleteRequestDto(id,
-            ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
+                ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
 
         redirectAttributes.addFlashAttribute("message", "todo를 완료하셨습니다!");
         return "redirect:/home";

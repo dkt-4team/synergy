@@ -3,7 +3,6 @@ package com.synergies.synergy.service;
 import com.synergies.synergy.dao.AssignmentDetailsDao;
 import com.synergies.synergy.domain.dto.AssignmentDetailsDto;
 import com.synergies.synergy.domain.vo.AssignmentDetailsVo;
-import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.s3.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

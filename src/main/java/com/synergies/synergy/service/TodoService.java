@@ -3,11 +3,12 @@ package com.synergies.synergy.service;
 
 import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
 import com.synergies.synergy.domain.dto.TodoDto;
-import java.util.List;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 @Service
 public interface TodoService {
-    List<TodoDto> selectAllTodo(String userId);
+    List<TodoDto> selectAllTodo(byte[] refUserId);
 
     int insertTodo(TodoDto todo);
 

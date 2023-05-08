@@ -16,7 +16,16 @@
     VALUES (#{id}, #{userId}, #{password}, #{salt}, #{name}, #{email}, #{phoneNumber}, #{role})
   </insert>
   <select id="selectUserLoginInfo" resultMap="userLoginInfoResultMap" parameterType="string">
-    SELECT user_id, password, salt, name, email, phone_number, role FROM USER WHERE user_id = #{userId};
+    SELECT id,
+           user_id,
+           password,
+           salt,
+           name,
+           email,
+           phone_number,
+           role
+    FROM USER
+    WHERE user_id = #{userId};
   </select>
   <select id="selectDuplicationUser" resultType="int" parameterType="string">
     SELECT count(user_id) FROM USER WHERE user_id = #{userId};
