@@ -1,9 +1,7 @@
 package com.synergies.synergy.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 public class AssignmentResponseDto {
 

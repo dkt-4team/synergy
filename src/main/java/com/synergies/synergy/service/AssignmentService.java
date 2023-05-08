@@ -4,7 +4,6 @@ import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.vo.AssignmentVo;
-import com.synergies.synergy.domain.vo.CommentVo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

@@ -4,9 +4,6 @@ import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.dto.NotificationDto;
-import com.synergies.synergy.domain.vo.LoginUserInfoVo;
-import com.synergies.synergy.s3.FileDownloadService;
-import com.synergies.synergy.s3.FileUploadService;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,21 +63,24 @@ public class AssignmentAdminController {
         return "redirect:/admin/home";    // 관리자 페이지 메인 화면으로 이동
     }
 
-    @PostMapping("/assignmentUpdate")
-    public String assignmentModify(@ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, HttpSession session) {
+    @PostMapping("/assignmentUpdate/{id}")
+    public String assignmentModify(@PathVariable int id, @ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, HttpSession session) {
         // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
 //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
 //            return "redirect:/";
 //        }
-
+        if (assignment == null || assignment.getContent().isBlank() || assignment.getTitle().isBlank()){
+            return "redirect:/admin/assignmentDetail/"+id;
+        }
         // TODO : result 결과에 따른 알림창 띄우기
+        assignment.setId(id);
         if(assignmentService.updateAssignment(assignment) != 0) {
             model.addAttribute("result", "success");
         } else {
             model.addAttribute("result", "fail");
         }
 
-        return "redirect:/admin/home";
+        return "redirect:/admin/assignmentDetail/"+id;
     }
 
     // 과제 확인하기
