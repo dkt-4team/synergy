@@ -71,9 +71,6 @@ public class AssignmentAdminController {
 //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
 //            return "redirect:/";
 //        }
-        if (assignment == null || assignment.getContent().isBlank() || assignment.getTitle().isBlank()){
-            return "redirect:/admin/assignmentDetail/"+id;
-        }
         // TODO : result 결과에 따른 알림창 띄우기
         assignment.setId(id);
         if(assignmentService.updateAssignment(assignment) != 0) {

@@ -8,7 +8,7 @@
 
 <body>
 <dialog id="assignDialog" th:fragment="assignmentModal">
-  <form id="aasignment-form" name="assignSubmit" th:object="${AssignmentDTO}">
+  <form name="assignSubmit" th:object="${AssignmentDTO}" id="assignmentSubmit">
     <div class="body">
       <div class="header">
         <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
@@ -28,7 +28,7 @@
   </form>
   <div class="bottom">
     <div>
-      <button form="aasignment-form" id="sub-name" type="submit">저장하기</button>
+      <button type="submit" id="sub-name" form="assignmentSubmit">저장하기</button>
     </div>
     <div>
       <button id="assignClose" style="margin-top: 3%; margin-bottom: 3%; color: red">취소

@@ -84,11 +84,6 @@ public class NotificationController {
     @PostMapping("/notificationUpdate/{id}")
     public String notificationModify(@PathVariable int id,
         @ModelAttribute NotificationDto notification, RedirectAttributes redirectAttributes) {
-        if (notification == null || notification.getContent().isBlank() || notification.getTitle()
-            .isBlank() || notification.getLabelOption().isBlank()) {
-            return "redirect:/adminMain";
-        }
-
         notification.setId(id);
         notificationService.notificationModify(notification);
 
