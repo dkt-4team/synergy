@@ -1,13 +1,21 @@
 package com.synergies.synergy.controller;
 
+import com.synergies.synergy.domain.dto.AssignmentDetailsDto;
+import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
+import com.synergies.synergy.domain.dto.NotificationDto;
+import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.service.AssignmentDetailsService;
 import com.synergies.synergy.service.AssignmentService;
+import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -15,6 +23,8 @@ import java.util.List;
 public class AssignmentController {
     @Autowired
     private AssignmentService assignmentService;
+    @Autowired
+    private AssignmentDetailsService assignmentDetailsService;
 
     // 과제 확인 페이지
     @GetMapping("/studentAssign/{id}")
@@ -75,10 +85,28 @@ public class AssignmentController {
         return "pages/student/studentAssign";
     }
 
-    // 과제 제출하기
-    @PostMapping("/assignmentSave")
-    public String assignmentSubmit(Model model) {
-        return "pages/student/studentAssign";
+    @PostMapping("/studentAssignRegister")
+    public String assignmentInsert(@ModelAttribute("AssignmentDetailsDto") AssignmentDetailsDto assignment, HttpSession session, RedirectAttributes redirectAttributes) {
+
+        assignment.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId());
+
+        String message;
+        if(assignment.getFile().isEmpty()){
+            message ="파일이 비어있습니다. 선택 후 제출해주세요!";
+
+        }else {
+            assignmentDetailsService.insertAssignmentDetail(assignment);
+            message ="제출에 성공했습니다.";
+        }
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/studentAssign";
     }
 
+    @GetMapping("/studentComment/{id}")
+    public String getAssignmentDetail(@PathVariable int id, HttpSession session) {
+        // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
+        AssignmentDetailsDto dto = new AssignmentDetailsDto(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId(), id);
+        assignmentDetailsService.getAssignmentDetail(dto);
+        return "redirect:/studentAssign";    // 관리자 페이지 메인 화면으로 이동
+    }
 }

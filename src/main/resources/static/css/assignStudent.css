@@ -107,9 +107,8 @@ body{
         }
         .back-container{
             position: absolute;
-            bottom: 50%;
             right: 5%;
-            bottom: -720px;
+            bottom: -85vh;
             width: 7%;
         }
  /* 반응형 */

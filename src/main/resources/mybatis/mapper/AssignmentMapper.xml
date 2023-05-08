@@ -55,7 +55,4 @@
         select id, content from COMMENTS WHERE ref_assignment_submit_id = #{submitId}
     </select>
 
-<!--
-    <insert id="insertAssignmentSubmit" parameterType="A"
--->
 </mapper>
