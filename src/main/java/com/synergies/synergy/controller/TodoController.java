@@ -72,7 +72,13 @@ public class TodoController {
         List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
                 ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<NotificationDto> notiList = notificationService.notificationList();
-        List<AssignmentResponseDto.AssignmentDetail> assignmentList = assignmentService.getTodayAssignment();
+        AssignmentResponseDto.AssignmentContent assignment = assignmentService.assignmentRecentDetails();
+        if(assignment == null) {
+            model.addAttribute("assignId", 0);
+        } else {
+            model.addAttribute("assignId", assignment.getId());
+        }
+
 
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
@@ -93,13 +99,7 @@ public class TodoController {
             return "pages/student/studentMain";
         }
 
-        if (assignmentList.isEmpty()) {
-            model.addAttribute("assignmentId", 50);
-            return "pages/student/studentMain";
-        }
-
         model.addAttribute("todoList", todoList);
-        model.addAttribute("assignmentId", assignmentList.get(0).getId());
         return "pages/student/studentMain";
     }
 

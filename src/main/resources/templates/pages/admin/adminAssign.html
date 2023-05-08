@@ -23,39 +23,44 @@
 <div th:replace="fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
 <div th:replace="fragments/modal/assignmentModal.html :: assignmentModal"></div>
 
-<div class="side-bar">
-    <div class="side-title">
-        실습 과제
-    </div>
-    <div class="side-con">
-        <div th:each="assignment : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
-            <span th:text="${assignment.title}" style="margin-left: 4%;"></span>
+<div th:if="${assignmentList!=null}">
+    <div class="side-bar">
+        <div class="side-title">
+            실습 과제
         </div>
-    </div>
-</div>
-
-<div class="assign-container">
-    <div class="assign-title" th:text="${assignmentDetail.title}"><span class="assign-back">뒤로가기</span></div>
-    <hr>
-    <div class="assign-content" th:text="${assignmentDetail.content}"></div>
-    <div class="assign-buttons">
-        <span th:text="${assignmentDetail.file}"></span>
-        <div>파일 다운로드</div>
-        <div id="assignModifyBtn" aria-haspopup="dialog" th:onclick="assignPost('02', [[${assignmentDetail.id}]], [[${assignmentDetail.title}]], [[${assignmentDetail.content}]])">과제 수정하기</div>
-    </div>
-    <hr>
-    <div>
-        <div th:each="unsubmit : ${unsubmitStudents}" class="assign-students">
-            <span th:text="${unsubmit.name}" style="margin-left: 4%;"></span>
-            <span class="">미제출</span>
-        </div>
-        <div th:each="student : ${submitStudents}" class="assign-students">
-            <div th:onclick="|location.href='@{/admin/assignmentSubmit/{id}(id=${student.id})}'|">
-                <span th:text="${student.name}" style="margin-left: 4%;" ></span>
-                <span>완료</span>
+        <div class="side-con">
+            <div th:each="assignment : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
+                <span th:text="${assignment.title}" style="margin-left: 4%;"></span>
             </div>
         </div>
     </div>
+
+    <div class="assign-container">
+        <div class="assign-title" th:text="${assignmentDetail.title}"><span class="assign-back">뒤로가기</span></div>
+        <hr>
+        <div class="assign-content" th:text="${assignmentDetail.content}"></div>
+        <div class="assign-buttons">
+            <span th:text="${assignmentDetail.file}"></span>
+            <div>파일 다운로드</div>
+            <div id="assignModifyBtn" aria-haspopup="dialog" th:onclick="assignPost([[${assignmentDetail.id}]], [[${assignmentDetail.title}]], [[${assignmentDetail.content}]])">과제 수정하기</div>
+        </div>
+        <hr>
+        <div>
+            <div th:each="unsubmit : ${unsubmitStudents}" class="assign-students">
+                <span th:text="${unsubmit.name}" style="margin-left: 4%;"></span>
+                <span class="">미제출</span>
+            </div>
+            <div th:each="student : ${submitStudents}" class="assign-students">
+                <div th:onclick="|location.href='@{/admin/assignmentSubmit/{id}(id=${student.id})}'|">
+                    <span th:text="${student.name}" style="margin-left: 4%;" ></span>
+                    <span>완료</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:unless="${assignmentList!=null}">
+    <div class="none-assign">등록된 과제가 없습니다.</div>
 </div>
 
 <script src="/js/assignModify.js">

@@ -25,20 +25,21 @@
             실습 과제
         </div>
         <div class="side-con">
-            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="getAssign([[${assign}]])">
+            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|">
                 <span th:text="${assign.title}" style="margin-left: 4%;"></span>
             </div>
         </div>
     </div>
     <div class="root-container">
-        <div class="assign-container" id="container" style="display: none">
-            <div class="assign-title" id="title"></div>
+        <div class="assign-container" id="container">
+            <div class="assign-title" id="title" th:text="${assignmentDetail.title}"></div>
             <hr>
-            <div class="assign-content" id="content"></div>
+            <div class="assign-content" id="content" th:text="${assignmentDetail.content}"></div>
             <div class="assign-buttons" style="position: relative">
-                <form name="assignSubmit" style="bottom: 30%; left: 6%; position: absolute;">
-                    <input name="file" type="file"/>
-                    <input type="hidden" name="refUserId"/>
+                <form name="assignSubmit" th:object="${AssignmentDetailsDto}" style="bottom: 30%; left: 6%; position: absolute;">
+                    <input type="text" style="display:none">
+                    <input name="file" th:field="*{file}" type="file"/>
+                    <input type="hidden" th:field="*{refAssignmentId}" name="refUserId"/>
                 </form>
                 <div>과제 다운로드</div>
                 <div onclick="assignPost()">과제 제출하기</div>
@@ -46,7 +47,11 @@
             <hr>
             <div class="assign-bottom">
                 <div class="assign-comment-title">교수자 코멘트</div>
-                <div class="assign-comment"></div>
+                <div class="assign-comment" th:if="${comment!=null}">
+                    <div th:each="comment : ${comment}" class="comments">
+                        <span th:text="${comment.content}"></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="back-container">

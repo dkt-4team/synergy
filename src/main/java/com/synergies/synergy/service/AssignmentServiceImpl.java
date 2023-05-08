@@ -126,6 +126,11 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    public List<CommentContent> commentStudent(GetComment getComment) {
+        return assignmentDao.selectCommentStudent(getComment);
+    }
+
+    @Override
     public boolean assignmentRemove(int assignmentId) {
         return assignmentDao.deleteAssignment(assignmentId);
     }

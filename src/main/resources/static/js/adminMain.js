@@ -24,19 +24,17 @@
     }
 
     // 과제 데이터 전송
-    function assignPost(sig) {
+    function assignPost() {
         let theForm = document.assignSubmit;
         let subText = document.getElementById("sub-name");
         let tit = document.getElementById("title");
         let con = document.getElementById("content");
 
-        if (sig == "01") {
-            theForm.method = "post";
-            theForm.action = "/admin/assignRegister";
-            theForm.enctype = "multipart/form-data";
-            subText.innerText = "저장하기";
-            con.value = '';
-        }
+        theForm.method = "post";
+        theForm.action = "/admin/assignRegister";
+        theForm.enctype = "multipart/form-data";
+        subText.innerText = "저장하기";
+        con.value = '';
     }
 
     // 공지 데이터 전송
@@ -73,6 +71,7 @@
     assignOpen.addEventListener('click', function (evt) {
         assignDialog.showModal();
     });
+
     // close
     assignClose.addEventListener('click', function () {
         assignDialog.close();

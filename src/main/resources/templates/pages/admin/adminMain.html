@@ -52,7 +52,7 @@
 
     </div>
     <div class="block">
-        <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost('01')">+</span>
+        <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost()">+</span>
         </div>
         <th:block th:if="${assignmentList}!=null">
             <div id="btnOpen4" aria-haspopup="dialog">
@@ -74,7 +74,7 @@
         <form name="delAssignment" style="display:none">
             <input type="hidden" name="id" id="delId" />
         </form>
-        <div class="go-button">과제 확인하기</div>
+        <div class="go-button" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignId})}'|">과제 확인하기</div>
     </div>
 </div>
 
@@ -93,29 +93,3 @@
       /* ]]> */
 </script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

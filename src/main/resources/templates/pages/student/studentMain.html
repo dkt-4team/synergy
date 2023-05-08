@@ -75,12 +75,12 @@
         <hr>
         <th:block th:if="${sig}">
             <div class="button-area">
-                <div class="button blink" th:onclick="|location.href='@{/studentAssign}'|"><span class="on_now_tag">과제 제출하기</span></div>
+                <div class="button blink" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|"><span class="on_now_tag">과제 제출하기</span></div>
             </div>
         </th:block>
         <th:block th:unless="${sig}">
             <div class="button-area">
-                <div class="button" th:onclick="|location.href='@{/studentAssign}'|">과제 제출하기</div>
+                <div class="button" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|">과제 제출하기</div>
             </div>
         </th:block>
     </div>

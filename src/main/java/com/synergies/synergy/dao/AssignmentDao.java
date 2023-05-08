@@ -21,6 +21,7 @@ public interface AssignmentDao {
     List<UnsubmitStudent> selectUnsubmitStudents(int assignmentId);
     SubmitContent selectSubmitContent(int submitId);
     List<CommentContent> selectComment(int submitId);
+    List<CommentContent> selectCommentStudent(GetComment getComment);
     boolean deleteAssignment(int assignmentId);
     boolean deleteComment(int commentId);
 }

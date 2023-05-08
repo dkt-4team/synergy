@@ -1,6 +1,7 @@
 package com.synergies.synergy.controller;
 
 import com.synergies.synergy.domain.dto.AssignmentDto;
+import com.synergies.synergy.domain.dto.AssignmentResponseDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.dto.NotificationDto;
@@ -51,6 +52,14 @@ public class AssignmentAdminController {
 
         model.addAttribute("AssignmentDTO", new AssignmentDto(assignmentList.size()));
 
+        // 최근 과제의 ID 값
+        AssignmentResponseDto.AssignmentContent assignment = assignmentService.assignmentRecentDetails();
+        if(assignment == null) {
+            model.addAttribute("assignId", 0);
+        } else {
+            model.addAttribute("assignId", assignment.getId());
+        }
+
         return "pages/admin/adminMain";
     }
 
@@ -71,9 +80,6 @@ public class AssignmentAdminController {
 //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
 //            return "redirect:/";
 //        }
-        if (assignment == null || assignment.getContent().isBlank() || assignment.getTitle().isBlank()){
-            return "redirect:/admin/assignmentDetail/"+id;
-        }
         // TODO : result 결과에 따른 알림창 띄우기
         assignment.setId(id);
         if(assignmentService.updateAssignment(assignment) != 0) {
@@ -107,7 +113,7 @@ public class AssignmentAdminController {
         model.addAttribute("submitStudents", submitStudents);
         model.addAttribute("unsubmitStudents", unsubmitStudents);
 
-        if(assignmentList.isEmpty()) {
+        if(assignmentId == 0 || assignmentList.isEmpty()) {
             model.addAttribute("assignmentList", null);
             model.addAttribute("assignmentDetail", null);
         } else {
@@ -166,7 +172,6 @@ public class AssignmentAdminController {
         //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
 //            return "redirect:/";
 //        }
-        System.out.println("***commentId : " + comment.getSubmitId());
         assignmentService.insertComment(comment);       // TODO : 예외처리 추가
         return "redirect:/admin/assignmentSubmit/"+comment.getSubmitId();
     }
