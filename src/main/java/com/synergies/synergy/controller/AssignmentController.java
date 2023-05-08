@@ -1,12 +1,8 @@
 package com.synergies.synergy.controller;
 
-import com.synergies.synergy.domain.dto.AssignmentDto;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
-import com.synergies.synergy.domain.dto.NotificationDto;
-import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentService;
-import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +24,6 @@ public class AssignmentController {
         if(loginUserInfo == null || loginUserInfo.getUserId() == null){
             return "redirect:/";
         }
-
-//        List<AssignmentDetail> assignList = assignmentService.assignmentList();
-//
-//        if (assignList.isEmpty()) {
-//            model.addAttribute("assignList", null);
-//            return "pages/student/studentAssign";
-//        }
-//        model.addAttribute("assignList", assignList);
 
         // 모든 과제들의 title 전송
         List<AssignmentDetail> assignmentList = assignmentService.assignmentList();
@@ -74,6 +62,14 @@ public class AssignmentController {
             model.addAttribute("assignmentList", assignmentList);
             // 선택한 과제의 상세 데이터 전송
             model.addAttribute("assignmentDetail", recentAssign);
+        }
+
+        // 해당 과제에 대한 교수자 코멘트
+        List<CommentContent> comment = assignmentService.commentDetails(recentAssign.getId());
+        if(comment.size() == 0) {
+            model.addAttribute("comment", null);
+        } else {
+            model.addAttribute("comment", comment);
         }
 
         return "pages/student/studentAssign";

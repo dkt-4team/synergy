@@ -41,6 +41,11 @@
     <hr>
     <div class="assign-bottom">
         <div class="assign-comment-title">교수자 코멘트</div>
+        <div class="comment-area">
+            <div th:each="comment : ${comment}" class="comments">
+                <span th:text="${comment.content}"></span>
+            </div>
+        </div>
         <div class="assign-comment"></div>
 <!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
     </div>
