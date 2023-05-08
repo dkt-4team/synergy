@@ -19,7 +19,7 @@
         <input type="text" th:field="*{title}" id="title" required placeholder="제목을 입력하세요"/>
       </div>
       <div class="file">
-        <input style="border: none;" th:field="*{file}"  type="file" name="file" /> <!-- 여러 파일 업로드 시 multiple 추가 -->
+        <input style="border: none;" th:field="*{file}"  type="file" id="file" name="file" /> <!-- 여러 파일 업로드 시 multiple 추가 -->
       </div>
       <div>
         <textarea th:field="*{content}" id="content" style="width: 90%; height: 40vh; border-radius: 20px" required placeholder="내용을 입력하세요"></textarea>

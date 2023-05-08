@@ -20,6 +20,13 @@ public class AssignmentVo {
         this.assignmentFile = assignmentFile;
     }
 
+    public AssignmentVo(int id, String title, String content, String assignmentFile) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.assignmentFile = assignmentFile;
+    }
+
     public AssignmentVo(int id, String title) {
         this.id = id;
         this.title = title;

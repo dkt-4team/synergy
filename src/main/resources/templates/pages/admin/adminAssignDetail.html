@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<meta charset="UTF-8">
+<title>Title</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+        href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+        rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/adminMain.css">
+<link rel="stylesheet" href="/css/assignDetail.css">
+</head>
+
+<body>
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
+<div class="assign-title">
+    <div class="assign-name" th:text="|${submit.name}  학생|"></div>
+    <div class="assign-button">
+        과제 다운받기
+    </div>
+</div>
+<hr>
+<div>
+    <div class="comment-title">코멘트 작성</div>
+    <div class="comment-area">
+        <div th:each="comment : ${comment}" class="comments">
+            <span th:text="${comment.content}"></span>
+            <span style="color:red" th:onclick="deleteComment([[${comment.id}]], [[${submit.id}]])">X</span>
+        </div>
+    </div>
+    <form name="delComment" style="display:none">
+        <input type="hidden" name="id" id="delId" />
+        <input type="hidden" name="submitId" id="subId" />
+    </form>
+    <form name="commentSubmit" th:object="${CommentDTO}" method="post", action="/admin/commentSave">
+        <input type="text" th:field="*{submitId}" style="display:none">
+        <textarea class="input-comment" th:field="*{content}"></textarea>
+        <div class="button-area"><span class="exit">나가기</span>
+            <span class="save" onclick="submitForm()">등록하기</span></div>
+    </form>
+</div>
+</body>
+<script src="/js/assignSubmit.js">
+</script>
+</html>
