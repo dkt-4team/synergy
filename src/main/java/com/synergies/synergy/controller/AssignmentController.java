@@ -7,6 +7,7 @@ import com.synergies.synergy.domain.dto.AssignmentResponseDto.CommentContent;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentDetailsService;
 import com.synergies.synergy.service.AssignmentService;
+import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +46,7 @@ public class AssignmentController {
             model.addAttribute("assignmentDetail", assignDetail);
         }
 
+        model.addAttribute("detail", new AssignmentDetailsDto(assignmentId));
         return "pages/student/studentAssign";
     }
 
@@ -77,12 +79,13 @@ public class AssignmentController {
         } else{
             model.addAttribute("comment", null);
         }
-
+        model.addAttribute("detail", new AssignmentDetailsDto());
         return "pages/student/studentAssign";
     }
 
     @PostMapping("/studentAssignRegister")
     public String assignmentInsert(@ModelAttribute("AssignmentDetailsDto") AssignmentDetailsDto assignment, HttpSession session, RedirectAttributes redirectAttributes) {
+
 
         assignment.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
 
