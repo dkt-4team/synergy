@@ -3,10 +3,9 @@
     const notiDialog = document.querySelector('dialog#notiDialog');
     const assignDialog = document.querySelector('dialog#assignDialog');
 
-    const [assignOpen, assignClose, assignModifyBtn] = [
+    const [assignOpen, assignClose] = [
         document.querySelector('#assignOpen'), // btnOpen에 담김 (body button#btnOpen)
-        document.querySelector('#assignClose'),
-        document.querySelector('#assignModifyBtn'),
+        document.querySelector('#assignClose')
     ];
     const [notiOpen,notiClose,notiModifyBtn] = [
         document.querySelector('#notiOpen'),
@@ -25,7 +24,7 @@
     }
 
     // 과제 데이터 전송
-    function assignPost(sig, id, content, title) {
+    function assignPost(sig) {
         let theForm = document.assignSubmit;
         let subText = document.getElementById("sub-name");
         let tit = document.getElementById("title");
@@ -37,13 +36,6 @@
             theForm.enctype = "multipart/form-data";
             subText.innerText = "저장하기";
             con.value = '';
-        } else if (sig == "02") {
-            theForm.method = "post";
-            theForm.action = `/admin/assignmentUpdate/${id}`;
-            theForm.enctype = "multipart/form-data";
-            tit.value = title;
-            con.value = content;
-            subText.innerText = "수정하기";
         }
     }
 
@@ -64,7 +56,6 @@
             subTitle.value = '';
         } else if (sig == "02") {
             theForm.method = "post";
-            theForm.action = `/notificationUpdate/${id}`;
             theForm.action = `/notificationUpdate/${notification.id}`;
             textarea.value = notification.content;
             subTitle.value = notification.title;
@@ -97,12 +88,6 @@
     notiModifyBtn.addEventListener('click', function (evt) {
         if (evt.target.closest('.notification')!=null) {
             notiDialog.showModal();
-        }
-    });
-
-    assignModifyBtn.addEventListener('click', function (evt) {
-        if (evt.target.closest('.assignmentDetail')!=null) {
-            assignDialog.showModal();
         }
     });
 
