@@ -8,7 +8,6 @@ import com.synergies.synergy.domain.dto.AssignmentResponseDto.CommentContent;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentDetailsService;
 import com.synergies.synergy.service.AssignmentService;
-import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,11 +80,4 @@ public class AssignmentController {
         return "redirect:/studentAssign";
     }
 
-    @GetMapping("/studentComment/{id}")
-    public String getAssignmentDetail(@PathVariable int id, HttpSession session) {
-        // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
-        AssignmentDetailsDto dto = new AssignmentDetailsDto(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId(), id);
-        assignmentDetailsService.getAssignmentDetail(dto);
-        return "redirect:/studentAssign";    // 관리자 페이지 메인 화면으로 이동
-    }
 }

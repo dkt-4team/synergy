@@ -99,13 +99,7 @@ public class TodoController {
             return "pages/student/studentMain";
         }
 
-//        if (assignmentList.isEmpty()) {
-//            model.addAttribute("assignmentId", 50);
-//            return "pages/student/studentMain";
-//        }
-
         model.addAttribute("todoList", todoList);
-        //model.addAttribute("assignmentId", assignmentList.get(0).getId());
         return "pages/student/studentMain";
     }
 

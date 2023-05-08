@@ -25,14 +25,13 @@
             실습 과제
         </div>
         <div class="side-con">
-            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assign.id})}'|">
+            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|">
                 <span th:text="${assign.title}" style="margin-left: 4%;"></span>
             </div>
         </div>
     </div>
     <div class="root-container">
         <div class="assign-container" id="container">
-            <!-- TODO : assignment가 null일 때 할당하지 않도록 해야함 -->
             <div class="assign-title" id="title" th:text="${assignmentDetail.title}"></div>
             <hr>
             <div class="assign-content" id="content" th:text="${assignmentDetail.content}"></div>
