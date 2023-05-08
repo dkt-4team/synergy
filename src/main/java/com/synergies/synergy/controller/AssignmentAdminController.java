@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -60,11 +61,12 @@ public class AssignmentAdminController {
 //            return "redirect:/";
 //        }
         assignmentService.insertAssignment(assignment);
+
         return "redirect:/admin/home";    // 관리자 페이지 메인 화면으로 이동
     }
 
     @PostMapping("/assignmentUpdate/{id}")
-    public String assignmentModify(@PathVariable int id, @ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, HttpSession session) {
+    public String assignmentModify(@PathVariable int id, @ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
 //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
 //            return "redirect:/";
@@ -79,6 +81,9 @@ public class AssignmentAdminController {
         } else {
             model.addAttribute("result", "fail");
         }
+
+        String message = "과제를 수정하셨습니다!";
+        redirectAttributes.addFlashAttribute("message", message);
 
         return "redirect:/admin/assignmentDetail/"+id;
     }
@@ -118,12 +123,15 @@ public class AssignmentAdminController {
     }
 
     @PostMapping("/assignmentDelete")
-    public String assignmentRemove(@RequestParam("id") int assignmentId, Model model) {
+    public String assignmentRemove(@RequestParam("id") int assignmentId, Model model,  RedirectAttributes redirectAttributes) {
         // TODO: result 값을 보내 화면에 알림창을 띄우도록 추가
+        String message;
         if (assignmentService.assignmentRemove(assignmentId)) {
-            model.addAttribute("result", "success");
+            message = "과제를 삭제하셨습니다!";
+            redirectAttributes.addFlashAttribute("message", message);
         } else {
-            model.addAttribute("result", "fail");
+            message = "과제 삭제에 실패하셨습니다!";
+            redirectAttributes.addFlashAttribute("message", message);
         }
         return "redirect:/admin/home";
     }
@@ -164,15 +172,18 @@ public class AssignmentAdminController {
     }
 
     @PostMapping("/commentDelete")
-    public String commentRemove(@RequestParam("id") int commentId, int submitId, Model model, HttpSession session) {
+    public String commentRemove(@RequestParam("id") int commentId, int submitId, Model model, HttpSession session,  RedirectAttributes redirectAttributes) {
         //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
 //            return "redirect:/";
 //        }
         // TODO: result 값을 보내 화면에 알림창을 띄우도록 추가
+        String message;
         if (assignmentService.commentRemove(commentId)) {
-            model.addAttribute("result", "success");
+            message = "코멘트를 삭제하셨습니다!";
+            redirectAttributes.addFlashAttribute("message", message);
         } else {
-            model.addAttribute("result", "fail");
+            message = "코멘트 삭제에 실패하셨습니다!";
+            redirectAttributes.addFlashAttribute("message", message);
         }
         return "redirect:/admin/assignmentSubmit/"+submitId;
     }

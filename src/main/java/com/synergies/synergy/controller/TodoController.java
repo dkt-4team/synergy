@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TodoController {
@@ -114,9 +115,11 @@ public class TodoController {
     }
 
     @PostMapping("/todo/delete")
-    public String todoDelete(int id, HttpSession session) {
+    public String todoDelete(int id, HttpSession session, RedirectAttributes redirectAttributes) {
         todoService.deleteTodo(new TodoDeleteRequestDto(id,
             ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
+        String message = "todo를 완료하셨습니다!";
+        redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/home";
     }
 }

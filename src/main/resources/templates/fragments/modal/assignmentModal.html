@@ -11,8 +11,6 @@
   <form name="assignSubmit" th:object="${AssignmentDTO}">
     <div class="body">
       <div class="header">
-        <!--   임시임 꼭 변경해야함 -->
-        <input type="text" value="#S122" style="display:none"/>
         <!--    ref_user_id는 로그인 기능 통합 후에 따로 받아와야 함.  -->
         <!-- 오늘 등록된 assignment 개수 보내기 -->
         <input type="text" th:field="*{assignmentNumber}" style="display:none"/>

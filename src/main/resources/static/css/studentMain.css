@@ -42,6 +42,7 @@
       .logo {
         margin-left: 2%;
         font-size: 1.4rem;
+        cursor: pointer;
       }
 
       .logout {

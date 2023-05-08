@@ -55,7 +55,6 @@
             textarea.value = '';
             subTitle.value = '';
         } else if (sig == "02") {
-            theForm.method = "post";
             theForm.action = `/notificationUpdate/${notification.id}`;
             textarea.value = notification.content;
             subTitle.value = notification.title;
