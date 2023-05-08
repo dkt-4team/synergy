@@ -23,6 +23,7 @@ public interface AssignmentService {
     List<UnsubmitStudent> unsubmitStudentList(int assignmentId);
     SubmitContent submitDetails(int submitId);
     List<CommentContent> commentDetails(int submitId);
+    List<CommentContent> commentStudent(GetComment getComment);
     boolean assignmentRemove(int assignmentId);
     boolean commentRemove(int commentId);
     List<AssignmentVo> selectAllAssignment();

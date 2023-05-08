@@ -1,6 +1,7 @@
 package com.synergies.synergy.controller;
 
 import com.synergies.synergy.domain.dto.AssignmentDetailsDto;
+import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.AssignmentContent;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.AssignmentDetail;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.CommentContent;
@@ -36,56 +37,35 @@ public class AssignmentController {
 
         // 모든 과제들의 title 전송
         List<AssignmentDetail> assignmentList = assignmentService.assignmentList();
-        if(assignmentList.isEmpty()) {
+        if(assignmentId == 0 || assignmentList.isEmpty()) {
             model.addAttribute("assignmentList", null);
             model.addAttribute("assignmentDetail", null);
         } else {
+
+            model.addAttribute("assignmentList", assignmentList);
+
+            // 선택한 과제의 상세 데이터 전송
             AssignmentContent assignDetail = assignmentService.assignmentDetails(assignmentId);
-            model.addAttribute("assignmentList", assignmentList);
-            // 선택한 과제의 상세 데이터 전송
             model.addAttribute("assignmentDetail", assignDetail);
-        }
 
-        model.addAttribute("detail", new AssignmentDetailsDto(assignmentId));
-        return "pages/student/studentAssign";
-    }
-
-    @GetMapping("/studentAssign")
-    public String studentAssignPage(Model model) {
-        LoginUserInfoVo loginUserInfo = (LoginUserInfoVo)model.getAttribute("loginUserInfo");
-        if(loginUserInfo == null || loginUserInfo.getUserId() == null){
-            return "redirect:/";
-        }
-
-        // 모든 과제들의 title 전송
-        List<AssignmentDetail> assignmentList = assignmentService.assignmentList();
-
-        // 최근 과제 정보 전송
-        AssignmentContent recentAssign = assignmentService.assignmentRecentDetails();
-
-        if(assignmentList.isEmpty()) {
-            model.addAttribute("assignmentList", null);
-            model.addAttribute("assignmentDetail", null);
-        } else {
-            model.addAttribute("assignmentList", assignmentList);
-            // 선택한 과제의 상세 데이터 전송
-            model.addAttribute("assignmentDetail", recentAssign);
-        }
-
-        if(recentAssign != null){
             // 해당 과제에 대한 교수자 코멘트
-            List<CommentContent> comment = assignmentService.commentDetails(recentAssign.getId());
-            model.addAttribute("comment", comment);
-        } else{
-            model.addAttribute("comment", null);
+            GetComment getComment = new GetComment(assignDetail.getId(), loginUserInfo.getId());
+            List<CommentContent> comment = assignmentService.commentStudent(getComment);
+            System.out.println("***id : " + assignDetail.getId());
+            System.out.println("***comment : " + comment);
+            if(comment.isEmpty()) {
+                model.addAttribute("comment", null);
+            } else {
+                model.addAttribute("comment", comment);
+            }
+
         }
-        model.addAttribute("detail", new AssignmentDetailsDto());
+
         return "pages/student/studentAssign";
     }
 
     @PostMapping("/studentAssignRegister")
     public String assignmentInsert(@ModelAttribute("AssignmentDetailsDto") AssignmentDetailsDto assignment, HttpSession session, RedirectAttributes redirectAttributes) {
-
 
         assignment.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
 
