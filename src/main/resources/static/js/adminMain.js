@@ -38,6 +38,7 @@
 
     // 공지 데이터 전송
     function notiPost(sig,notification) {
+        console.log(notification);
         let theForm = document.notiSubmit;
         let subText = document.getElementById("sub-noti");
         let textarea = document.getElementById("noti-textarea");

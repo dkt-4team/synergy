@@ -16,7 +16,7 @@
 
 <body>
 <div
-    th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+    th:replace="/fragments/navBar/adminNavBar.html :: navFragment('ttt')"></div>
 
 <div th:replace="/fragments/modal/notificationModal.html :: notificationMainModal"></div>
 <div th:replace="/fragments/modal/assignmentModal.html :: assignmentModal"></div>
@@ -25,21 +25,23 @@
     <div class="block">
         <div class="block-header">공지 리스트<span id="notiOpen" aria-haspopup="dialog" onClick="notiPost('01')">+</span>
         </div>
-        <th:block th:if="${notiList}!=null">
-            <div id="notiModifyBtn" aria-haspopup="dialog">
-                <div class="notification">
-                    <div th:each="notification : ${notiList}">
-                        <div class="noti-content" th:onclick="notiPost('02', [[${notification.id}]])">
-                            <span th:text="|[${notification.labelOption}]|"></span>
-                            <a th:href="@{/notificationDelete/{id}(id=${notification.id})}"
-                               onclick="event.stopPropagation();" class="del" style="float: right; margin-right: 5%; ">Delete</a>
-                            <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}" style=" float: right; margin-right: 2%; color: blue"></span>
-                            <span th:text="${notification.title}"></span>
+        <div class="todo-scroll">
+            <th:block th:if="${notiList}!=null">
+                <div id="notiModifyBtn" aria-haspopup="dialog">
+                    <div class="notification">
+                        <div th:each="notification : ${notiList}">
+                            <div class="noti-content" th:onclick="notiPost('02', [[${notification}]])">
+                                <span th:text="|[${notification.labelOption}]|"></span>
+                                <a th:href="@{/notificationDelete/{id}(id=${notification.id})}"
+                                   onclick="event.stopPropagation();" class="del" style="float: right; margin-right: 5%; ">Delete</a>
+                                <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}" style=" float: right; margin-right: 2%; color: blue"></span>
+                                <span th:text="${notification.title}"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </th:block>
+            </th:block>
+        </div>
 
         <th:block th:unless="${notiList}!=null">
             <div class="notification-content-empty" onclick="event.stopPropagation();"
