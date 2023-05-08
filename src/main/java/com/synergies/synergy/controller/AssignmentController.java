@@ -62,8 +62,6 @@ public class AssignmentController {
 
         // 최근 과제 정보 전송
         AssignmentContent recentAssign = assignmentService.assignmentRecentDetails();
-        System.out.println("***" + recentAssign.getTitle());
-        System.out.println("***" + recentAssign.getContent());
 
         if(assignmentList.isEmpty()) {
             model.addAttribute("assignmentList", null);
@@ -74,12 +72,12 @@ public class AssignmentController {
             model.addAttribute("assignmentDetail", recentAssign);
         }
 
-        // 해당 과제에 대한 교수자 코멘트
-        List<CommentContent> comment = assignmentService.commentDetails(recentAssign.getId());
-        if(comment.size() == 0) {
-            model.addAttribute("comment", null);
-        } else {
+        if(recentAssign != null){
+            // 해당 과제에 대한 교수자 코멘트
+            List<CommentContent> comment = assignmentService.commentDetails(recentAssign.getId());
             model.addAttribute("comment", comment);
+        } else{
+            model.addAttribute("comment", null);
         }
 
         return "pages/student/studentAssign";

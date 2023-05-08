@@ -111,6 +111,13 @@ body{
             bottom: -85vh;
             width: 7%;
         }
+        .none-assign{
+            margin-left: auto;
+            margin-right: auto;
+            width: 15vw;
+            margin-top: 20%;
+            font-size: 1.5em;
+        }
  /* 반응형 */
       @media screen and (max-width:1023px) {
         .side-bar{
