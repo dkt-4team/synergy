@@ -58,6 +58,8 @@ public class AssignmentController {
                 model.addAttribute("comment", comment);
             }
 
+            // 과제 제출에 필요한 빈 객체 전송
+            model.addAttribute("AssignmentDetailsDto", new AssignmentDetailsDto(assignmentId));
         }
 
         return "pages/student/studentAssign";
@@ -77,7 +79,7 @@ public class AssignmentController {
             message ="제출에 성공했습니다.";
         }
         redirectAttributes.addFlashAttribute("message", message);
-        return "redirect:/studentAssign";
+        return "redirect:/studentAssign/"+assignment.getRefAssignmentId();
     }
 
 }

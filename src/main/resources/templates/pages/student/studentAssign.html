@@ -36,10 +36,10 @@
             <hr>
             <div class="assign-content" id="content" th:text="${assignmentDetail.content}"></div>
             <div class="assign-buttons" style="position: relative">
-                <form name="assignSubmit" style="bottom: 30%; left: 6%; position: absolute;">
+                <form name="assignSubmit" th:object="${AssignmentDetailsDto}" style="bottom: 30%; left: 6%; position: absolute;">
                     <input type="text" style="display:none">
-                    <input name="file" type="file"/>
-                    <input type="hidden" name="refUserId"/>
+                    <input name="file" th:field="*{file}" type="file"/>
+                    <input type="hidden" th:field="*{refAssignmentId}" name="refUserId"/>
                 </form>
                 <div>과제 다운로드</div>
                 <div onclick="assignPost()">과제 제출하기</div>
