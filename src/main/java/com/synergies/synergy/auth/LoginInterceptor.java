@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class LoginInterceptor implements HandlerInterceptor {
 
     public List loginEssential = Arrays.asList("/home/**", "/todo/**", "/adminMain");
+
     public List loginInessential = Arrays.asList("/login/**", "/");
 
     @Override
