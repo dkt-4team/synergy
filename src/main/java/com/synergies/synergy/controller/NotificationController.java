@@ -89,8 +89,7 @@ public class NotificationController {
         notification.setId(id);
         notificationService.notificationModify(notification);
 
-        String message = "공지를 수정하셨습니다!";
-        redirectAttributes.addFlashAttribute("message", message);
+        redirectAttributes.addFlashAttribute("message", "공지를 수정하셨습니다!");
         return "redirect:/adminMain";
     }
 
@@ -98,8 +97,8 @@ public class NotificationController {
     @GetMapping("/notificationDelete/{id}")
     public String notificationRemove(@PathVariable int id, RedirectAttributes redirectAttributes) {
         notificationService.notificationRemove(id);
-        String message = "공지를 삭제하셨습니다!";
-        redirectAttributes.addFlashAttribute("message", message);
+
+        redirectAttributes.addFlashAttribute("message", "공지를 삭제하셨습니다!");
         return "redirect:/adminMain";
     }
 }
