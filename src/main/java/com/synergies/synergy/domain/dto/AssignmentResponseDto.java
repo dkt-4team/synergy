@@ -1,5 +1,6 @@
 package com.synergies.synergy.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,5 +45,12 @@ public class AssignmentResponseDto {
     public static class CommentContent {
         private int id;
         private String content;
+    }
+
+    @Setter
+    @AllArgsConstructor
+    public static class GetComment {
+        private int assignmentId;
+        private byte[] userId;
     }
 }

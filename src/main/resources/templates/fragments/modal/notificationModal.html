@@ -19,7 +19,7 @@
     </div>
 </dialog>
 <dialog id="notiDialog" th:fragment="notificationMainModal">
-    <form name=notiSubmit th:object="${notification}" class="noti-form">
+    <form name=notiSubmit th:object="${notification}" class="noti-form" id="notificationSubmit">
         <div class="body">
             <div class="header">
                 <div class="selectBox">
@@ -39,15 +39,15 @@
                 <textarea rows="10" class="noti-textarea" name="content" id="noti-textarea" placeholder="내용을 입력하세요"></textarea>
             </div>
         </div>
-        <div class="bottom">
-            <div>
-                <button type="submit" id="sub-noti">저장하기</button>
-            </div>
-            <div>
-                <button id="notiClose" aria-label="close" value="cancel">취소</button>
-            </div>
-        </div>
     </form>
+    <div class="bottom">
+        <div>
+            <button type="submit" id="sub-noti" form="notificationSubmit">저장하기</button>
+        </div>
+        <div>
+            <button id="notiClose" aria-label="close" value="cancel">취소</button>
+        </div>
+    </div>
 </dialog>
 
 </body>
