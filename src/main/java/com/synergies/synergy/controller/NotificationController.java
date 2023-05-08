@@ -2,8 +2,8 @@ package com.synergies.synergy.controller;
 
 import com.synergies.synergy.auth.LoginAuth;
 import com.synergies.synergy.domain.dto.AssignmentDto;
+import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.NotificationDto;
-import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import java.util.List;
@@ -41,8 +41,8 @@ public class NotificationController {
         */
 
         List<NotificationDto> notiList = notificationService.notificationList();
-        List<AssignmentVo> assigmentList = assignmentService.getTodayAssignment();
-        model.addAttribute("AssignmentDTO", new AssignmentDto());
+        List<AssignmentDetail> assigmentList = assignmentService.getTodayAssignment();
+        model.addAttribute("AssignmentDTO", new AssignmentDto(assigmentList.size()));
 
         // 공지 데이터 불러오기
         if (notiList.isEmpty()) {

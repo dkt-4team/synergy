@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Spring Thyme Seed Starter Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+            rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/assignAdmin.css">
+</head>
+
+<body>
+<div th:replace="fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
+<div class="side-bar">
+    <div class="side-title">
+        실습 과제
+    </div>
+    <div style="margin-top: 10vh;">
+        <div th:each="assignment : ${assignmentList}" class="side-assign">
+            <span th:text="${assignment.title}" style="margin-left: 4%;"></span>
+        </div>
+    </div>
+</div>
+<div class="assign-container">
+    <div class="assign-title" th:text="${assignmentDetail.title}"><span class="assign-back">뒤로가기</span></div>
+    <hr>
+    <div class="assign-content" th:text="${assignmentDetail.content}"></div>
+    <div class="assign-buttons">
+        <div>파일 다운로드</div>
+        <div>과제 수정하기</div>
+    </div>
+    <hr>
+    <div>
+        <div th:each="assignment : ${assignmentList}" class="assign-students">
+            <span th:text="${assignment.title}" style="margin-left: 4%;"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
