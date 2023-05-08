@@ -5,6 +5,7 @@ import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.domain.vo.CommentVo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public interface AssignmentService {
     int insertAssignment(AssignmentDto assignment);
     int insertComment(CommentDto comment);
     int updateAssignment(AssignmentDto assignment);
+    public ResponseEntity<byte[]> fileDownload(String fileUrl, boolean isManager);
     List<AssignmentDetail> getTodayAssignment();
     List<AssignmentDetail> assignmentList();
     AssignmentContent assignmentDetails(int assignmentId);

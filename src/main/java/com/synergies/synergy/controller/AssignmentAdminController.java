@@ -5,14 +5,18 @@ import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.dto.NotificationDto;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.s3.FileDownloadService;
+import com.synergies.synergy.s3.FileUploadService;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -173,5 +177,12 @@ public class AssignmentAdminController {
         return "redirect:/admin/assignmentSubmit/"+submitId;
     }
 
+    @GetMapping("/assignmentDownload")
+    public ResponseEntity<byte[]> assignmentDownload(Model model, HttpSession session) throws IOException {
+        //@RequestParam("file") String fileUrl,
+        String fileUrl="230503_10";
+
+        return assignmentService.fileDownload(fileUrl, true);
+    }
 
 }

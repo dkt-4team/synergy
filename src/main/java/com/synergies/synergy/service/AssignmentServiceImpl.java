@@ -6,10 +6,13 @@ import com.synergies.synergy.domain.dto.AssignmentResponseDto.*;
 import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.vo.AssignmentVo;
 import com.synergies.synergy.domain.vo.CommentVo;
+import com.synergies.synergy.s3.FileDownloadService;
 import com.synergies.synergy.s3.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +24,28 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Autowired
     private FileUploadService fileUpload;
+
+    @Autowired
+    private FileDownloadService fileDownload;
+
+    @Override
+    public ResponseEntity<byte[]> fileDownload(String fileUrl, boolean isManager) {
+        String filePath;
+        if(isManager) {
+            filePath = "https://synergy-file.s3.ap-northeast-2.amazonaws.com/synergy-file/admin/"+fileUrl;
+        } else {
+            filePath = "https://synergy-file.s3.ap-northeast-2.amazonaws.com/synergy-file/student/"+fileUrl;
+        }
+
+        System.out.println("***file Download : " + filePath);
+        System.out.println("***file Download : " + filePath.substring(52));
+
+        try {
+            return fileDownload.downloadFile(filePath.substring(52));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public int insertAssignment(AssignmentDto assignment) {
