@@ -1,9 +1,8 @@
 package com.synergies.synergy.controller;
 
-import com.synergies.synergy.domain.dto.NotificationDto;
-import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
-import com.synergies.synergy.domain.dto.TodoDto;
+import com.synergies.synergy.domain.dto.*;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
 import java.text.ParseException;
@@ -27,6 +26,9 @@ public class TodoController {
     private TodoService todoService;
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private AssignmentService assignmentService;
 
     private List<TodoDto> changeDateFormat(List<TodoDto> list) throws ParseException {
         String[] date;
@@ -62,6 +64,7 @@ public class TodoController {
         List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
             ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
         List<NotificationDto> notiList = notificationService.notificationList();
+        List<AssignmentResponseDto.AssignmentDetail> assignmentList = assignmentService.getTodayAssignment();
 
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
@@ -75,8 +78,13 @@ public class TodoController {
             return "pages/student/studentMain";
         }
 
-        model.addAttribute("todoList", todoList);
+        if (assignmentList.isEmpty()) {
+            model.addAttribute("assignmentId", 50);
+            return "pages/student/studentMain";
+        }
 
+        model.addAttribute("todoList", todoList);
+        model.addAttribute("assignmentId", assignmentList.get(0).getId());
         return "pages/student/studentMain";
     }
 

@@ -1,5 +1,4 @@
 
-
     //여기서부터 모달창
     const notiDialog = document.querySelector('dialog#notiDialog');
     const assignDialog = document.querySelector('dialog#assignDialog');
@@ -16,10 +15,20 @@
 
     ];
 
+    // 과제 삭제
+    function deleteAssignment(id){
+        let theForm = document.delAssignment;
+        theForm.method = "post";
+        theForm.action = "/admin/assignmentDelete";
+        delId.value = id;
+        theForm.submit();
+    }
+
     // 과제 데이터 전송
-    function assignPost(sig, todo) {
+    function assignPost(sig, id, content, title) {
         let theForm = document.assignSubmit;
         let subText = document.getElementById("sub-name");
+        let tit = document.getElementById("title");
         let con = document.getElementById("content");
 
         if (sig == "01") {
@@ -30,8 +39,10 @@
             con.value = '';
         } else if (sig == "02") {
             theForm.method = "post";
-            theForm.action = `/assignment/update/${todo.id}`;
-            con.value = todo.content;
+            theForm.action = `/admin/assignmentUpdate/${id}`;
+            theForm.enctype = "multipart/form-data";
+            tit.value = title;
+            con.value = content;
             subText.innerText = "수정하기";
         }
     }
@@ -52,6 +63,8 @@
             textarea.value = '';
             subTitle.value = '';
         } else if (sig == "02") {
+            theForm.method = "post";
+            theForm.action = `/notificationUpdate/${id}`;
             theForm.action = `/notificationUpdate/${notification.id}`;
             textarea.value = notification.content;
             subTitle.value = notification.title;
@@ -59,8 +72,6 @@
             subText.innerText = "수정하기";
         }
     }
-
-
 
     //   모달 메소드
 
@@ -90,9 +101,8 @@
     });
 
     assignModifyBtn.addEventListener('click', function (evt) {
-        if (evt.target.closest('.assignment')!=null) {
+        if (evt.target.closest('.assignmentDetail')!=null) {
             assignDialog.showModal();
         }
     });
-
 

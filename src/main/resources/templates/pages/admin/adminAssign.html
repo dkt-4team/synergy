@@ -20,6 +20,8 @@
 
 <body>
 <div th:replace="fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
+<div th:replace="fragments/modal/assignmentModal.html :: assignmentModal"></div>
+
 <div class="side-bar">
     <div class="side-title">
         실습 과제
@@ -36,8 +38,9 @@
     <hr>
     <div class="assign-content" th:text="${assignmentDetail.content}"></div>
     <div class="assign-buttons">
+        <span th:text="${assignmentDetail.file}"></span>
         <div>파일 다운로드</div>
-        <div>과제 수정하기</div>
+        <div id="assignModifyBtn" aria-haspopup="dialog" th:onclick="assignPost('02', [[${assignmentDetail.id}]], [[${assignmentDetail.title}]], [[${assignmentDetail.content}]])">과제 수정하기</div>
     </div>
     <hr>
     <div>
@@ -54,16 +57,7 @@
     </div>
 </div>
 
-<script>
-    const container = document.getElementById("container");
-    const title = document.getElementById("title");
-    const content = document.getElementById("content");
-
-    function getAssign(assign){
-        container.style.display = "block";
-        title.innerText = assign.title;
-        content.innerText = assign.content;
-    }
+<script src="/js/adminMain.js">
 </script>
 </body>
 </html>
