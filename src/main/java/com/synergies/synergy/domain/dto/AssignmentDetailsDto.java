@@ -27,5 +27,7 @@ public class AssignmentDetailsDto {
         this.refUserId = refUserId;
         this.refAssignmentId = refAssignmentId;
     }
-
+    public AssignmentDetailsDto(int refAssignmentId) {
+        this.refAssignmentId = refAssignmentId;
+    }
 }

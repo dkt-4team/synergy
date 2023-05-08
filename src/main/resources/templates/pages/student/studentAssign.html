@@ -25,20 +25,20 @@
             실습 과제
         </div>
         <div class="side-con">
-            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="getAssign([[${assign}]])">
+            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assign.id})}'|">
                 <span th:text="${assign.title}" style="margin-left: 4%;"></span>
             </div>
         </div>
     </div>
     <div class="root-container">
-        <div class="assign-container" id="container" style="display: none">
-            <div class="assign-title" id="title"></div>
+        <div class="assign-container" id="container" >
+            <div th:text="${assignmentDetail.title}" class="assign-title" id="title"></div>
             <hr>
-            <div class="assign-content" id="content"></div>
+            <div th:text="${assignmentDetail.content}" class="assign-content" id="content"></div>
             <div class="assign-buttons" style="position: relative">
-                <form name="assignSubmit" style="bottom: 30%; left: 6%; position: absolute;">
-                    <input name="file" type="file"/>
-                    <input type="hidden" name="refUserId"/>
+                <form name="assignSubmit" style="bottom: 30%; left: 6%; position: absolute;" th:object="${detail}">
+                    <input th:field="*{file}" type="file"/>
+                    <input th:field="*{refAssignmentId}" type="hidden" />
                 </form>
                 <div>과제 다운로드</div>
                 <div onclick="assignPost()">과제 제출하기</div>
@@ -46,7 +46,7 @@
             <hr>
             <div class="assign-bottom">
                 <div class="assign-comment-title">교수자 코멘트</div>
-                <div class="assign-comment"></div>
+                <div  class="assign-comment"></div>
             </div>
         </div>
         <div class="back-container">

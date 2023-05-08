@@ -11,15 +11,14 @@ function assignPost(sig, todo) {
     let theForm = document.assignSubmit;
     let subText = document.getElementById("sub-name");
     let con = document.getElementById("content");
+    theForm.method = "post";
 
     if (sig == "01") {
-        theForm.method = "post";
         theForm.action = "/admin/assignRegister";
         theForm.enctype = "multipart/form-data";
         subText.innerText = "저장하기";
         con.value = '';
     } else if (sig == "02") {
-        theForm.method = "post";
         theForm.action = `/assignment/update/${todo.id}`;
         con.value = todo.content;
         subText.innerText = "수정하기";
