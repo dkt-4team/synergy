@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TodoController {
@@ -69,6 +70,13 @@ public class TodoController {
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
 
+        List<AssignmentResponseDto.AssignmentDetail> assignmentToday = assignmentService.getTodayAssignment();
+
+        model.addAttribute("sig", true);
+        if(assignmentToday.isEmpty()){
+            model.addAttribute("sig", false);
+        }
+
         if (notiList.isEmpty()) {
             model.addAttribute("notiList", null);
         }
@@ -114,9 +122,11 @@ public class TodoController {
     }
 
     @PostMapping("/todo/delete")
-    public String todoDelete(int id, HttpSession session) {
+    public String todoDelete(int id, HttpSession session, RedirectAttributes redirectAttributes) {
         todoService.deleteTodo(new TodoDeleteRequestDto(id,
             ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
+
+        redirectAttributes.addFlashAttribute("message", "todo를 완료하셨습니다!");
         return "redirect:/home";
     }
 }

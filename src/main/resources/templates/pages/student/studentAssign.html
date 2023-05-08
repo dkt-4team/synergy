@@ -19,51 +19,57 @@
 </head>
 <body>
 <div th:replace="/fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
-<div class="side-bar">
-    <div class="side-title">
-        실습 과제
-    </div>
-    <div class="side-con">
-        <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assign.id})}'|">
-            <span th:text="${assign.title}" style="margin-left: 4%;">></span>
+<div th:if="${assignmentList!=null}">
+    <div class="side-bar">
+        <div class="side-title">
+            실습 과제
         </div>
-    </div>
-</div>
-
-<div class="assign-container">
-    <div class="assign-title" th:text="${assignmentDetail.title}"><span class="assign-back">뒤로가기</span></div>
-    <hr>
-    <div class="assign-content" th:text="${assignmentDetail.content}"></div>
-    <div class="assign-buttons">
-        <div><span id="assignOpen" aria-haspopup="dialog" onClick="assignSubmit('01')">과제 다운로드</span></div>
-        <div>과제 제출하기</div>
-    </div>
-    <hr>
-    <div class="assign-bottom">
-        <div class="assign-comment-title">교수자 코멘트</div>
-        <div class="comment-area">
-            <div th:each="comment : ${comment}" class="comments">
-                <span th:text="${comment.content}"></span>
+        <div class="side-con">
+            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="getAssign([[${assign}]])">
+                <span th:text="${assign.title}" style="margin-left: 4%;"></span>
             </div>
         </div>
-        <div class="assign-comment"></div>
-<!--        <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>-->
+    </div>
+    <div class="root-container">
+        <div class="assign-container" id="container" style="display: none">
+            <div class="assign-title" id="title"></div>
+            <hr>
+            <div class="assign-content" id="content"></div>
+            <div class="assign-buttons" style="position: relative">
+                <form name="assignSubmit" style="bottom: 30%; left: 6%; position: absolute;">
+                    <input name="file" type="file"/>
+                    <input type="hidden" name="refUserId"/>
+                </form>
+                <div>과제 다운로드</div>
+                <div onclick="assignPost()">과제 제출하기</div>
+            </div>
+            <hr>
+            <div class="assign-bottom">
+                <div class="assign-comment-title">교수자 코멘트</div>
+                <div class="assign-comment"></div>
+            </div>
+        </div>
+        <div class="back-container">
+            <a th:onclick="|location.href='@{/home}'|" class="assign-back">뒤로가기</a>
+        </div>
     </div>
 </div>
-<div style="margin-top: 42%;margin-bottom: 4%;">
-    <a th:href='${ #request.getHeader("referer") }' class="assign-back" >뒤로가기</a>
+<div th:unless="${assignmentList!=null}" >
+    <div class="none-assign">등록된 과제가 없습니다.</div>
 </div>
+<script src="/js/assignDetailStudent.js"></script>
+<script th:inline="javascript">
+    /* <![CDATA[ */
 
-<script>
-    const container = document.getElementById("container");
-    const title = document.getElementById("title");
-    const content = document.getElementById("content");
+        window.onload = () => {
+            let message = /*[[ ${message} ]]*/;
+            if (message) {
+                alert(message);
+            }
+             message = null;
+        }
+    /* ]]> */
 
-    function getAssign(assign){
-        container.style.display = "block";
-        title.innerText = assign.title;
-        content.innerText = assign.content;
-    }
 </script>
 </body>
 </html>

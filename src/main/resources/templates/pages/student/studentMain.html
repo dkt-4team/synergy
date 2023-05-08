@@ -27,12 +27,13 @@
     <div class="todo-list">
         <div class="todo-header">ToDo 리스트<span id="addOpen" aria-haspopup="dialog" onClick="getPost('01')">+</span>
         </div>
-        <div class="todo-scroll">
-            <th:block th:if="${todoList}!=null">
+        <th:block th:if="${todoList}!=null">
+            <div class="todo-scroll">
                 <div id="editOpen" aria-haspopup="dialog">
                     <div th:each="todo : ${todoList}">
                         <div class="todo">
-                            <div class="todo-content" th:onclick="getPost('02', [[${todo.id}]], [[${todo.content}]], [[${todo.endDate}]])">
+                            <div class="todo-content"
+                                 th:onclick="getPost('02', [[${todo.id}]], [[${todo.content}]], [[${todo.endDate}]])">
                                 <span th:text="${todo.content}"></span>
                                 <a th:onclick="event.stopPropagation();deleteTodo([[${todo.id}]])"
                                    class="del">Done</a>
@@ -42,8 +43,8 @@
                         </div>
                     </div>
                 </div>
-            </th:block>
-        </div>
+            </div>
+        </th:block>
         <th:block th:unless="${todoList}!=null">
             <div class="todo-content-empty" onclick="event.stopPropagation();"
                  style="cursor:default;">+ 버튼을 눌러 Todo를
@@ -51,7 +52,7 @@
             </div>
         </th:block>
         <form name="delTodo" style="display:none">
-            <input type="hidden" name="id" id="delId" />
+            <input type="hidden" name="id" id="delId"/>
         </form>
     </div>
     <div class="gong">
@@ -72,12 +73,32 @@
             </th:block>
         </div>
         <hr>
-        <div class="button-area">
-            <div class="button" th:onclick="|location.href='@{/studentAssign}'|">과제 제출하기</div>
-        </div>
+        <th:block th:if="${sig}">
+            <div class="button-area">
+                <div class="button blink" th:onclick="|location.href='@{/studentAssign}'|"><span class="on_now_tag">과제 제출하기</span></div>
+            </div>
+        </th:block>
+        <th:block th:unless="${sig}">
+            <div class="button-area">
+                <div class="button" th:onclick="|location.href='@{/studentAssign}'|">과제 제출하기</div>
+            </div>
+        </th:block>
     </div>
 </div>
 </body>
-<script src="/js/studentMain.js">
+<script src="/js/studentMain.js"></script>
+<script th:inline="javascript">
+      /* <![CDATA[ */
+
+        window.onload = () => {
+            let message = /*[[ ${message} ]]*/;
+            if (message) {
+                alert(message);
+            }
+             message = null;
+        }
+      /* ]]> */
+
+
 </script>
 </html>

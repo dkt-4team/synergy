@@ -47,4 +47,16 @@
 </body>
 <script src="/js/assignSubmit.js">
 </script>
+<script  th:inline="javascript">
+      /* <![CDATA[ */
+
+        window.onload = () => {
+            let message = /*[[ ${message} ]]*/;
+            if (message) {
+                alert(message);
+            }
+             message = null;
+        }
+      /* ]]> */
+</script>
 </html>

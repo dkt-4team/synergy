@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class NotificationController {
@@ -79,20 +80,25 @@ public class NotificationController {
 
     @PostMapping("/notificationUpdate/{id}")
     public String notificationModify(@PathVariable int id,
-        @ModelAttribute NotificationDto notification) {
+        @ModelAttribute NotificationDto notification, RedirectAttributes redirectAttributes) {
         if (notification == null || notification.getContent().isBlank() || notification.getTitle()
             .isBlank() || notification.getLabelOption().isBlank()) {
             return "redirect:/adminMain";
         }
+
         notification.setId(id);
         notificationService.notificationModify(notification);
+
+        redirectAttributes.addFlashAttribute("message", "공지를 수정하셨습니다!");
         return "redirect:/adminMain";
     }
 
 
     @GetMapping("/notificationDelete/{id}")
-    public String notificationRemove(@PathVariable int id) {
+    public String notificationRemove(@PathVariable int id, RedirectAttributes redirectAttributes) {
         notificationService.notificationRemove(id);
+
+        redirectAttributes.addFlashAttribute("message", "공지를 삭제하셨습니다!");
         return "redirect:/adminMain";
     }
 }
