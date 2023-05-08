@@ -70,6 +70,13 @@ public class TodoController {
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
 
+        List<AssignmentResponseDto.AssignmentDetail> assignmentToday = assignmentService.getTodayAssignment();
+
+        model.addAttribute("sig", true);
+        if(assignmentToday.isEmpty()){
+            model.addAttribute("sig", false);
+        }
+
         if (notiList.isEmpty()) {
             model.addAttribute("notiList", null);
         }
@@ -118,8 +125,8 @@ public class TodoController {
     public String todoDelete(int id, HttpSession session, RedirectAttributes redirectAttributes) {
         todoService.deleteTodo(new TodoDeleteRequestDto(id,
             ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getUserId()));
-        String message = "todo를 완료하셨습니다!";
-        redirectAttributes.addFlashAttribute("message", message);
+
+        redirectAttributes.addFlashAttribute("message", "todo를 완료하셨습니다!");
         return "redirect:/home";
     }
 }
