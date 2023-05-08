@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TodoDeleteRequestDto {
     private int id;
-    private String userId;
+    private byte[] refUserId;
 
 }

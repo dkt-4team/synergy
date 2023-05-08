@@ -9,8 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginUserInfoVo {
 
+    private byte[] id;
+
     private String userId;
+
     private String password;
+
     private String salt;
 
     private String name;
@@ -18,6 +22,7 @@ public class LoginUserInfoVo {
     private String email;
 
     private String phoneNumber;
+
     private int role;
 
 }
