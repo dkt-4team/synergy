@@ -6,7 +6,8 @@
     <title>Title</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
     <link
             href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
             rel="stylesheet">
@@ -18,7 +19,7 @@
 </head>
 
 <body>
-<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
 <div class="assign-title">
     <div class="assign-name" th:text="|${submit.name}  학생|"></div>
     <div class="assign-button">
