@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +65,6 @@ public class TodoController {
 
     @GetMapping("/home")
     public String getAll(Model model, HttpSession session) throws ParseException {
-        System.out.println(Arrays.toString(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
                 ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<NotificationDto> notiList = notificationService.notificationList();
