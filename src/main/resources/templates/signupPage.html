@@ -10,8 +10,8 @@
     <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
     <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
     <link
-        th:href="@{https://fonts.googleapis.com/css2?family=Lemon&family=Nanum+Gothic&display=swap}"
-        rel="stylesheet">
+            rel="stylesheet"
+            th:href="@{https://fonts.googleapis.com/css2?family=Lemon&family=Nanum+Gothic&display=swap}">
     <link rel="stylesheet" th:href="@{/css/signupPage.css}">
 </head>
 
@@ -22,36 +22,36 @@
         <form class="signup-form" th:action="@{/signup}" th:object="${signupInfoDto}"
               th:method="POST">
             <div class="modal-container">
-            <div class="login-div">
-                <label class="form-label" for="user_id_input">ID</label> <br>
-                <input class="signup-input" type="text" id="user_id_input" name="user_id"
-                       th:field="*{userId}" required>
-                <button type="button" id="checkUserId">중복확인</button>
-            </div>
-            <div class="login-div">
-                <label class="form-label" for="password">비밀번호</label><br>
-                <input class="signup-input" type="password" id="password" name="password"
-                       th:field="*{password}" required>
-            </div>
-            <div class="login-div">
-                <label class="form-label" for="user_name">이름</label><br>
-                <input class="signup-input" type="text" id="user_name" name="user_name"
-                       th:field="*{name}" required>
-            </div>
-            <div class="login-div">
-                <label class="form-label" for="email">이메일</label><br>
-                <input class="signup-input" type="email" id="email" name="email" th:field="*{email}"
-                       required>
-            </div>
-            <div class="login-div">
-                <label class="form-label" for="phone_number">전화번호</label><br>
-                <input class="signup-input" type="tel" id="phone_number" name="phone_number"
-                       th:field="*{phoneNumber}" required>
-            </div>
+                <div class="login-div">
+                    <label class="form-label" for="user_id_input">ID</label> <br>
+                    <input class="signup-input" id="user_id_input" name="user_id" required
+                           th:field="*{userId}" type="text">
+                    <button id="checkUserId" type="button">중복확인</button>
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="password">비밀번호</label><br>
+                    <input class="signup-input" id="password" name="password" required
+                           th:field="*{password}" type="password">
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="user_name">이름</label><br>
+                    <input class="signup-input" id="user_name" name="user_name" required
+                           th:field="*{name}" type="text">
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="email">이메일</label><br>
+                    <input class="signup-input" id="email" name="email" required th:field="*{email}"
+                           type="email">
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="phone_number">전화번호</label><br>
+                    <input class="signup-input" id="phone_number" name="phone_number" required
+                           th:field="*{phoneNumber}" type="tel">
+                </div>
             </div>
             <div class="input-div">
                 <input class="signup-input-button" type="submit" value="가입하기">
-                <button class="cancel-input-button">가입취소</button>
+                <button class="cancel-input-button" formnovalidate th:href="@{/}">가입취소</button>
             </div>
         </form>
     </div>
