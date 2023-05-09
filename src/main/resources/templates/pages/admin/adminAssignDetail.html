@@ -2,18 +2,19 @@
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://thymeleaf.org">
-<meta charset="UTF-8">
-<title>Title</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-        href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
-        rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/adminMain.css">
-<link rel="stylesheet" href="/css/assignDetail.css">
+<head>
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0; charset=UTF-8"/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+            rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/adminMain.css">
+    <link rel="stylesheet" href="/css/assignDetail.css">
 </head>
 
 <body>
@@ -34,10 +35,10 @@
         </div>
     </div>
     <form name="delComment" style="display:none">
-        <input type="hidden" name="id" id="delId" />
-        <input type="hidden" name="submitId" id="subId" />
+        <input type="hidden" name="id" id="delId"/>
+        <input type="hidden" name="submitId" id="subId"/>
     </form>
-    <form name="commentSubmit" th:object="${CommentDTO}" method="post", action="/admin/commentSave">
+    <form name="commentSubmit" th:object="${CommentDTO}" method="post" , action="/admin/commentSave">
         <input type="text" th:field="*{submitId}" style="display:none">
         <textarea class="input-comment" th:field="*{content}"></textarea>
         <div class="button-area"><span class="exit">나가기</span>
@@ -47,7 +48,7 @@
 </body>
 <script src="/js/assignSubmit.js">
 </script>
-<script  th:inline="javascript">
+<script th:inline="javascript">
       /* <![CDATA[ */
 
         window.onload = () => {
@@ -58,5 +59,7 @@
              message = null;
         }
       /* ]]> */
+
+
 </script>
 </html>
