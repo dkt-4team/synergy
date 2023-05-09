@@ -5,7 +5,8 @@
 
 <head>
     <title>Spring Thyme Seed Starter Manager</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,10 +16,9 @@
 </head>
 
 <body>
-<div th:replace="/fragments/navBar/adminNavBar.html"></div>
-<!--<div
-    th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
--->
+
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+
 <div th:replace="/fragments/modal/notificationModal.html :: notificationMainModal"></div>
 <div th:replace="/fragments/modal/assignmentModal.html :: assignmentModal"></div>
 
@@ -26,21 +26,21 @@
     <div class="block">
         <div class="block-header">공지 리스트<span id="notiOpen" aria-haspopup="dialog" onClick="notiPost('01')">+</span>
         </div>
-        <div class="todo-scroll">
+        <div class="todo-scroll" id="notiModifyBtn" aria-haspopup="dialog">
             <th:block th:if="${notiList}!=null">
-                <div id="notiModifyBtn" aria-haspopup="dialog">
                     <div class="notification">
                         <div th:each="notification : ${notiList}">
                             <div class="noti-content" th:onclick="notiPost('02', [[${notification}]])">
                                 <span th:text="|[${notification.labelOption}]|"></span>
                                 <a th:href="@{/notificationDelete/{id}(id=${notification.id})}"
-                                   onclick="event.stopPropagation();" class="del" style="float: right; margin-right: 5%; ">Delete</a>
-                                <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}" style=" float: right; margin-right: 2%; color: blue"></span>
+                                   onclick="event.stopPropagation();" class="del"
+                                   style="float: right; margin-right: 5%; ">Delete</a>
+                                <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}"
+                                      style=" float: right; margin-right: 2%; color: blue"></span>
                                 <span th:text="${notification.title}"></span>
                             </div>
                         </div>
                     </div>
-                </div>
             </th:block>
         </div>
 
@@ -54,18 +54,19 @@
     <div class="block">
         <div class="block-header">과제 리스트<span id="assignOpen" aria-haspopup="dialog" onClick="assignPost()">+</span>
         </div>
-        <th:block th:if="${assignmentList}!=null">
-            <div id="btnOpen4" aria-haspopup="dialog">
+        <div id="btnOpen4" aria-haspopup="dialog">
+            <th:block th:if="${assignmentList}!=null">
                 <div th:each="assignment : ${assignmentList}">
                     <div class="assignment">
-                        <div class="assignment-content" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
+                        <div class="assignment-content"
+                             th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
                             <span th:text="${assignment.title}"></span>
                             <a th:onclick="event.stopPropagation();deleteAssignment([[${assignment.id}]])" class="del">Delete</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </th:block>
+            </th:block>
+        </div>
         <th:block th:unless="${assignmentList}!=null">
             <div class="assignment-content-empty" onclick="event.stopPropagation();"
                  style="cursor:default;">+ 버튼을 눌러 assignment를 입력해주세요!
@@ -82,7 +83,6 @@
 <script src="/js/adminMain.js"></script>
 <script  th:inline="javascript">
       /* <![CDATA[ */
-
         window.onload = () => {
             let message = /*[[ ${message} ]]*/;
             if (message) {

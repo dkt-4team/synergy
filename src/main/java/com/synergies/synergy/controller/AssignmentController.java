@@ -50,8 +50,7 @@ public class AssignmentController {
             // 해당 과제에 대한 교수자 코멘트
             GetComment getComment = new GetComment(assignDetail.getId(), loginUserInfo.getId());
             List<CommentContent> comment = assignmentService.commentStudent(getComment);
-            System.out.println("***id : " + assignDetail.getId());
-            System.out.println("***comment : " + comment);
+
             if(comment.isEmpty()) {
                 model.addAttribute("comment", null);
             } else {

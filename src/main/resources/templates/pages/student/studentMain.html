@@ -5,7 +5,8 @@
 
 <head>
     <title>Spring Thyme Seed Starter Manager</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
@@ -13,7 +14,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="/css/studentMain.css">
 </head>
 
@@ -27,24 +27,26 @@
     <div class="todo-list">
         <div class="todo-header">ToDo 리스트<span id="addOpen" aria-haspopup="dialog" onClick="getPost('01')">+</span>
         </div>
-        <th:block th:if="${todoList}!=null">
-            <div class="todo-scroll">
-                <div id="editOpen" aria-haspopup="dialog">
-                    <div th:each="todo : ${todoList}">
-                        <div class="todo">
-                            <div class="todo-content"
-                                 th:onclick="getPost('02', [[${todo.id}]], [[${todo.content}]], [[${todo.endDate}]])">
-                                <span th:text="${todo.content}"></span>
-                                <a th:onclick="event.stopPropagation();deleteTodo([[${todo.id}]])"
-                                   class="del">Done</a>
-                                <span th:text="${#strings.listSplit(todo.endDate,'|')[0]}"
-                                      style="font-size: 0.7em; margin-right: 3%; color: blue; float: right"></span>
+        <div id="editOpen" aria-haspopup="dialog">
+            <th:block th:if="${todoList}!=null">
+                <div class="todo-scroll">
+                    <div>
+                        <div th:each="todo : ${todoList}">
+                            <div class="todo">
+                                <div class="todo-content"
+                                     th:onclick="getPost('02', [[${todo.id}]], [[${todo.content}]], [[${todo.endDate}]])">
+                                    <span th:text="${todo.content}"></span>
+                                    <a th:onclick="event.stopPropagation();deleteTodo([[${todo.id}]])"
+                                       class="del">Done</a>
+                                    <span th:text="${#strings.listSplit(todo.endDate,'|')[0]}"
+                                          style="font-size: 0.7em; margin-right: 3%; color: blue; float: right"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </th:block>
+            </th:block>
+        </div>
         <th:block th:unless="${todoList}!=null">
             <div class="todo-content-empty" onclick="event.stopPropagation();"
                  style="cursor:default;">+ 버튼을 눌러 Todo를
