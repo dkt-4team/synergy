@@ -5,7 +5,8 @@
 
 <head>
     <title>Spring Thyme Seed Starter Manager</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -20,7 +21,7 @@
 </head>
 
 <body>
-<div th:replace="fragments/navBar/adminNavBar.html :: navFragment('값')"></div>
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
 <div th:replace="fragments/modal/assignmentModal.html :: assignmentModal"></div>
 
 <div th:if="${assignmentList!=null}">

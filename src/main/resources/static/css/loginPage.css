@@ -122,3 +122,10 @@ input::placeholder {
     text-align: center;
     color: white;
 }
+
+
+    @media screen and (max-width:1200px) {
+      .todo {
+        font-size: 0.8rem;
+      }
+     }
