@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/studentMain.css">
     <link rel="stylesheet" href="/css/assignAdmin.css">
+    <link rel="stylesheet" href="/css/assignDetail.css">
 </head>
 
 <body>
@@ -48,12 +49,12 @@
         <div>
             <div th:each="unsubmit : ${unsubmitStudents}" class="assign-students">
                 <span th:text="${unsubmit.name}" style="margin-left: 4%;"></span>
-                <span class="">미제출</span>
+                <span style="color: red; float: right; margin-right: 4%">미제출</span>
             </div>
             <div th:each="student : ${submitStudents}" class="assign-students">
                 <div th:onclick="|location.href='@{/admin/assignmentSubmit/{id}(id=${student.id})}'|">
                     <span th:text="${student.name}" style="margin-left: 4%;" ></span>
-                    <span>완료</span>
+                    <span style="color: blue; float: right; margin-right: 4%">완료</span>
                 </div>
             </div>
         </div>
