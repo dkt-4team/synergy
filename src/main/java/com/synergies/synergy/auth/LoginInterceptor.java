@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
-    public List loginEssential = Arrays.asList("/admin/**", "/student/**");
+    public List<String> loginEssential = Arrays.asList("/admin/**", "/student/**");
 
-    public List loginInessential = Arrays.asList("/login/**", "/");
+    public List<String> loginInessential = Arrays.asList("/login/**", "/");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj)
