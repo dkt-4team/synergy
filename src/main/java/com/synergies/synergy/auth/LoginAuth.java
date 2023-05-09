@@ -1,8 +1,9 @@
 package com.synergies.synergy.auth;
 
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
-import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpSession;
 
 @Component
 public class LoginAuth {
@@ -11,5 +12,4 @@ public class LoginAuth {
         int loginUserRole = ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole();
         return loginUserRole != 0;
     }
-
 }

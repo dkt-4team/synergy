@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -28,15 +27,12 @@ public class AssignmentAdminController {
     private NotificationService notificationService;
 
     @GetMapping("/home")
-    public String main(Model model, HttpSession session) {
-//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String main(Model model) {
         List<NotificationDto> notiList = notificationService.notificationList();
         List<AssignmentDetail> assignmentList = assignmentService.getTodayAssignment();
 
         // 공지 데이터 불러오기
-        if (notiList.isEmpty()){
+        if (notiList.isEmpty()) {
             model.addAttribute("notiList", null);
         } else {
             model.addAttribute("notiList", notiList);
@@ -64,25 +60,20 @@ public class AssignmentAdminController {
     }
 
     @PostMapping("/assignRegister")
-    public String assignmentInsert(@ModelAttribute("AssignmentDTO") AssignmentDto assignment, HttpSession session) {
-        // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
-//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String assignmentInsert(@ModelAttribute("AssignmentDTO") AssignmentDto assignment) {
+
         assignmentService.insertAssignment(assignment);
 
         return "redirect:/admin/home";    // 관리자 페이지 메인 화면으로 이동
     }
 
     @PostMapping("/assignmentUpdate/{id}")
-    public String assignmentModify(@PathVariable int id, @ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-        // 세션에 있는 ID가 교수님 ID가 아닐 때 권한이 없음
-//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String assignmentModify(@PathVariable int id, @ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, RedirectAttributes redirectAttributes) {
+
         // TODO : result 결과에 따른 알림창 띄우기
+        // TODO : view에서 id 값을 받아서 서버로 전송하는 방법 찾아보기
         assignment.setId(id);
-        if(assignmentService.updateAssignment(assignment) != 0) {
+        if (assignmentService.updateAssignment(assignment) != 0) {
             model.addAttribute("result", "success");
         } else {
             model.addAttribute("result", "fail");
@@ -96,10 +87,7 @@ public class AssignmentAdminController {
 
     // 과제 확인하기
     @GetMapping("/assignmentDetail/{id}")
-    public String assignmentDetails(@PathVariable("id") int assignmentId, Model model, HttpSession session) {
-//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String assignmentDetails(@PathVariable("id") int assignmentId, Model model) {
 
         // 모든 과제들의 title 전송
         List<AssignmentDetail> assignmentList = assignmentService.assignmentList();
@@ -129,7 +117,7 @@ public class AssignmentAdminController {
     }
 
     @PostMapping("/assignmentDelete")
-    public String assignmentRemove(@RequestParam("id") int assignmentId, Model model,  RedirectAttributes redirectAttributes) {
+    public String assignmentRemove(@RequestParam("id") int assignmentId, RedirectAttributes redirectAttributes) {
         // TODO: result 값을 보내 화면에 알림창을 띄우도록 추가
         String message;
         if (assignmentService.assignmentRemove(assignmentId)) {
@@ -144,10 +132,7 @@ public class AssignmentAdminController {
 
     // 학생이 제출한 과제 상세 페이지
     @GetMapping("/assignmentSubmit/{id}")
-    public String assignmentSubmit(@PathVariable("id") int submitId, Model model, HttpSession session) {
-//        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String assignmentSubmit(@PathVariable("id") int submitId, Model model) {
 
         // 학생이 제출한 과제 데이터
         SubmitContent submitContent = assignmentService.submitDetails(submitId);
@@ -155,7 +140,7 @@ public class AssignmentAdminController {
 
         // 과제에 대한 코멘트
         List<CommentContent> comment = assignmentService.commentDetails(submitId);
-        if(comment.size() == 0) {
+        if (comment.size() == 0) {
             model.addAttribute("comment", null);
         } else {
             model.addAttribute("comment", comment);
@@ -168,19 +153,15 @@ public class AssignmentAdminController {
     }
 
     @PostMapping("/commentSave")
-    public String commentSave(@ModelAttribute("CommentDTO") CommentDto comment, HttpSession session) {
-        //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String commentSave(@ModelAttribute("CommentDTO") CommentDto comment) {
+
         assignmentService.insertComment(comment);       // TODO : 예외처리 추가
-        return "redirect:/admin/assignmentSubmit/"+comment.getSubmitId();
+        return "redirect:/admin/assignmentSubmit/" + comment.getSubmitId();
     }
 
     @PostMapping("/commentDelete")
-    public String commentRemove(@RequestParam("id") int commentId, int submitId, Model model, HttpSession session,  RedirectAttributes redirectAttributes) {
-        //        if(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getRole() != 0) {
-//            return "redirect:/";
-//        }
+    public String commentRemove(@RequestParam("id") int commentId, int submitId, RedirectAttributes redirectAttributes) {
+
         // TODO: result 값을 보내 화면에 알림창을 띄우도록 추가
         String message;
         if (assignmentService.commentRemove(commentId)) {
@@ -194,9 +175,8 @@ public class AssignmentAdminController {
     }
 
     @GetMapping("/assignmentDownload")
-    public ResponseEntity<byte[]> assignmentDownload(Model model, HttpSession session) throws IOException {
-        //@RequestParam("file") String fileUrl,
-        String fileUrl="230503_10";
+    public ResponseEntity<byte[]> assignmentDownload(Model model) throws IOException {
+        String fileUrl = "230503_10";
 
         return assignmentService.fileDownload(fileUrl, true);
     }

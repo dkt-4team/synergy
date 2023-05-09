@@ -14,12 +14,12 @@ function assignPost(sig, todo) {
     theForm.method = "post";
 
     if (sig == "01") {
-        theForm.action = "/admin/assignRegister";
+        theForm.action = "/student/assignRegister";
         theForm.enctype = "multipart/form-data";
         subText.innerText = "저장하기";
         con.value = '';
     } else if (sig == "02") {
-        theForm.action = `/assignment/update/${todo.id}`;
+        theForm.action = `/student/assignment/update/${todo.id}`;
         con.value = todo.content;
         subText.innerText = "수정하기";
     }

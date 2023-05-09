@@ -15,7 +15,7 @@
     function deleteTodo(id){
         let theForm = document.delTodo;
         theForm.method = "post";
-        theForm.action = "/todo/delete";
+        theForm.action = "/student/todo/delete";
         delId.value = id;
         theForm.submit();
     }
@@ -29,11 +29,11 @@
         theForm.method = "post";
 
         if (sig == "01") {
-            theForm.action = "/todo/insert";
+            theForm.action = "/student/todo/insert";
             subText.innerText = "저장하기";
             con.value = '';
         } else if (sig == "02") {
-            theForm.action = `/todo/update/${id}`;
+            theForm.action = `/student/todo/update/${id}`;
             con.value = content;
             endDate.value = end.split('|')[1].split(" ")[0];
             subText.innerText = "수정하기";
