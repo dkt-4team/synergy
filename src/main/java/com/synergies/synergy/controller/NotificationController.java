@@ -33,13 +33,14 @@ public class NotificationController {
 
     @PostMapping("/notificationUpdate/{id}")
     public String notificationModify(@PathVariable int id,
-        @ModelAttribute NotificationDto notification, RedirectAttributes redirectAttributes) {
+        @ModelAttribute NotificationDto notification, RedirectAttributes redirectAttributes, HttpSession session) {
         if (notification == null || notification.getContent().isBlank() || notification.getTitle()
                 .isBlank() || notification.getLabelOption().isBlank()) {
             return "redirect:/admin/home";
         }
 
         notification.setId(id);
+        notification.setRefUserId(((LoginUserInfoVo)session.getAttribute("loginUserInfo")).getId());
         notificationService.notificationModify(notification);
 
         redirectAttributes.addFlashAttribute("message", "공지를 수정하셨습니다!");
