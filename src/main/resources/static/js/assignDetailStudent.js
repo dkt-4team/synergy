@@ -7,6 +7,6 @@
         let theForm = document.assignSubmit;
         theForm.method = "post";
         theForm.enctype = "multipart/form-data";
-        theForm.action = "/studentAssignRegister";
+        theForm.action = "/student/assignRegister";
         theForm.submit();
     }

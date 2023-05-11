@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://thymeleaf.org">
 <head>
-    <title>Title</title>
+    <title>Synergy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -32,7 +32,8 @@
     <div class="comment-area">
         <div th:each="comment : ${comment}" class="comments">
             <span th:text="${comment.content}"></span>
-            <span style="color:red" th:onclick="deleteComment([[${comment.id}]], [[${submit.id}]])">X</span>
+            <span style="color:red; cursor:pointer"
+                  th:onclick="deleteComment([[${comment.id}]], [[${submit.id}]])">X</span>
         </div>
     </div>
     <form name="delComment" style="display:none">

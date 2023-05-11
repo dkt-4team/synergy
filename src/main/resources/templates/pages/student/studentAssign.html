@@ -4,7 +4,7 @@
       xmlns:th="http://thymeleaf.org">
 
 <head>
-    <title>Spring Thyme Seed Starter Manager</title>
+    <title>Synergy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,8 @@
             실습 과제
         </div>
         <div class="side-con">
-            <div th:each="assign : ${assignmentList}" class="side-assign" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|">
+            <div class="side-assign" th:each="assign : ${assignmentList}"
+                 th:onclick="|location.href='@{/student/assign/{id}(id=${assign.id})}'|">
                 <span th:text="${assign.title}" style="margin-left: 4%;"></span>
             </div>
         </div>
@@ -56,7 +57,7 @@
             </div>
         </div>
         <div class="back-container">
-            <a th:onclick="|location.href='@{/home}'|" class="assign-back">뒤로가기</a>
+            <a class="assign-back" th:onclick="|location.href='@{/student/home}'|">뒤로가기</a>
         </div>
     </div>
 </div>

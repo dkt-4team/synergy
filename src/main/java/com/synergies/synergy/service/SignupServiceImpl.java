@@ -18,7 +18,6 @@ public class SignupServiceImpl implements SignupService{
     @Override
     public int createUserSignupInfo(SignupDto signupDTO){
         String salt = SaltUtil.generateSalt();
-        System.out.println(Arrays.toString(UUIDUtil.createUUID()));
         SignupVo signupVO = new SignupVo(
             UUIDUtil.createUUID(),
             signupDTO.getUserId(),

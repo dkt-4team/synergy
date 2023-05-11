@@ -4,7 +4,7 @@
       xmlns:th="http://thymeleaf.org">
 
 <head>
-    <title>Spring Thyme Seed Starter Manager</title>
+    <title>Synergy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,12 +77,13 @@
         <hr>
         <th:block th:if="${sig}">
             <div class="button-area">
-                <div class="button blink" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|"><span class="on_now_tag">과제 제출하기</span></div>
+                <div class="button blink" th:onclick="|location.href='@{/student/assign/{id}(id=${assignId})}'|"><span
+                        class="on_now_tag">과제 제출하기</span></div>
             </div>
         </th:block>
         <th:block th:unless="${sig}">
             <div class="button-area">
-                <div class="button" th:onclick="|location.href='@{/studentAssign/{id}(id=${assignId})}'|">과제 제출하기</div>
+                <div class="button" th:onclick="|location.href='@{/student/assign/{id}(id=${assignId})}'|">과제 제출하기</div>
             </div>
         </th:block>
     </div>
@@ -91,7 +92,6 @@
 <script src="/js/studentMain.js"></script>
 <script th:inline="javascript">
       /* <![CDATA[ */
-
         window.onload = () => {
             let message = /*[[ ${message} ]]*/;
             if (message) {
@@ -100,7 +100,5 @@
              message = null;
         }
       /* ]]> */
-
-
 </script>
 </html>

@@ -28,9 +28,9 @@ public class AuthController {
         Optional<Object> userCheck = Optional.ofNullable(session.getAttribute("loginUserInfo"));
         if (!userCheck.isEmpty()) {
             if (!loginAuth.isAuthorityCheck(session)) {
-                return "redirect:/home";
+                return "redirect:/student/home";
             }
-            return "redirect:/adminMain";
+            return "redirect:/admin/home";
         }
         model.addAttribute("userLoginRequest", new UserLoginRequestDto());
         return "loginPage";
@@ -45,9 +45,9 @@ public class AuthController {
         if (userInfo != null) {
             session.setAttribute("loginUserInfo", userInfo);
             if (!loginAuth.isAuthorityCheck(session)) {
-                return "redirect:/home";
+                return "redirect:/student/home";
             }
-            return "redirect:/adminMain";
+            return "redirect:/admin/home";
         }
         return "redirect:/";
     }

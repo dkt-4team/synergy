@@ -11,21 +11,18 @@ import com.synergies.synergy.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("/student")
 public class TodoController {
 
     @Autowired
@@ -68,7 +65,6 @@ public class TodoController {
 
     @GetMapping("/home")
     public String getAll(Model model, HttpSession session) throws ParseException {
-        System.out.println(Arrays.toString(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
                 ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
         List<NotificationDto> notiList = notificationService.notificationList();
@@ -112,7 +108,7 @@ public class TodoController {
         todo.setRegDate(curDate);
         todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
         todoService.insertTodo(todo);
-        return "redirect:/home";
+        return "redirect:/student/home";
     }
 
 
@@ -120,12 +116,12 @@ public class TodoController {
     public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo,
         HttpSession session) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
-            return "redirect:/home";
+            return "redirect:/student/home";
         }
         todo.setId(id);
         todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
         todoService.updateTodo(todo);
-        return "redirect:/home";
+        return "redirect:/student/home";
     }
 
     @PostMapping("/todo/delete")
@@ -134,6 +130,6 @@ public class TodoController {
                 ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
 
         redirectAttributes.addFlashAttribute("message", "todo를 완료하셨습니다!");
-        return "redirect:/home";
+        return "redirect:/student/home";
     }
 }

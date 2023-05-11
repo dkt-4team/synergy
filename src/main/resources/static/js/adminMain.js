@@ -39,7 +39,6 @@
 
     // 공지 데이터 전송
     function notiPost(sig,notification) {
-        console.log(notification);
         let theForm = document.notiSubmit;
         let subText = document.getElementById("sub-noti");
         let textarea = document.getElementById("noti-textarea");
@@ -48,12 +47,12 @@
         theForm.method = "post";
 
         if (sig == "01") {
-            theForm.action = "/notificationSave";
+            theForm.action = "/admin/notificationSave";
             subText.innerText = "저장하기";
             textarea.value = '';
             subTitle.value = '';
         } else if (sig == "02") {
-            theForm.action = `/notificationUpdate/${notification.id}`;
+            theForm.action = `/admin/notificationUpdate/${notification.id}`;
             textarea.value = notification.content;
             subTitle.value = notification.title;
             labelOption.value = notification.labelOption;
@@ -68,7 +67,7 @@
         notiDialog.showModal();
     });
 
-    assignOpen.addEventListener('click', function (evt) {
+    assignOpen.addEventListener('click', function () {
         assignDialog.showModal();
     });
 
