@@ -7,6 +7,7 @@ import com.synergies.synergy.domain.dto.CommentDto;
 import com.synergies.synergy.domain.dto.NotificationDto;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
 @RequestMapping(path = "/admin")
 public class AssignmentAdminController {
@@ -31,6 +34,8 @@ public class AssignmentAdminController {
         List<NotificationDto> notiList = notificationService.readNotificationList();
         List<AssignmentDetail> assignmentList = assignmentService.readTodayAssignment();
 
+        log.info("[관리자 메인페이지 과제 리스트 확인]\n" + assignmentList.stream().map(i -> i.toString()).collect(Collectors.joining("\n")));
+        log.info("[관리자 메인페이지 과제 리스트 확인]\n" + notiList.stream().map(i -> i.toString()).collect(Collectors.joining("\n")));
         // 공지 데이터 불러오기
         if (notiList.isEmpty()) {
             model.addAttribute("notiList", null);
@@ -60,7 +65,7 @@ public class AssignmentAdminController {
 
     @PostMapping("/assignRegister")
     public String assignmentInsert(@ModelAttribute("AssignmentDTO") AssignmentDto assignment) {
-
+        log.info("관리자가 등록할 과제 데이터 확인(insert) : " + assignment);
         assignmentService.createAssignment(assignment);
 
         return "redirect:/admin/home";    // 관리자 페이지 메인 화면으로 이동
@@ -72,12 +77,13 @@ public class AssignmentAdminController {
         // TODO : result 결과에 따른 알림창 띄우기
         // TODO : view에서 id 값을 받아서 서버로 전송하는 방법 찾아보기
         assignment.setId(id);
+        log.info("관리자가 수정한 과제 데이터 확인 : " + assignment.getId() + " " + assignment);
         if (assignmentService.updateAssignment(assignment) != 0) {
             model.addAttribute("result", "success");
         } else {
             model.addAttribute("result", "fail");
         }
-
+        log.info("관리자 과제 수정 성공 여부 : " + model.getAttribute("result"));
         String message = "과제를 수정하셨습니다!";
         redirectAttributes.addFlashAttribute("message", message);
 
@@ -96,6 +102,11 @@ public class AssignmentAdminController {
 
         // 선택한 과제를 제출하지 않은 학생 리스트
         List<UnsubmitStudent> unsubmitStudents = assignmentService.readUnsubmitStudentList(assignmentId);
+
+        log.info(String.format("[관리자 과제 상세 확인] 과제id(%d) - 모든 과제 개수 확인 : %d,"
+                        + "  선택한 과제 제출한 학생 명수 확인 : %d,"
+                        + " 과제 제출하지 않은 학생 확인 : %d"
+                , assignmentId, assignmentList.size(), submitStudents.size(), unsubmitStudents.size()));
 
         model.addAttribute("submitStudents", submitStudents);
         model.addAttribute("unsubmitStudents", unsubmitStudents);
@@ -126,6 +137,7 @@ public class AssignmentAdminController {
             message = "과제 삭제에 실패하셨습니다!";
             redirectAttributes.addFlashAttribute("message", message);
         }
+        log.info("관리자 과제 삭제 확인 : " + message);
         return "redirect:/admin/home";
     }
 

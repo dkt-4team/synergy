@@ -3,11 +3,13 @@ package com.synergies.synergy.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 public class AssignmentResponseDto {
 
     @Getter
     @Setter
+    @ToString
     public static class AssignmentDetail {
         private int id;
         private String title;
@@ -15,6 +17,7 @@ public class AssignmentResponseDto {
 
     @Getter
     @Setter
+    @ToString
     public static class AssignmentContent {
         private int id;
         private String title;
@@ -29,11 +32,13 @@ public class AssignmentResponseDto {
     }
 
     @Getter
+    @ToString
     public static class UnsubmitStudent {
         private String name;
     }
 
     @Getter
+    @ToString
     public static class SubmitContent {
         private int id;
         private String name;
@@ -42,6 +47,7 @@ public class AssignmentResponseDto {
     }
 
     @Getter
+    @ToString
     public static class CommentContent {
         private int id;
         private String content;
