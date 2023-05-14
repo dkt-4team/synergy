@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface AssignmentDetailsDao {
-    List<AssignmentDetailsDto> getAssignmentDetail(AssignmentDetailsDto assignment);
+    List<AssignmentDetailsDto> selectAssignmentDetail(AssignmentDetailsDto assignment);
 
     int insertAssignmentDetail(AssignmentDetailsVo assignment);
 }

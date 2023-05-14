@@ -35,7 +35,7 @@ public class FileDownloadService {
         httpHeaders.setContentType(contentType(fileUrl));
         httpHeaders.setContentLength(bytes.length);
         String[] arr = fileUrl.split("/");
-        String type = arr[arr.length-1];
+        String type = arr[arr.length - 1];
         String fileName = URLEncoder.encode(type, "UTF-8").replaceAll("\\+", "%20");
         httpHeaders.setContentDispositionFormData("attachment", fileName);
 
@@ -44,16 +44,16 @@ public class FileDownloadService {
 
     private MediaType contentType(String keyname) {
         String[] arr = keyname.split("\\.");
-        String type = arr[arr.length-1];
+        String type = arr[arr.length - 1];
         System.out.println("***Type : " + type);
         switch (type) {
-            case "txt" :
+            case "txt":
                 return MediaType.TEXT_PLAIN;
-            case "png" :
+            case "png":
                 return MediaType.IMAGE_PNG;
-            case "jpg" :
+            case "jpg":
                 return MediaType.IMAGE_JPEG;
-            default :
+            default:
                 return MediaType.APPLICATION_OCTET_STREAM;
         }
     }

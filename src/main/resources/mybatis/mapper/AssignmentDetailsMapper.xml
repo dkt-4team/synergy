@@ -11,7 +11,10 @@
         INSERT INTO ASSIGNMENT_SUBMIT (ref_user_id, ref_assignment_id, submit_file)
         VALUES (#{refUserId}, #{refAssignmentId}, #{file})
     </insert>
-    <select id="getAssignmentDetail" resultType="AssignmentDetailsDto" parameterType="AssignmentDetailsDto" >
-        SELECT submit_file, comment FROM ASSIGNMENT_SUBMIT WHERE ref_user_id = #{refUserId} AND ref_assignment_id = #{refAssignmentId}
+    <select id="selectAssignmentDetail" resultType="AssignmentDetailsDto" parameterType="AssignmentDetailsDto">
+        SELECT submit_file, comment
+        FROM ASSIGNMENT_SUBMIT
+        WHERE ref_user_id = #{refUserId}
+          AND ref_assignment_id = #{refAssignmentId}
     </select>
 </mapper>

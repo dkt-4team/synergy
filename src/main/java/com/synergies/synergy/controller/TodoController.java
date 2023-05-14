@@ -8,6 +8,7 @@ import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import com.synergies.synergy.service.TodoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/student")
 public class TodoController {
@@ -65,11 +67,11 @@ public class TodoController {
 
     @GetMapping("/home")
     public String getAll(Model model, HttpSession session) throws ParseException {
-        List<TodoDto> todoList = changeDateFormat(todoService.selectAllTodo(
+        List<TodoDto> todoList = changeDateFormat(todoService.readAllTodo(
                 ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId()));
-        List<NotificationDto> notiList = notificationService.notificationList();
-        AssignmentResponseDto.AssignmentContent assignment = assignmentService.assignmentRecentDetails();
-        if(assignment == null) {
+        List<NotificationDto> notiList = notificationService.readNotificationList();
+        AssignmentResponseDto.AssignmentContent assignment = assignmentService.readAssignmentRecentDetails();
+        if (assignment == null) {
             model.addAttribute("assignId", 0);
         } else {
             model.addAttribute("assignId", assignment.getId());
@@ -79,10 +81,10 @@ public class TodoController {
         model.addAttribute("todo", new TodoDto());
         model.addAttribute("notiList", notiList);
 
-        List<AssignmentResponseDto.AssignmentDetail> assignmentToday = assignmentService.getTodayAssignment();
+        List<AssignmentResponseDto.AssignmentDetail> assignmentToday = assignmentService.readTodayAssignment();
 
         model.addAttribute("sig", true);
-        if(assignmentToday.isEmpty()){
+        if (assignmentToday.isEmpty()) {
             model.addAttribute("sig", false);
         }
 
@@ -107,14 +109,14 @@ public class TodoController {
         Date curDate = new Date();
         todo.setRegDate(curDate);
         todo.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
-        todoService.insertTodo(todo);
+        todoService.createTodo(todo);
         return "redirect:/student/home";
     }
 
 
     @PostMapping("/todo/update/{id}")
     public String todoUpdate(@PathVariable int id, @ModelAttribute("todo") TodoDto todo,
-        HttpSession session) {
+                             HttpSession session) {
         if (todo.getContent().isBlank() || todo.getEndDate().isBlank()) {
             return "redirect:/student/home";
         }
