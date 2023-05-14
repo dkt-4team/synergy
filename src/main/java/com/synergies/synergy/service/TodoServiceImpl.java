@@ -15,13 +15,13 @@ public class TodoServiceImpl implements TodoService {
     private TodoDao todoDao;
 
     @Override
-    public List<TodoDto> selectAllTodo(byte[] refUserId) {
-        return todoDao.selectAllTodo(refUserId);
+    public int createTodo(TodoDto todo) {
+        return todoDao.insertTodo(todo);
     }
 
     @Override
-    public int insertTodo(TodoDto todo) {
-        return todoDao.insertTodo(todo);
+    public List<TodoDto> readAllTodo(byte[] refUserId) {
+        return todoDao.selectAllTodo(refUserId);
     }
 
     @Override

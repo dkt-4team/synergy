@@ -31,10 +31,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public ResponseEntity<byte[]> fileDownload(String fileUrl, boolean isManager) {
         String filePath;
-        if(isManager) {
-            filePath = "https://synergy-file.s3.ap-northeast-2.amazonaws.com/synergy-file/admin/"+fileUrl;
+        if (isManager) {
+            filePath = "https://synergy-file.s3.ap-northeast-2.amazonaws.com/synergy-file/admin/" + fileUrl;
         } else {
-            filePath = "https://synergy-file.s3.ap-northeast-2.amazonaws.com/synergy-file/student/"+fileUrl;
+            filePath = "https://synergy-file.s3.ap-northeast-2.amazonaws.com/synergy-file/student/" + fileUrl;
         }
 
         System.out.println("***file Download : " + filePath);
@@ -48,10 +48,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public int insertAssignment(AssignmentDto assignment) {
+    public int createAssignment(AssignmentDto assignment) {
         Date nowDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        String fileName = simpleDateFormat.format(nowDate)+"_"+(assignment.getAssignmentNumber()+1);
+        String fileName = simpleDateFormat.format(nowDate) + "_" + (assignment.getAssignmentNumber() + 1);
         fileUpload.uploadFile(fileName, true, assignment.getFile());
         AssignmentVo vo = new AssignmentVo(assignment.getTitle(), assignment.getContent(), fileName);
 
@@ -59,7 +59,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public int insertComment(CommentDto comment) {
+    public int createComment(CommentDto comment) {
         CommentVo commentVo = new CommentVo(comment.getSubmitId(), comment.getContent());
         return assignmentDao.insertComment(commentVo);
     }
@@ -68,7 +68,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     public int updateAssignment(AssignmentDto assignment) {
         Date nowDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        String fileName = simpleDateFormat.format(nowDate)+"_"+(assignment.getAssignmentNumber()+1);
+        String fileName = simpleDateFormat.format(nowDate) + "_" + (assignment.getAssignmentNumber() + 1);
         fileUpload.uploadFile(fileName, true, assignment.getFile());
 
         AssignmentVo assignmentVo =
@@ -79,64 +79,64 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     // 오늘 등록한 과제 리스트 가져오기
     @Override
-    public List<AssignmentDetail> getTodayAssignment() {
-        return assignmentDao.getTodayAssignment();
+    public List<AssignmentDetail> readTodayAssignment() {
+        return assignmentDao.selectTodayAssignment();
     }
 
     // 모든 과제의 title 가져오기
     @Override
-    public List<AssignmentDetail> assignmentList() {
+    public List<AssignmentDetail> readAssignmentList() {
         return assignmentDao.selectAllAssignmentTitle();
     }
 
 
     @Override
-    public List<AssignmentVo> selectAllAssignment() {
+    public List<AssignmentVo> readAllAssignment() {
         return assignmentDao.selectAllAssignment();
     }
 
     @Override
-    public AssignmentContent assignmentDetails(int assignmentId) {
+    public AssignmentContent readAssignmentDetails(int assignmentId) {
         return assignmentDao.selectAssignmentDetails(assignmentId);
     }
 
     @Override
-    public AssignmentContent assignmentRecentDetails() {
+    public AssignmentContent readAssignmentRecentDetails() {
         return assignmentDao.selectRecentAssignment();
     }
 
     @Override
-    public List<SubmitStudent> submitStudentList(int assignmentId) {
+    public List<SubmitStudent> readSubmitStudentList(int assignmentId) {
         return assignmentDao.selectSubmitStudents(assignmentId);
     }
 
     @Override
-    public List<UnsubmitStudent> unsubmitStudentList(int assignmentId) {
+    public List<UnsubmitStudent> readUnsubmitStudentList(int assignmentId) {
         return assignmentDao.selectUnsubmitStudents(assignmentId);
     }
 
     @Override
-    public SubmitContent submitDetails(int submitId) {
+    public SubmitContent readSubmitDetails(int submitId) {
         return assignmentDao.selectSubmitContent(submitId);
     }
 
     @Override
-    public List<CommentContent> commentDetails(int submitId) {
+    public List<CommentContent> readCommentDetails(int submitId) {
         return assignmentDao.selectComment(submitId);
     }
 
     @Override
-    public List<CommentContent> commentStudent(GetComment getComment) {
+    public List<CommentContent> readCommentStudent(GetComment getComment) {
         return assignmentDao.selectCommentStudent(getComment);
     }
 
     @Override
-    public boolean assignmentRemove(int assignmentId) {
+    public boolean deleteAssignment(int assignmentId) {
         return assignmentDao.deleteAssignment(assignmentId);
     }
 
     @Override
-    public boolean commentRemove(int commentId) {
+    public boolean deleteComment(int commentId) {
         return assignmentDao.deleteComment(commentId);
     }
 }

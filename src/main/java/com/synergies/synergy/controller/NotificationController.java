@@ -26,22 +26,22 @@ public class NotificationController {
             return "redirect:/admin/home";
         }
         notification.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
-        notificationService.notificationAdd(notification);
+        notificationService.readNotification(notification);
         return "redirect:/admin/home";
     }
 
 
     @PostMapping("/notificationUpdate/{id}")
     public String notificationModify(@PathVariable int id,
-        @ModelAttribute NotificationDto notification, RedirectAttributes redirectAttributes, HttpSession session) {
+                                     @ModelAttribute NotificationDto notification, RedirectAttributes redirectAttributes, HttpSession session) {
         if (notification == null || notification.getContent().isBlank() || notification.getTitle()
                 .isBlank() || notification.getLabelOption().isBlank()) {
             return "redirect:/admin/home";
         }
 
         notification.setId(id);
-        notification.setRefUserId(((LoginUserInfoVo)session.getAttribute("loginUserInfo")).getId());
-        notificationService.notificationModify(notification);
+        notification.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
+        notificationService.updateNotification(notification);
 
         redirectAttributes.addFlashAttribute("message", "공지를 수정하셨습니다!");
         return "redirect:/admin/home";
@@ -50,7 +50,7 @@ public class NotificationController {
 
     @GetMapping("/notificationDelete/{id}")
     public String notificationRemove(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        notificationService.notificationRemove(id);
+        notificationService.deleteNotification(id);
 
         redirectAttributes.addFlashAttribute("message", "공지를 삭제하셨습니다!");
         return "redirect:/admin/home";

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface TodoService {
-    List<TodoDto> selectAllTodo(byte[] refUserId);
+    List<TodoDto> readAllTodo(byte[] refUserId);
 
-    int insertTodo(TodoDto todo);
+    int createTodo(TodoDto todo);
 
     int updateTodo(TodoDto todo);
 

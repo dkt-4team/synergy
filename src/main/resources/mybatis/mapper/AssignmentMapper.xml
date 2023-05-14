@@ -17,8 +17,12 @@
     <insert id="insertComment" parameterType="CommentVo">
         INSERT INTO COMMENTS (ref_assignment_submit_id, content) values (#{refAssignmentSubmitId}, #{content})
     </insert>
-    <select id="getTodayAssignment" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
-        SELECT id, title FROM ASSIGNMENTS WHERE DATE_FORMAT(reg_date, "%Y-%m-%d")=CURDATE() ORDER BY id
+    <select id="selectTodayAssignment"
+            resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
+        SELECT id, title
+        FROM ASSIGNMENTS
+        WHERE DATE_FORMAT(reg_date, "%Y-%m-%d") = CURDATE()
+        ORDER BY id
     </select>
     <select id="selectAllAssignment" resultType="AssignmentVo">
         SELECT * FROM ASSIGNMENTS

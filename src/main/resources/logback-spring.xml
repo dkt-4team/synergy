@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
+    <property name="LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-4relative] %green([%thread]) %highlight(%-5level) %boldWhite([%C.%M:%yellow(%L)]) - %msg%n"/>
+    <property name="STDOUT_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{36} - %msg%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${STDOUT_PATTERN}</pattern>
+        </layout>
+    </appender>
+    <appender name="INFO_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/info-${BY_DATE}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TODO_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/todo-${BY_DATE}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY
+            </onMismatch>
+        </filter>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="com.synergies.synergy.controller.AuthController" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="INFO_LOG"/>
+    </logger>
+    <logger name="com.synergies.synergy.controller.SignupController" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="INFO_LOG"/>
+    </logger>
+    <logger name="com.synergies.synergy.controller.TodoController" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="TODO_LOG"/>
+    </logger>
+</configuration>

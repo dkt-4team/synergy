@@ -2,8 +2,9 @@ package com.synergies.synergy.dao;
 
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.domain.vo.SignupVo;
-import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.Optional;
 
 @Mapper
 public interface UserDao {

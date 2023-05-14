@@ -32,7 +32,7 @@ public class AssignmentController {
     public String studentAssignDetail(@PathVariable("id") int assignmentId, Model model, HttpSession session) {
 
         // 모든 과제들의 title 전송
-        List<AssignmentDetail> assignmentList = assignmentService.assignmentList();
+        List<AssignmentDetail> assignmentList = assignmentService.readAssignmentList();
         if (assignmentId == 0 || assignmentList.isEmpty()) {
             model.addAttribute("assignmentList", null);
             model.addAttribute("assignmentDetail", null);
@@ -40,14 +40,14 @@ public class AssignmentController {
             model.addAttribute("assignmentList", assignmentList);
 
             // 선택한 과제의 상세 데이터 전송
-            AssignmentContent assignDetail = assignmentService.assignmentDetails(assignmentId);
+            AssignmentContent assignDetail = assignmentService.readAssignmentDetails(assignmentId);
             model.addAttribute("assignmentDetail", assignDetail);
 
             // 해당 과제에 대한 교수자 코멘트
             GetComment getComment = new GetComment(assignDetail.getId(), ((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
-            List<CommentContent> comment = assignmentService.commentStudent(getComment);
+            List<CommentContent> comment = assignmentService.readCommentStudent(getComment);
 
-            if(comment.isEmpty()) {
+            if (comment.isEmpty()) {
                 model.addAttribute("comment", null);
             } else {
                 model.addAttribute("comment", comment);
@@ -66,12 +66,12 @@ public class AssignmentController {
         assignment.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
 
         String message;
-        if(assignment.getFile().isEmpty()){
-            message ="파일이 비어있습니다. 선택 후 제출해주세요!";
+        if (assignment.getFile().isEmpty()) {
+            message = "파일이 비어있습니다. 선택 후 제출해주세요!";
 
-        }else {
-            assignmentDetailsService.insertAssignmentDetail(assignment);
-            message ="제출에 성공했습니다.";
+        } else {
+            assignmentDetailsService.createAssignmentDetail(assignment);
+            message = "제출에 성공했습니다.";
         }
         redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/student/assign/" + assignment.getRefAssignmentId();

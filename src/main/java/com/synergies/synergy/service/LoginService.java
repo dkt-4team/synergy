@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LoginService {
 
-    public LoginUserInfoVo login(String userId, String password);
+    LoginUserInfoVo login(String userId, String password);
 
 }
