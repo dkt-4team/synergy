@@ -36,8 +36,34 @@
         </encoder>
     </appender>
 
-    <appender name="NOTI_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>./logs/noti-${BY_DATE}.log</file>
+    <appender name="NOTIFICATION_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/notification-${BY_DATE}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY
+            </onMismatch>
+        </filter>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STUDENT_ASSIGNMENT_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/student-assignment-${BY_DATE}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY
+            </onMismatch>
+        </filter>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ADMIN_ASSIGNMENT_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/admin-assignment-${BY_DATE}.log</file>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
@@ -67,6 +93,14 @@
     </logger>
     <logger name="com.synergies.synergy.controller.NotificationController" additivity="false">
         <level value="INFO"/>
-        <appender-ref ref="NOTI_LOG"/>
+        <appender-ref ref="NOTIFICATION_LOG"/>
+    </logger>
+    <logger name="com.synergies.synergy.controller.AssignmentController" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="STUDENT_ASSIGNMENT_LOG"/>
+    </logger>
+    <logger name="com.synergies.synergy.controller.AssignmentAdminController" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="ADMIN_ASSIGNMENT_LOG"/>
     </logger>
 </configuration>
