@@ -1,17 +1,19 @@
 package com.synergies.synergy.dao;
 
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
 import com.synergies.synergy.domain.dto.TodoDto;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface TodoDao {
 
-    List<TodoDto> getAll();
+    List<TodoDto> selectAllTodo(byte[] refUserId);
 
-    int insert(TodoDto todo);
+    int insertTodo(TodoDto todo);
 
-    int update(TodoDto todo);
+    int updateTodo(TodoDto todo);
 
-    int delete(int id);
+    int deleteTodo(TodoDeleteRequestDto todoDeleteRequestDTO);
 }

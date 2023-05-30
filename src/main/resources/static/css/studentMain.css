@@ -1,0 +1,352 @@
+@charset "UTF-8";
+/* 태그 */
+
+      html, body {
+        margin: 0;
+        font-family: 'Noto Sans KR', sans-serif;
+        height: 100%;
+      }
+     body > div {
+        margin: 0;
+        background-color: white;
+      }
+      .user{
+         float: right;
+         margin-right: 2%;
+         font-size: 1.2rem;
+         cursor: pointer;
+         font-family: 'Noto Sans KR', sans-serif;
+      }
+      nav {
+        font-family: 'Lemon', cursive;
+        color: white;
+        background-color: #172247;
+        height: 4rem;
+        line-height: 4rem;
+        width: 100%;
+        box-shadow: 0px 4px 10px #D0D0D0;
+      }
+      hr {
+        background-color: #CBCBCB;
+        height: 1px;
+        border: 0;
+        width: 90%;
+      }
+      a {
+        text-decoration: none;
+        font-size: 3.5rem;
+        color: black;
+        font-weight: 100;
+      }
+/* 네브바 */
+      .logo {
+        margin-left: 2%;
+        font-size: 1.4rem;
+        cursor: pointer;
+      }
+
+      .logout {
+        float: right;
+        margin-right: 2%;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+/* 전체 */
+      .container {
+        margin-top: 2%;
+      }
+
+/* 투두 */
+.on_now_tag{
+    font-size: 1.2rem;
+    color: #fd183a;
+    padding: 2px 10px;
+    margin-left: -7px;
+    font-weight: 700;
+}
+.on_now_tag:after {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #fd183a;
+    border-radius: 50%;
+    margin-left: 3px;
+    margin-bottom: 1px;
+    -webkit-animation:blink 1s ease-in-out infinite alternate;
+    -moz-animation:blink 1s ease-in-out infinite alternate;
+    animation:blink 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+      .todo-list {
+        float: left;
+        width: 43%;
+        margin-left: 5%;
+        height: 80vh;
+      }
+
+      .todo-scroll{
+         height: 75vh;
+         width: 100%;
+         overflow-y: scroll;
+      }
+
+      .todo-scroll::-webkit-scrollbar {
+          width: 20px;
+        }
+        .todo-scroll::-webkit-scrollbar-thumb {
+          background-color: #D0D0D0;
+          background-clip: padding-box;
+          border: 5px solid transparent;
+          border-radius: 20px;
+        }
+        .todo-scroll::-webkit-scrollbar-track {
+          background-color: white;
+        }
+
+      .todo {
+        border: none;
+        height: 5vh;
+        line-height: 5vh;
+        border-radius: 10px;
+        box-shadow: 4px 3px 10px #D0D0D0;
+        margin-bottom: 1.6%;
+        cursor: pointer;
+        width: 98%;
+        font-size: 1rem;
+      }
+      .todo:hover {
+         background-color: #D0D0D0;
+       }
+      .todo-header {
+        width: 96%;
+        position: relative;
+        border: none;
+        height: 5vh;
+        line-height: 5vh;
+        border-radius: 10px;
+        box-shadow: 4px 4px 10px #D0D0D0;
+        margin-bottom: 1.6%;
+        background-color: #2C3264;
+        color: white;
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
+      .todo-header>span{
+          position: absolute;
+            font-size: 1.5em;
+            right: 5%;
+            cursor: pointer;
+       }
+      .todo-content {
+        margin-left: 3%;
+      }
+
+      .todo-content-empty {
+        height: 80vh;
+        text-align: center;
+        line-height: 80vh;
+      }
+
+      .del {
+        color: red;
+        font-size: 1rem;
+        float: right;
+        margin-right: 3%;
+      }
+
+      .add-todo {
+        position: fixed;
+        top: 85%;
+      }
+
+/* 공지 */
+      .gong {
+        float: left;
+        width: 42%;
+        margin-left: 6%;
+        height: 83vh;
+        border-radius: 10px;
+        box-shadow: 4px 4px 20px #D0D0D0;
+        border: none;
+        font-size: 1.2rem;
+      }
+        .gong-list {
+            height: 50vh;
+            text-align: center;
+            overflow-y: scroll;
+        }
+        .gong-list::-webkit-scrollbar {
+          width: 20px;
+        }
+        .gong-list::-webkit-scrollbar-thumb {
+          background-color: #D0D0D0;
+          background-clip: padding-box;
+          border: 5px solid transparent;
+          border-radius: 20px;
+        }
+        .gong-list::-webkit-scrollbar-track {
+          background-color: white;
+        }
+
+      .gong-content {
+        border: none;
+        height: 5vh;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 5vh;
+        border-radius: 10px;
+        box-shadow: 4px 4px 10px #D0D0D0;
+        margin-top: 2%;
+        text-align: center;
+        cursor: pointer;
+      }
+     .gong-content:hover {
+         background-color: #D0D0D0;
+      }
+      .button-area {
+        width: 100%;
+        height: 26vh;
+        text-align: center;
+      }
+      .button{
+        box-shadow: 4px 4px 10px #D0D0D0;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid #D0D0D0;
+        width: 90%;
+        height: 26vh;
+        line-height: 26vh;
+        margin-top: 3vh;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      .button:hover{
+        background-color: #D0D0D0;
+      }
+
+/* 모달 */
+
+      :modal {
+        border: none;
+        padding: 0;
+        border-radius: 20px;
+        box-shadow: 4px 4px 10px #D0D0D0;
+      }
+
+      :modal form {
+        width: 40vh;
+      }
+
+      :modal form > * {
+        box-sizing: border-box;
+        padding: 0.5em;
+        text-align: center;
+      }
+
+      #btnClose {
+        color: red;
+      }
+
+      :modal button { /* 버튼 스타일을 무력화합니다. */
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+
+      :modal input { /* 버튼 스타일을 무력화합니다. */
+        width: 90%;
+        height: 4vh;
+        margin-bottom: 3%;
+        border-radius: 10px;
+        border: 1px solid #D0D0D0;
+      }
+
+      :modal .body {
+        margin-top: 2vw;
+      }
+
+      :modal .bottom {
+        margin-top: 2vw;
+      }
+
+      :modal .no-body {
+        margin-top: 2vw;
+        width: 30vw;
+        height: 50vh;
+      }
+
+      :modal .title {
+          width: 90%;
+          height: 3vh;
+          margin-left: 5%;
+      }
+      :modal hr {
+          width: 94%;
+      }
+      :modal .no-content {
+          width: 90%;
+          margin-left: 5%;
+      }
+
+/* 반응형 */
+
+    @media screen and (max-width:1200px) {
+      .todo {
+        font-size: 0.8rem;
+      }
+     }
+
+     @media screen and (max-width:1023px) {
+      .todo {
+        font-size: 0.7rem;
+      }
+      .todo-header {
+        font-size: 1.2rem;
+      }
+       .gong {
+        font-size: 0.8rem;
+      }
+      :modal .no-body {
+        margin-top: 2vw;
+        width: 100vw;
+        height: 50vh;
+      }
+
+     }
+
+     @media screen and (max-width:840px) {
+        .del {
+          font-size: 0.7rem;
+          margin-right: 2%;
+        }
+       .todo-list {
+           width: 95%;
+         }
+        .gong {
+           width: 90%;
+        }
+     }
+
+       @media screen and (max-width:376px) {
+          .todo {
+                font-size: 0.4rem;
+              }
+          }

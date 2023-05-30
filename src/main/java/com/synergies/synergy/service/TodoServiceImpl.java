@@ -1,10 +1,12 @@
 package com.synergies.synergy.service;
 
-import com.synergies.synergy.domain.dto.TodoDto;
 import com.synergies.synergy.dao.TodoDao;
-import java.util.List;
+import com.synergies.synergy.domain.dto.TodoDeleteRequestDto;
+import com.synergies.synergy.domain.dto.TodoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -13,23 +15,22 @@ public class TodoServiceImpl implements TodoService {
     private TodoDao todoDao;
 
     @Override
-    public List<TodoDto> getAll() {
-        return todoDao.getAll();
+    public int createTodo(TodoDto todo) {
+        return todoDao.insertTodo(todo);
     }
 
     @Override
-    public int insert(TodoDto todo) {
-        return todoDao.insert(todo);
+    public List<TodoDto> readAllTodo(byte[] refUserId) {
+        return todoDao.selectAllTodo(refUserId);
     }
 
     @Override
-    public int update(TodoDto todo) {
-        System.out.println("test");
-        return todoDao.update(todo);
+    public int updateTodo(TodoDto todo) {
+        return todoDao.updateTodo(todo);
     }
 
     @Override
-    public int delete(int id) {
-        return todoDao.delete(id);
+    public int deleteTodo(TodoDeleteRequestDto todoDeleteRequestDTO) {
+        return todoDao.deleteTodo(todoDeleteRequestDTO);
     }
 }

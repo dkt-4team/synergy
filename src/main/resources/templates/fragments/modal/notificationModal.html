@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/studentMain.css">
+</head>
+
+<body>
+<dialog id="noDialog" th:fragment="notificationModal">
+    <div class="no-body">
+        <div class="title" id="no-title"></div>
+        <hr>
+        <div class="no-content" id="no-content"></div>
+    </div>
+    <div class="bottom" style="text-align: center">
+        <button id="noClose" style="margin-bottom: 6%; border: none; color: red">닫기</button>
+    </div>
+</dialog>
+<dialog id="notiDialog" th:fragment="notificationMainModal">
+    <form class="noti-form" id="notificationSubmit" name=notiSubmit>
+        <div class="body">
+            <div class="header">
+                <div class="selectBox">
+                    <select name="labelOption" class="optionList" id="optionList">
+                        <option value="일정공지" name="labelOption" class="optionItem">일정공지</option>
+                        <option value="실습공지" name="labelOption" class="optionItem">실습공지</option>
+                        <option value="출석공지" name="labelOption" class="optionItem">출석공지</option>
+                        <option value="기업공지" name="labelOption" class="optionItem">기업공지</option>
+                        <option value="기타공지" name="labelOption" class="optionItem">기타공지</option>
+                    </select>
+                </div>
+
+                <input type="text" class="noti-title" name="title" id="noti-title" placeholder="제목을 입력하세요">
+            </div>
+            <div>
+
+                <textarea rows="10" class="noti-textarea" name="content" id="noti-textarea" placeholder="내용을 입력하세요"></textarea>
+            </div>
+        </div>
+    </form>
+    <div class="bottom">
+        <div>
+            <button type="submit" id="sub-noti" form="notificationSubmit">저장하기</button>
+        </div>
+        <div>
+            <button id="notiClose" aria-label="close" value="cancel">취소</button>
+        </div>
+    </div>
+</dialog>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

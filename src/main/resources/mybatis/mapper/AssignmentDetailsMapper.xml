@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synergies.synergy.dao.AssignmentDetailsDao">
+    <resultMap id="assignmentResultMap" type="com.synergies.synergy.domain.dto.AssignmentDetailsDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <insert id="insertAssignmentDetail" parameterType="AssignmentDetailsVo">
+        INSERT INTO ASSIGNMENT_SUBMIT (ref_user_id, ref_assignment_id, submit_file)
+        VALUES (#{refUserId}, #{refAssignmentId}, #{file})
+    </insert>
+    <select id="selectAssignmentDetail" resultType="AssignmentDetailsDto" parameterType="AssignmentDetailsDto">
+        SELECT submit_file, comment
+        FROM ASSIGNMENT_SUBMIT
+        WHERE ref_user_id = #{refUserId}
+          AND ref_assignment_id = #{refAssignmentId}
+    </select>
+</mapper>

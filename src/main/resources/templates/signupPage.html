@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <title>Synergy</title>
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link
+            rel="stylesheet"
+            th:href="@{https://fonts.googleapis.com/css2?family=Lemon&family=Nanum+Gothic&display=swap}">
+    <link rel="stylesheet" th:href="@{/css/signupPage.css}">
+</head>
+
+<body>
+<div class="container">
+    <div class="signup-container">
+        <div class="signup-div"><span class="signup-title">회원가입</span></div>
+        <form class="signup-form" id="signup-form-id" th:action="@{/signup}" th:object="${signupInfoDto}"
+              th:method="POST">
+            <div class="modal-container">
+                <div class="login-div">
+                    <label class="form-label" for="user_id_input">ID</label> <br>
+                    <input class="signup-input" id="user_id_input" name="user_id" required
+                           th:field="*{userId}" type="text">
+                    <button id="checkUserId" type="button">중복확인</button>
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="password">비밀번호</label><br>
+                    <input class="signup-input" id="password" name="password" required
+                           th:field="*{password}" type="password">
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="user_name">이름</label><br>
+                    <input class="signup-input" id="user_name" name="user_name" required
+                           th:field="*{name}" type="text">
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="email">이메일</label><br>
+                    <input class="signup-input" id="email" name="email" required th:field="*{email}"
+                           type="email">
+                </div>
+                <div class="login-div">
+                    <label class="form-label" for="phone_number">전화번호</label><br>
+                    <input class="signup-input" id="phone_number" name="phone_number" required
+                           th:field="*{phoneNumber}" type="tel">
+                </div>
+            </div>
+        </form>
+        <div class="input-div">
+            <input class="signup-input-button" form="signup-form-id" type="submit" value="가입하기">
+            <button class="cancel-input-button" formnovalidate th:onclick="location.href='/'">가입취소</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/signup/checkUserId.js}"></script>
+</body>
+</html>

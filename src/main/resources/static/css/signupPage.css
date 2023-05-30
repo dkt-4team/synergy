@@ -1,0 +1,144 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    background-color: #d3d3d3;
+}
+button{
+    cursor: pointer;
+}
+nav {
+    font-family: 'Lemon', cursive;
+    color: white;
+    background-color: #172247;
+    height: 4rem;
+    line-height: 4rem;
+    width: 100%;
+    box-shadow: 0px 4px 10px #D0D0D0;
+}
+
+.signup-input { /* 버튼 스타일을 무력화합니다. */
+    width: 84%;
+    height: 5vh;
+    line-height: 5vh;
+    border-radius: 10px;
+    margin-bottom: 3%;
+    margin-top: 1.5%;
+    border: 1px solid #d3d3d3;
+}
+
+.signup-input-button { /* 버튼 스타일을 무력화합니다. */
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    height: 3vw;
+    line-height: 3vw;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px #D0D0D0;
+    margin: 5% 1% 1.6%;
+    background-color: #2C3264;
+    color : #efefef;
+}
+
+.cancel-input-button {
+    border: none;
+    width: 20%;
+    height: 3vw;
+    line-height: 3vw;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px #D0D0D0;
+    margin: 5% 1% 1.6%;
+}
+
+.logo {
+    margin-left: 2%;
+    font-size: 1.4rem;
+}
+
+.logout {
+    float: right;
+    margin-right: 2%;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.container {
+    margin-top: 2%;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.signup-container {
+    text-align: center;
+    display: block;
+    width: 38%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 85vh;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px #D0D0D0;
+    border: none;
+    background-color: white;
+}
+
+
+hr {
+    background-color: #CBCBCB;
+    height: 1px;
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+    font-size: 3.5em;
+    color: black;
+    font-weight: 100;
+}
+
+signup-form {
+    text-align: center;
+}
+
+.input-with-button {
+    display: flex;
+    align-items: center;
+    margin-left: 5vw;
+}
+
+.input-with-button input {
+    margin-bottom: 3%;
+    flex-grow: 1;
+}
+.login-div{
+    position: relative;
+}
+.login-div >button{
+    position: absolute;
+    right: 18%;
+    bottom: 26%;
+    border: none;
+    width: 18%;
+    height: 1.8vw;
+    line-height: 1.8vw;
+    border-radius: 10px;
+    background-color: #2C3264;
+    color : #efefef;
+}
+
+.input-with-button button {
+    margin-left: 10px;
+}
+
+.modal-container{
+    text-align: left;
+    margin-left: 12%;
+}
+.signup-div{
+    height:10vh;
+    width:100%;
+    line-height:10vh;
+    padding-top: 2vh;
+}
+.signup-title{
+    float:left;
+    margin-left: 12%;
+    font-size:1.5rem;
+}

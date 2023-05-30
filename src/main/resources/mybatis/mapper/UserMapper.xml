@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synergies.synergy.dao.UserDao">
+  <resultMap id="userSignInInfoResultMap" type="com.synergies.synergy.domain.dto.SignupDto">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+  </resultMap>
+  <resultMap id="userLoginInfoResultMap" type="com.synergies.synergy.domain.vo.LoginUserInfoVo">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+  </resultMap>
+  <insert id="insertSignupUserInfo" parameterType="SignupVo">
+    INSERT INTO USER (id, user_id, password, salt, name, email, phone_number, role)
+    VALUES (#{id}, #{userId}, #{password}, #{salt}, #{name}, #{email}, #{phoneNumber}, #{role})
+  </insert>
+  <select id="selectUserLoginInfo" resultMap="userLoginInfoResultMap" parameterType="string">
+    SELECT id,
+           user_id,
+           password,
+           salt,
+           name,
+           email,
+           phone_number,
+           role
+    FROM USER
+    WHERE user_id = #{userId};
+  </select>
+  <select id="selectDuplicationUser" resultType="int" parameterType="string">
+    SELECT count(user_id) FROM USER WHERE user_id = #{userId};
+  </select>
+  <select id="selectUserPassword" resultType="string" parameterType="string">
+    SELECT password FROM USER WHERE user_id = #{userId};
+  </select>
+</mapper>

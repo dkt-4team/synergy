@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synergies.synergy.dao.NotificationDao">
+    <resultMap id="regNotificationMap" type="com.synergies.synergy.domain.dto.NotificationDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="selectNotificationList" resultMap="regNotificationMap">
+        SELECT * FROM NOTIFICATION
+    </select>
+
+    <insert id="insertNotification" parameterType="com.synergies.synergy.domain.dto.NotificationDto">
+        INSERT INTO NOTIFICATION (ref_user_id, title, content, label_option) VALUES (#{refUserId}, #{title}, #{content}, #{labelOption})
+    </insert>
+
+    <update id="updateNotification" parameterType="com.synergies.synergy.domain.dto.NotificationDto">
+        UPDATE NOTIFICATION SET content = #{content}, title = #{title} WHERE ref_user_id = #{refUserId} and id = #{id}
+    </update>
+
+    <delete id="deleteNotification" parameterType="int">
+        DELETE FROM NOTIFICATION WHERE id = #{id}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/studentMain.css">
+</head>
+
+<body>
+<nav th:fragment="navFragment(param1)"><span class="logo" th:onclick="|location.href='@{/student/home}'|">Synergy</span><span
+        class="logout" th:onclick="|location.href='@{/logout}'|">Logout</span><span class="user"
+                                                                                    th:text="${param1}"></span></nav>
+</body>

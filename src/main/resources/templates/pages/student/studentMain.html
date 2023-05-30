@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Synergy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+</head>
+
+<body>
+<div th:replace="/fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+
+<div th:replace="/fragments/modal/todoModal.html :: todoModal"></div>
+<div th:replace="/fragments/modal/notificationModal.html :: notificationModal"></div>
+
+<div class="container">
+    <div class="todo-list">
+        <div class="todo-header">ToDo 리스트<span id="addOpen" aria-haspopup="dialog" onClick="getPost('01')">+</span>
+        </div>
+        <div id="editOpen" aria-haspopup="dialog">
+            <th:block th:if="${todoList}!=null">
+                <div class="todo-scroll">
+                    <div>
+                        <div th:each="todo : ${todoList}">
+                            <div class="todo">
+                                <div class="todo-content"
+                                     th:onclick="getPost('02', [[${todo.id}]], [[${todo.content}]], [[${todo.endDate}]])">
+                                    <span th:text="${todo.content}"></span>
+                                    <a th:onclick="event.stopPropagation();deleteTodo([[${todo.id}]])"
+                                       class="del">Done</a>
+                                    <span th:text="${#strings.listSplit(todo.endDate,'|')[0]}"
+                                          style="font-size: 0.7em; margin-right: 3%; color: blue; float: right"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <th:block th:unless="${todoList}!=null">
+            <div class="todo-content-empty" onclick="event.stopPropagation();"
+                 style="cursor:default;">+ 버튼을 눌러 Todo를
+                입력해주세요!
+            </div>
+        </th:block>
+        <form name="delTodo" style="display:none">
+            <input type="hidden" name="id" id="delId"/>
+        </form>
+    </div>
+    <div class="gong">
+        <div class="gong-list" id="noOpen" aria-haspopup="dialog">
+            <th:block th:if="${notiList!=null}">
+                <div class="gong-content" th:each="notification : ${notiList}"
+                     th:onclick="getNotification([[${notification}]])">
+                    <span th:text="${#strings.listSplit(notification.regDate,' ')[0]}"
+                          style="float: right; margin-right: 2%; color: blue"></span>
+                    <span th:text="|[${notification.labelOption}]|" style="float: left; margin-left: 2%"></span>
+
+                    <span th:text="${notification.title}"></span>
+
+                </div>
+            </th:block>
+            <th:block th:unless="${notiList!=null}" onclick="event.stopPropagation();">
+                <div style="margin-top: 20vh;">현재 등록된 공지사항이 없습니다.</div>
+            </th:block>
+        </div>
+        <hr>
+        <th:block th:if="${sig}">
+            <div class="button-area">
+                <div class="button blink" th:onclick="|location.href='@{/student/assign/{id}(id=${assignId})}'|"><span
+                        class="on_now_tag">과제 제출하기</span></div>
+            </div>
+        </th:block>
+        <th:block th:unless="${sig}">
+            <div class="button-area">
+                <div class="button" th:onclick="|location.href='@{/student/assign/{id}(id=${assignId})}'|">과제 제출하기</div>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+<script src="/js/studentMain.js"></script>
+<script th:inline="javascript">
+      /* <![CDATA[ */
+        window.onload = () => {
+            let message = /*[[ ${message} ]]*/;
+            if (message) {
+                alert(message);
+            }
+             message = null;
+        }
+      /* ]]> */
+</script>
+</html>

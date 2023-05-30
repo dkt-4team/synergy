@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Synergy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Noto+Sans+KR:wght@100;300&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentMain.css">
+    <link rel="stylesheet" href="/css/adminMain.css">
+</head>
+
+<body>
+
+<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+
+<div th:replace="/fragments/modal/notificationModal.html :: notificationMainModal"></div>
+<div th:replace="/fragments/modal/assignmentModal.html :: assignmentModal"></div>
+
+<div class="container">
+    <div class="block">
+        <div class="block-header">공지 리스트<span id="notiOpen" aria-haspopup="dialog" onClick="notiPost('01')">+</span>
+        </div>
+        <div class="todo-scroll" id="notiModifyBtn" aria-haspopup="dialog">
+            <th:block th:if="${notiList}!=null">
+                <div class="notification">
+                    <div th:each="notification : ${notiList}">
+                        <div class="noti-content" th:onclick="notiPost('02', [[${notification}]])">
+                            <span th:text="|[${notification.labelOption}]|"></span>
+                            <a class="del"
+                               onclick="event.stopPropagation();" style="float: right; margin-right: 5%; "
+                               th:href="@{/admin/notificationDelete/{id}(id=${notification.id})}">Delete</a>
+                            <span style=" float: right; margin-right: 2%; color: blue"
+                                  th:text="${#strings.listSplit(notification.regDate,' ')[0]}"></span>
+                            <span th:text="${notification.title}"></span>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <th:block th:unless="${notiList}!=null">
+            <div class="notification-content-empty" onclick="event.stopPropagation();"
+                 style="cursor:default;">+ 버튼을 눌러 notification를 입력해주세요!
+            </div>
+        </th:block>
+    </div>
+
+
+</div>
+<div class="block">
+    <div class="block-header">과제 리스트<span aria-haspopup="dialog" id="assignOpen" onClick="assignPost()">+</span>
+    </div>
+    <th:block th:if="${assignmentList}!=null">
+        <div th:each="assignment : ${assignmentList}">
+            <div class="assignment">
+                <div class="assignment-content"
+                     th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignment.id})}'|">
+                    <span th:text="${assignment.title}"></span>
+                    <a class="del"
+                       th:onclick="event.stopPropagation();deleteAssignment([[${assignment.id}]])">Delete</a>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:unless="${assignmentList}!=null">
+        <div class="assignment-content-empty" onclick="event.stopPropagation();"
+             style="cursor:default;">+ 버튼을 눌러 assignment를 입력해주세요!
+        </div>
+    </th:block>
+    <form name="delAssignment" style="display:none">
+        <input id="delId" name="id" type="hidden"/>
+    </form>
+    <div class="go-button" th:onclick="|location.href='@{/admin/assignmentDetail/{id}(id=${assignId})}'|">과제 확인하기</div>
+</div>
+</div>
+
+</body>
+<script src="/js/adminMain.js"></script>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    window.onload = () => {
+        let message = /*[[ ${message} ]]*/;
+        if (message) {
+            alert(message);
+        }
+        message = null;
+    }
+    /* ]]> */
+</script>
+</html>
