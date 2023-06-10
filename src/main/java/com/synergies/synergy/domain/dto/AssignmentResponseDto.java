@@ -19,7 +19,7 @@ public class AssignmentResponseDto {
         private int id;
         private String title;
         private String content;
-        private String file;
+        private String assignmentFile;
     }
 
     @Getter
@@ -34,6 +34,7 @@ public class AssignmentResponseDto {
     }
 
     @Getter
+    @Setter
     public static class SubmitContent {
         private int id;
         private String name;

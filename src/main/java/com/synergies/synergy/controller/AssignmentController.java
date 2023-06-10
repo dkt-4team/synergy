@@ -6,6 +6,7 @@ import com.synergies.synergy.domain.dto.AssignmentResponseDto.AssignmentDetail;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.CommentContent;
 import com.synergies.synergy.domain.dto.AssignmentResponseDto.GetComment;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.s3.FileUploadService;
 import com.synergies.synergy.service.AssignmentDetailsService;
 import com.synergies.synergy.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class AssignmentController {
 
     @Autowired
     private AssignmentDetailsService assignmentDetailsService;
+
+    @Autowired
+    private FileUploadService fileUploadService;
 
     // 과제 확인 페이지
     @GetMapping("/assign/{id}")
@@ -60,8 +64,10 @@ public class AssignmentController {
         return "pages/student/studentAssign";
     }
 
-    @PostMapping("/assignRegister")
-    public String assignmentInsert(@ModelAttribute("AssignmentDetailsDto") AssignmentDetailsDto assignment, HttpSession session, RedirectAttributes redirectAttributes) {
+    @PostMapping("/assignRegister/{id}")
+    public String assignmentInsert(@ModelAttribute("AssignmentDetailsDto") AssignmentDetailsDto assignment,
+                                   @PathVariable("id") int assignmentId,
+                                   HttpSession session, RedirectAttributes redirectAttributes) {
 
         assignment.setRefUserId(((LoginUserInfoVo) session.getAttribute("loginUserInfo")).getId());
 
@@ -70,7 +76,7 @@ public class AssignmentController {
             message ="파일이 비어있습니다. 선택 후 제출해주세요!";
 
         }else {
-            assignmentDetailsService.insertAssignmentDetail(assignment);
+            assignmentDetailsService.insertAssignmentDetail(assignmentId, assignment);
             message ="제출에 성공했습니다.";
         }
         redirectAttributes.addFlashAttribute("message", message);

@@ -8,7 +8,6 @@ import com.synergies.synergy.domain.dto.NotificationDto;
 import com.synergies.synergy.service.AssignmentService;
 import com.synergies.synergy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,8 +69,6 @@ public class AssignmentAdminController {
     @PostMapping("/assignmentUpdate/{id}")
     public String assignmentModify(@PathVariable int id, @ModelAttribute("AssignmentDTO") AssignmentDto assignment, Model model, RedirectAttributes redirectAttributes) {
 
-        // TODO : result 결과에 따른 알림창 띄우기
-        // TODO : view에서 id 값을 받아서 서버로 전송하는 방법 찾아보기
         assignment.setId(id);
         if (assignmentService.updateAssignment(assignment) != 0) {
             model.addAttribute("result", "success");
@@ -172,13 +169,6 @@ public class AssignmentAdminController {
             redirectAttributes.addFlashAttribute("message", message);
         }
         return "redirect:/admin/assignmentSubmit/"+submitId;
-    }
-
-    @GetMapping("/assignmentDownload")
-    public ResponseEntity<byte[]> assignmentDownload(Model model) throws IOException {
-        String fileUrl = "230503_10";
-
-        return assignmentService.fileDownload(fileUrl, true);
     }
 
 }

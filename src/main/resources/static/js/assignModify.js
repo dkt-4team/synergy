@@ -21,6 +21,10 @@
         subText.innerText = "수정하기";
     }
 
+    function assignDownload(url) {
+        window.location.href = url;
+    }
+
     assignModifyBtn.addEventListener('click', function (evt) {
         assignDialog.showModal();
     });

@@ -17,3 +17,8 @@
         subId.value = submitNum;
         theForm.submit();
     }
+
+    function assignDownload(url) {
+        console.log(url);
+        window.location.href = url;
+    }

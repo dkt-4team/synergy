@@ -7,9 +7,8 @@ import com.synergies.synergy.s3.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AssignmentDeatilsServiceImpl implements AssignmentDetailsService{
@@ -25,10 +24,8 @@ public class AssignmentDeatilsServiceImpl implements AssignmentDetailsService{
     }
 
     @Override
-    public int insertAssignmentDetail(AssignmentDetailsDto assignment){
-        Date nowDate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        String fileName = simpleDateFormat.format(nowDate)+"_"+(assignment.getRefAssignmentId()+1);
+    public int insertAssignmentDetail(int assignmentId, AssignmentDetailsDto assignment){
+        String fileName = assignmentId + "/" + UUID.randomUUID();
         fileUpload.uploadFile(fileName, false, assignment.getFile());
         AssignmentDetailsVo vo = new AssignmentDetailsVo(assignment.getRefUserId(), assignment.getRefAssignmentId(), fileName);
 
