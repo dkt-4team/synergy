@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+**/logs
 
 ### STS ###
 .apt_generated
@@ -39,3 +40,7 @@ out/
 ### Project setting files ###
 *.yml
 /web/WEB-INF/web.xml
+
+### MacOS ###
+.DS_Store
+

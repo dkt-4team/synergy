@@ -17,8 +17,12 @@
     <insert id="insertComment" parameterType="CommentVo">
         INSERT INTO COMMENTS (ref_assignment_submit_id, content) values (#{refAssignmentSubmitId}, #{content})
     </insert>
-    <select id="getTodayAssignment" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
-        SELECT id, title FROM ASSIGNMENTS WHERE DATE_FORMAT(reg_date, "%Y-%m-%d")=CURDATE() ORDER BY id
+    <select id="selectTodayAssignment"
+            resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$AssignmentDetail">
+        SELECT id, title
+        FROM ASSIGNMENTS
+        WHERE DATE_FORMAT(reg_date, "%Y-%m-%d") = CURDATE()
+        ORDER BY id
     </select>
     <select id="selectAllAssignment" resultType="AssignmentVo">
         SELECT * FROM ASSIGNMENTS
@@ -40,12 +44,12 @@
     </select>
     <select id="selectSubmitStudents" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$SubmitStudent">
         SELECT ASSIGNMENT_SUBMIT.id, name from ASSIGNMENT_SUBMIT join USER on ASSIGNMENT_SUBMIT.ref_user_id = USER.id
-        WHERE ASSIGNMENT_SUBMIT.ref_assignment_id = #{assignmentId}
+        WHERE ASSIGNMENT_SUBMIT.ref_assignment_id = #{assignmentId} AND USER.role = 0
         ORDER BY ASSIGNMENT_SUBMIT.reg_date
     </select>
     <select id="selectUnsubmitStudents" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$UnsubmitStudent">
         SELECT USER.name from USER LEFT OUTER JOIN (select * from ASSIGNMENT_SUBMIT WHERE ref_assignment_id = #{assignmentId}) as b
-        ON USER.id=b.ref_user_id WHERE b.ref_user_id is null
+        ON USER.id=b.ref_user_id WHERE b.ref_user_id is null AND USER.role = 0
     </select>
     <select id="selectSubmitContent" parameterType="int" resultType="com.synergies.synergy.domain.dto.AssignmentResponseDto$SubmitContent">
         SELECT a.id, submit_file, a.reg_date, u.name FROM ASSIGNMENT_SUBMIT a INNER JOIN USER u on a.ref_user_id = u.id

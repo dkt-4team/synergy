@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -30,27 +30,25 @@ public class FileUploadService {
 
     public void uploadFile(String fileName, boolean manager, MultipartFile file) {
         String contentType = file.getContentType();
-        System.out.println("contentType: " +contentType);
+        System.out.println("contentType: " + contentType);
         String uploadPath;
 
-        if(manager) {
+        if (manager) {
             uploadPath = bucket + "/admin/";
-        }
-        else {
+        } else {
             uploadPath = bucket + "/student/";
         }
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentType(contentType);
-            byte[] bytes = IOUtils.toByteArray(file.getInputStream());
-            metadata.setContentLength(bytes.length);
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            metadata.setContentType(file.getContentType());
+            metadata.setContentLength(file.getSize());
+            InputStream inputStream = file.getInputStream();
 
-            amazonS3.putObject(new PutObjectRequest(bucket, uploadPath+fileName, byteArrayInputStream, metadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
+            amazonS3.putObject(new PutObjectRequest(bucket, uploadPath + fileName, inputStream, metadata)
+                                .withCannedAcl(CannedAccessControlList.PublicRead));
 
-            byteArrayInputStream.close();
+            inputStream.close();
         } catch (AmazonServiceException | IOException e) {
             e.printStackTrace();
         }

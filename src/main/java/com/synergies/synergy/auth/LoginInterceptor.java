@@ -17,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj)
-        throws Exception {
+            throws Exception {
         boolean sessionCheck = Optional.ofNullable(
                 request.getSession().getAttribute("loginUserInfo")).isEmpty();
         if (sessionCheck) {

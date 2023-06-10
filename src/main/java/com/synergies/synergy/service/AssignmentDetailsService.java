@@ -7,6 +7,6 @@ import java.util.List;
 
 @Service
 public interface AssignmentDetailsService {
-    List<AssignmentDetailsDto> getAssignmentDetail(AssignmentDetailsDto assignment);
-    int insertAssignmentDetail(int assignmentId, AssignmentDetailsDto assignment);
+    List<AssignmentDetailsDto> readAssignmentDetail(AssignmentDetailsDto assignment);
+    int createAssignmentDetail(int assignmentId, AssignmentDetailsDto assignment);
 }

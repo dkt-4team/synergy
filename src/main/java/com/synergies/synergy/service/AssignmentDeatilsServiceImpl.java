@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AssignmentDeatilsServiceImpl implements AssignmentDetailsService{
+public class AssignmentDeatilsServiceImpl implements AssignmentDetailsService {
     @Autowired
     private AssignmentDetailsDao assignmentDetailsDao;
 
@@ -19,12 +19,12 @@ public class AssignmentDeatilsServiceImpl implements AssignmentDetailsService{
     private FileUploadService fileUpload;
 
     @Override
-    public List<AssignmentDetailsDto> getAssignmentDetail(AssignmentDetailsDto assignment){
-        return assignmentDetailsDao.getAssignmentDetail(assignment);
+    public List<AssignmentDetailsDto> readAssignmentDetail(AssignmentDetailsDto assignment) {
+        return assignmentDetailsDao.selectAssignmentDetail(assignment);
     }
 
     @Override
-    public int insertAssignmentDetail(int assignmentId, AssignmentDetailsDto assignment){
+    public int createAssignmentDetail(int assignmentId, AssignmentDetailsDto assignment){
         String fileName = assignmentId + "/" + UUID.randomUUID();
         fileUpload.uploadFile(fileName, false, assignment.getFile());
         AssignmentDetailsVo vo = new AssignmentDetailsVo(assignment.getRefUserId(), assignment.getRefAssignmentId(), fileName);

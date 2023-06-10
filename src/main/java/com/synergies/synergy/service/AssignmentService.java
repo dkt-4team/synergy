@@ -10,19 +10,21 @@ import java.util.List;
 
 @Service
 public interface AssignmentService {
-    int insertAssignment(AssignmentDto assignment);
-    int insertComment(CommentDto comment);
+    int createAssignment(AssignmentDto assignment);
+
+    int createComment(CommentDto comment);
+
     int updateAssignment(AssignmentDto assignment);
-    List<AssignmentDetail> getTodayAssignment();
-    List<AssignmentDetail> assignmentList();
-    AssignmentContent assignmentDetails(int assignmentId);
-    AssignmentContent assignmentRecentDetails();
-    List<SubmitStudent> submitStudentList(int assignmentId);
-    List<UnsubmitStudent> unsubmitStudentList(int assignmentId);
-    SubmitContent submitDetails(int submitId);
-    List<CommentContent> commentDetails(int submitId);
-    List<CommentContent> commentStudent(GetComment getComment);
-    boolean assignmentRemove(int assignmentId);
-    boolean commentRemove(int commentId);
-    List<AssignmentVo> selectAllAssignment();
+    List<AssignmentDetail> readTodayAssignment();
+    List<AssignmentDetail> readAssignmentList();
+    AssignmentContent readAssignmentDetails(int assignmentId);
+    AssignmentContent readAssignmentRecentDetails();
+    List<SubmitStudent> readSubmitStudentList(int assignmentId);
+    List<UnsubmitStudent> readUnsubmitStudentList(int assignmentId);
+    SubmitContent readSubmitDetails(int submitId);
+    List<CommentContent> readCommentDetails(int submitId);
+    List<CommentContent> readCommentStudent(GetComment getComment);
+    boolean deleteAssignment(int assignmentId);
+    boolean deleteComment(int commentId);
+    List<AssignmentVo> readAllAssignment();
 }

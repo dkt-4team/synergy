@@ -1,6 +1,7 @@
 package com.synergies.synergy.auth.util;
 
 import com.fasterxml.uuid.Generators;
+
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ public class UUIDUtil {
         UUID uuidV1 = Generators.timeBasedGenerator().generate();
         String[] uuidV1Parts = uuidV1.toString().split("-");
         String sequentialUUID =
-            uuidV1Parts[2] + uuidV1Parts[1] + uuidV1Parts[0] + uuidV1Parts[3] + uuidV1Parts[4];
+                uuidV1Parts[2] + uuidV1Parts[1] + uuidV1Parts[0] + uuidV1Parts[3] + uuidV1Parts[4];
 
         String sequentialUuidV1 = String.join("", sequentialUUID);
         ByteBuffer bb = ByteBuffer.wrap(new byte[16]);

@@ -9,5 +9,4 @@ public interface SignupService {
     int createUserSignupInfo(SignupDto signupDTO);
 
     int readDuplicationUser(String userId);
-
 }
