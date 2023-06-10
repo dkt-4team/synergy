@@ -43,8 +43,8 @@
                     <input name="file" th:field="*{file}" type="file"/>
                     <input type="hidden" th:field="*{refAssignmentId}" name="refUserId"/>
                 </form>
-                <div>과제 다운로드</div>
-                <div onclick="assignPost()">과제 제출하기</div>
+                <div th:onclick="assignDownload([[${assignmentDetail.assignmentFile}]])">과제 다운로드</div>
+                <div th:onclick="assignPost([[${assignmentDetail.id}]])">과제 제출하기</div>
             </div>
             <hr>
             <div class="assign-bottom">

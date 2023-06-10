@@ -8,6 +8,5 @@ import java.util.List;
 @Service
 public interface AssignmentDetailsService {
     List<AssignmentDetailsDto> readAssignmentDetail(AssignmentDetailsDto assignment);
-
-    int createAssignmentDetail(AssignmentDetailsDto assignment);
+    int createAssignmentDetail(int assignmentId, AssignmentDetailsDto assignment);
 }

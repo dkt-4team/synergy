@@ -22,7 +22,7 @@
 <div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
 <div class="assign-title">
     <div class="assign-name" th:text="|${submit.name}  학생|"></div>
-    <div class="assign-button">
+    <div class="assign-button" th:onclick="assignDownload([[${submit.submitFile}]])">
         과제 다운받기
     </div>
 </div>
