@@ -22,7 +22,11 @@
     }
 
     function assignDownload(url) {
-        window.location.href = url;
+        if(url == "") {
+            alert("파일이 없습니다.");
+        } else {
+            window.location.href = url;
+        }
     }
 
     assignModifyBtn.addEventListener('click', function (evt) {

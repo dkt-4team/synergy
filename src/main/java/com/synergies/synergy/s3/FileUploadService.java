@@ -29,10 +29,8 @@ public class FileUploadService {
     private final AmazonS3 amazonS3;
 
     public void uploadFile(String fileName, boolean manager, MultipartFile file) {
-        String contentType = file.getContentType();
-        System.out.println("contentType: " + contentType);
-        String uploadPath;
 
+        String uploadPath;
         if (manager) {
             uploadPath = bucket + "/admin/";
         } else {

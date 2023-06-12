@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/assignStudent.css">
 </head>
 <body>
-<div th:replace="/fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+<div th:replace="~{fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})}"></div>
 <div th:if="${assignmentList!=null}">
     <div class="side-bar">
         <div class="side-title">

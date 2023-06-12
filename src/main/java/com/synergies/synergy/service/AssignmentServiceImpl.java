@@ -24,6 +24,10 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public int createAssignment(AssignmentDto assignment) {
+        if(assignment.getFile().isEmpty()) {
+            AssignmentVo vo = new AssignmentVo(assignment.getTitle(), assignment.getContent(), "");
+            return assignmentDao.insertAssignment(vo);
+        }
         Date nowDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
         String fileName = simpleDateFormat.format(nowDate) + "_" + (assignment.getAssignmentNumber() + 1);
@@ -41,9 +45,23 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public int updateAssignment(AssignmentDto assignment) {
-        Date nowDate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        String fileName = simpleDateFormat.format(nowDate) + "_" + (assignment.getAssignmentNumber() + 1);
+        AssignmentContent originAssign = assignmentDao.selectAssignmentDetails(assignment.getId());
+
+        if(assignment.getFile().isEmpty()) {
+            AssignmentVo assignmentVo =
+                    new AssignmentVo(assignment.getId(), assignment.getTitle(), assignment.getContent(), originAssign.getAssignmentFile());
+            return assignmentDao.updateAssignment(assignmentVo);
+        }
+
+        String fileName;
+        if(originAssign.getAssignmentFile().equals("")) {
+            Date nowDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+            fileName = simpleDateFormat.format(nowDate) + "_" + (assignment.getAssignmentNumber());
+        } else {
+            fileName = originAssign.getAssignmentFile();
+        }
+
         fileUpload.uploadFile(fileName, true, assignment.getFile());
 
         AssignmentVo assignmentVo =
@@ -73,7 +91,12 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public AssignmentContent readAssignmentDetails(int assignmentId) {
         AssignmentContent assignment = assignmentDao.selectAssignmentDetails(assignmentId);
-        assignment.setAssignmentFile(fileUpload.getUrl() + "/admin/" + assignment.getAssignmentFile());
+        if(assignment.getAssignmentFile().equals("")) {
+            assignment.setAssignmentFile("");
+        } else {
+            assignment.setAssignmentFile(fileUpload.getUrl() + "/admin/" + assignment.getAssignmentFile());
+        }
+
         return assignment;
     }
 

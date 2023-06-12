@@ -18,10 +18,10 @@
 </head>
 
 <body>
-<div th:replace="/fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+<div th:replace="~{fragments/navBar/studentNavBar.html :: navFragment(${session.loginUserInfo.name})}"></div>
 
-<div th:replace="/fragments/modal/todoModal.html :: todoModal"></div>
-<div th:replace="/fragments/modal/notificationModal.html :: notificationModal"></div>
+<div th:replace="~{fragments/modal/todoModal :: todoModal}"></div>
+<div th:replace="~{fragments/modal/notificationModal.html :: notificationModal}"></div>
 
 <div class="container">
     <div class="todo-list">

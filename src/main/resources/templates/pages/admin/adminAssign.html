@@ -21,8 +21,8 @@
 </head>
 
 <body>
-<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
-<div th:replace="fragments/modal/assignmentModal.html :: assignmentModal"></div>
+<div th:replace="~{fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})}"></div>
+<div th:replace="~{fragments/modal/assignmentModal.html :: assignmentModal}"></div>
 
 <div th:if="${assignmentList!=null}">
     <div class="side-bar">

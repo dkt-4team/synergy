@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<div th:replace="/fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})"></div>
+<div th:replace="~{fragments/navBar/adminNavBar.html :: navFragment(${session.loginUserInfo.name})}"></div>
 <div class="assign-title">
     <div class="assign-name" th:text="|${submit.name}  학생|"></div>
     <div class="assign-button" th:onclick="assignDownload([[${submit.submitFile}]])">
@@ -43,7 +43,7 @@
     <form name="commentSubmit" th:object="${CommentDTO}" method="post" , action="/admin/commentSave">
         <input type="text" th:field="*{submitId}" style="display:none">
         <textarea class="input-comment" th:field="*{content}"></textarea>
-        <div class="button-area"><span class="exit">나가기</span>
+        <div class="button-area"><span class="exit" th:onclick="|location.href='@{/admin/home}'|">나가기</span>
             <span class="save" onclick="submitForm()">등록하기</span></div>
     </form>
 </div>

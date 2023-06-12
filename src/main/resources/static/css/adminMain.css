@@ -14,14 +14,15 @@ body{
         .logo{
             margin-left: 2%;
             font-size: 1.4rem;
+            cursor: pointer;
         }
-              .user{
-                 float: right;
-                 margin-right: 2%;
-                 font-size: 1.2rem;
-                 cursor: pointer;
-                 font-family: 'Noto Sans KR', sans-serif;
-              }
+        .user{
+            float: right;
+            margin-right: 2%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
         .logout{
             float: right;
             margin-right: 2%;
