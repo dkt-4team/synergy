@@ -77,7 +77,7 @@ public class TodoController {
         log.info("서비스 접속 시 공지 사항 null 확인 : " + !todoList.isEmpty());
 
         AssignmentResponseDto.AssignmentContent assignment = assignmentService.readAssignmentRecentDetails();
-        log.info("서비스 접속 시 과제 null 확인 : " + !assignment.equals(null));
+        log.info("서비스 접속 시 과제 null 확인 : " + !(assignment == null));
 
         if (assignment == null) {
             model.addAttribute("assignId", 0);
@@ -92,7 +92,7 @@ public class TodoController {
         List<AssignmentResponseDto.AssignmentDetail> assignmentToday = assignmentService.readTodayAssignment();
 
         model.addAttribute("sig", true);
-        if (assignmentToday.isEmpty()) {
+        if (assignmentToday.size() == 0) {
             model.addAttribute("sig", false);
         }
 
