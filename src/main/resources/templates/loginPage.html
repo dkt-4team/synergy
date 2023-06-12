@@ -22,6 +22,17 @@
         <div id="move-page">회원가입</div>
     </form>
 </div>
+<script th:inline="javascript">
+      /* <![CDATA[ */
+        window.onload = () => {
+            let message = /*[[ ${message} ]]*/;
+            if (message) {
+                alert(message);
+            }
+             message = null;
+        }
+      /* ]]> */
+</script>
 <script>
     const movePage = document.getElementById("move-page");
     movePage.addEventListener('click', () => {
