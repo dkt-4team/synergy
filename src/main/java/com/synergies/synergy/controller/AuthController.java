@@ -1,6 +1,7 @@
 package com.synergies.synergy.controller;
 
 import com.synergies.synergy.auth.LoginAuth;
+import com.synergies.synergy.domain.dto.LoginUserInfoDto;
 import com.synergies.synergy.domain.dto.UserLoginRequestDto;
 import com.synergies.synergy.domain.vo.LoginUserInfoVo;
 import com.synergies.synergy.service.LoginService;
@@ -44,11 +45,12 @@ public class AuthController {
     public String userLogin(
             @ModelAttribute("userLoginRequest") UserLoginRequestDto userLoginRequest,
             HttpSession session) {
-        LoginUserInfoVo userInfo = loginService.login(userLoginRequest.getUserId(),
+        LoginUserInfoDto userInfo = loginService.login(userLoginRequest.getUserId(),
                 userLoginRequest.getPassword());
-        if (userInfo != null) {
+        if (userInfo.isId() && userInfo.isPassword()) {
+            LoginUserInfoVo loginUserInfo = new LoginUserInfoVo(userInfo);
             log.info("유저 정보 확인 : " + userInfo);
-            session.setAttribute("loginUserInfo", userInfo);
+            session.setAttribute("loginUserInfo", loginUserInfo);
             if (!loginAuth.isAuthorityCheck(session)) {
                 return "redirect:/student/home";
             }

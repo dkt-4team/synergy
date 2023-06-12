@@ -1,11 +1,11 @@
 package com.synergies.synergy.service;
 
-import com.synergies.synergy.domain.vo.LoginUserInfoVo;
+import com.synergies.synergy.domain.dto.LoginUserInfoDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface LoginService {
 
-    LoginUserInfoVo login(String userId, String password);
+    LoginUserInfoDto login(String userId, String password);
 
 }
