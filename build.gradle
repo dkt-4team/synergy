@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.synergies'
-version = '0.0.1-SNAPSHOT'
+version = ''
 sourceCompatibility = '11'
 
 configurations {
@@ -41,4 +41,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jar {
+    enabled = false
 }
