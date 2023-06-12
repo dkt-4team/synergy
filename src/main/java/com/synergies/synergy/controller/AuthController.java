@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class AuthController {
     @PostMapping("/login")
     public String userLogin(
             @ModelAttribute("userLoginRequest") UserLoginRequestDto userLoginRequest,
-            HttpSession session) {
+            HttpSession session, RedirectAttributes redirectAttributes) {
         LoginUserInfoDto userInfo = loginService.login(userLoginRequest.getUserId(),
                 userLoginRequest.getPassword());
         if (userInfo.isId() && userInfo.isPassword()) {
@@ -56,6 +57,10 @@ public class AuthController {
             }
             return "redirect:/admin/home";
         }
+        if(!userInfo.isId())
+            redirectAttributes.addFlashAttribute("message", "존재하지 않는 ID입니다.");
+        else
+            redirectAttributes.addFlashAttribute("message", "비밀번호를 잘못 입력하셨습니다.");
         return "redirect:/";
     }
 
